@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="registerPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AuthController">
+   <children>
+      <Label layoutX="110.0" layoutY="119.0" text="Buat Akun">
+         <font>
+            <Font name="SansSerif Bold" size="30.0" />
+         </font>
+      </Label>
+      <JFXTextField focusColor="#0f52ba" labelFloat="true" layoutX="110.0" layoutY="286.0" prefHeight="30.0" prefWidth="310.0" promptText="Email" unFocusColor="NAVY">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXTextField>
+      <JFXPasswordField focusColor="#0f52ba" labelFloat="true" layoutX="110.0" layoutY="347.0" prefHeight="30.0" prefWidth="310.0" promptText="Kata Sandi" unFocusColor="NAVY">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXPasswordField>
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="110.0" layoutY="412.0" prefHeight="40.0" prefWidth="310.0" styleClass="auth-button" text="Daftar" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Regular" size="17.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXTextField focusColor="#0f52ba" labelFloat="true" layoutX="110.0" layoutY="225.0" prefHeight="30.0" prefWidth="310.0" promptText="Nama Lengkap" unFocusColor="NAVY">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXTextField>
+      <Label layoutX="261.0" layoutY="467.0" text="Sudah Punya Akun?">
+         <font>
+            <Font name="SansSerif Regular" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="378.0" layoutY="466.0" onMouseClicked="#openLogin" text="Masuk" textFill="#0080ff">
+         <font>
+            <Font name="SansSerif Regular" size="13.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
+   </children>
+</Pane>
