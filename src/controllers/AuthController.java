@@ -37,6 +37,36 @@ public class AuthController implements Initializable {
 
     @FXML
     private JFXPasswordField password;
+    
+    @FXML
+    private JFXPasswordField repassword;
+
+    @FXML
+    private JFXTextField name;
+
+    @FXML
+    void daftarAction(ActionEvent event) {
+        if (name.getText().equals("") || email.getText().equals("") || password.getText().equals("") || repassword.getText().equals("")) {
+            alertWarning("Semua filed tidak boleh kosong!");
+        }else{
+            if (!password.getText().equals(repassword.getText())) {
+                alertWarning("Password harus sama!");
+            }else{
+                User.addNewUser(name.getText(), email.getText(), getMd5(password.getText()));
+                alertSuccess("Registrasi Berhasil! Silahkan Login :)");
+                try {
+                    fxml = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
+                    registerPane.getChildren().removeAll();
+                    registerPane.getChildren().setAll(fxml);
+
+
+                } catch (IOException ex) {
+                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } 
+        }
+        
+    }
 
     @FXML
     private void masukAction(ActionEvent event) throws IOException {
@@ -45,6 +75,7 @@ public class AuthController implements Initializable {
         if (email.getText().equals("") || password.getText().toString().equals("")) {
             alertWarning("Email dan Password tidak boleh kosong!");
         }else{
+                  
             if (User.getLoginStatus(email.getText(), getMd5(password.getText())) == 1) {
                 if (User.getRole(email.getText(), getMd5(password.getText())).equals("ADMIN")) {
                     loginPane.getScene().getWindow().hide();
@@ -89,6 +120,14 @@ public class AuthController implements Initializable {
         alert.setContentText(pesan);
         alert.showAndWait();
     }
+     
+     private void alertSuccess(String pesan){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Berhasil");
+        alert.setHeaderText(null);
+        alert.setContentText(pesan);
+        alert.showAndWait();
+     }
 
     @FXML
     private void openRegister(MouseEvent event) {
@@ -140,7 +179,8 @@ public class AuthController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+      
     }    
 
 }
