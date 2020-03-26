@@ -10,15 +10,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+
 
 /**
  *
@@ -26,20 +23,26 @@ import javafx.scene.layout.VBox;
  */
 public class MainController implements Initializable {
     
-    @FXML
-    private Pane pane;
+
 
     private Parent fxml;
+    
+    
+    @FXML
+    private Pane mainPane;
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
             fxml = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
-            pane.getChildren().removeAll();
-            pane.getChildren().setAll(fxml);
+            mainPane.getChildren().removeAll();
+            mainPane.getChildren().setAll(fxml);
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
+ 
     }
 
 

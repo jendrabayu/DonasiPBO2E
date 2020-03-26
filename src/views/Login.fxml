@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="530.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AuthController">
+<Pane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="530.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AuthController">
    <children>
       <Label layoutX="110.0" layoutY="125.0" text="Masuk">
          <font>
@@ -26,7 +26,7 @@
             <Font size="15.0" />
          </font>
       </JFXPasswordField>
-      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="110.0" layoutY="354.0" onAction="#masukAction" prefHeight="40.0" prefWidth="310.0" styleClass="auth-button" text="Masuk" textFill="WHITE">
+      <JFXButton buttonType="RAISED" focusTraversable="false" layoutX="110.0" layoutY="354.0" onAction="#masukAction" prefHeight="40.0" prefWidth="310.0" styleClass="auth-button" stylesheets="@auth.css" text="Masuk" textFill="WHITE">
          <font>
             <Font name="SansSerif Regular" size="17.0" />
          </font>

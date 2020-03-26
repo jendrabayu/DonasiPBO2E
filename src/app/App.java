@@ -19,13 +19,11 @@ public class App extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        
         Parent root = FXMLLoader.load(getClass().getResource("/views/Main.fxml"));
-        
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/views/style.css").toExternalForm());
-        
-        stage.setScene(scene);
         stage.setResizable(false);
+        stage.setScene(scene);
         stage.show();
     }
 

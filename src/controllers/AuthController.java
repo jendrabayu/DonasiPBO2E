@@ -24,12 +24,6 @@ import models.User;
 
 public class AuthController implements Initializable {
     
-    @FXML
-    private Pane loginPane;
-    
-    @FXML
-    private Pane registerPane;
-    
     Parent fxml;
     
     @FXML
@@ -43,9 +37,12 @@ public class AuthController implements Initializable {
 
     @FXML
     private JFXTextField name;
+    
+    @FXML
+    private Pane mainPane;
 
     @FXML
-    void daftarAction(ActionEvent event) {
+    private void daftarAction(ActionEvent event) {
         if (name.getText().equals("") || email.getText().equals("") || password.getText().equals("") || repassword.getText().equals("")) {
             alertWarning("Semua filed tidak boleh kosong!");
         }else{
@@ -54,49 +51,21 @@ public class AuthController implements Initializable {
             }else{
                 User.addNewUser(name.getText(), email.getText(), getMd5(password.getText()));
                 alertSuccess("Registrasi Berhasil! Silahkan Login :)");
-                try {
-                    fxml = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
-                    registerPane.getChildren().removeAll();
-                    registerPane.getChildren().setAll(fxml);
-
-
-                } catch (IOException ex) {
-                    Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                changeFxml("Login");
             } 
-        }
-        
+        }     
     }
 
     @FXML
     private void masukAction(ActionEvent event) throws IOException {
-     
-        
         if (email.getText().equals("") || password.getText().toString().equals("")) {
             alertWarning("Email dan Password tidak boleh kosong!");
-        }else{
-                  
+        }else{                 
             if (User.getLoginStatus(email.getText(), getMd5(password.getText())) == 1) {
                 if (User.getRole(email.getText(), getMd5(password.getText())).equals("ADMIN")) {
-                    loginPane.getScene().getWindow().hide();
-                    Stage stage = new Stage();
-                    Parent root = FXMLLoader.load(getClass().getResource("/views/admin/Main.fxml")); 
-                    Scene scene = new Scene(root);
-//                    scene.getStylesheets().add(getClass().getResource("/views/style.css").toExternalForm());
-
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.show();
+                    loadFxml("admin");
                 }else{
-                    loginPane.getScene().getWindow().hide();
-                    Stage stage = new Stage();
-                    Parent root = FXMLLoader.load(getClass().getResource("/views/user/Main.fxml")); 
-                    Scene scene = new Scene(root);
-//                    scene.getStylesheets().add(getClass().getResource("/views/style.css").toExternalForm());
-
-                    stage.setScene(scene);
-                    stage.setResizable(false);
-                    stage.show();
+                    loadFxml("user");
                 }
             }else{
                 alertError("Email atau Password tidak valid!");
@@ -104,56 +73,19 @@ public class AuthController implements Initializable {
         }
         
     }
-        
-    private void alertWarning(String pesan){
-        Alert alert = new Alert(AlertType.WARNING);
-        alert.setTitle("Peringatan");
-        alert.setHeaderText(null);
-        alert.setContentText(pesan);
-        alert.showAndWait();
-    }
-    
-     private void alertError(String pesan){
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(pesan);
-        alert.showAndWait();
-    }
-     
-     private void alertSuccess(String pesan){
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Berhasil");
-        alert.setHeaderText(null);
-        alert.setContentText(pesan);
-        alert.showAndWait();
-     }
 
     @FXML
     private void openRegister(MouseEvent event) {
-         try {
-            fxml = FXMLLoader.load(getClass().getResource("/views/Register.fxml"));
-            loginPane.getChildren().removeAll();
-            loginPane.getChildren().setAll(fxml);
 
-        } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        changeFxml("Register");
     }
     
     
     @FXML
     private void openLogin(MouseEvent event) {
-         try {
-            fxml = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
-            registerPane.getChildren().removeAll();
-            registerPane.getChildren().setAll(fxml);
-            
-            
-        } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        changeFxml("Login");
     }
+    
 
     private String getMd5(String text){
         String md5 = "";
@@ -180,7 +112,53 @@ public class AuthController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-      
+   
     }    
+    
+    
+    private void changeFxml(String file){
+        try {
+            fxml = FXMLLoader.load(getClass().getResource("/views/"+file+".fxml"));
+            mainPane.getChildren().removeAll();
+            mainPane.getChildren().setAll(fxml);
+        } catch (IOException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void loadFxml(String role) throws IOException{
+        mainPane.getScene().getWindow().hide();
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/views/"+role+"/Main.fxml")); 
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+//        stage.setResizable(false);
+        stage.show();
+}
+    
+            
+    private void alertWarning(String pesan){
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Peringatan");
+        alert.setHeaderText(null);
+        alert.setContentText(pesan);
+        alert.showAndWait();
+    }
+    
+     private void alertError(String pesan){
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(pesan);
+        alert.showAndWait();
+    }
+     
+     private void alertSuccess(String pesan){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Berhasil");
+        alert.setHeaderText(null);
+        alert.setContentText(pesan);
+        alert.showAndWait();
+     }
 
 }
