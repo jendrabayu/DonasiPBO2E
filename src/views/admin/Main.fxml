@@ -1,16 +1,170 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="controllers.admin.MainController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="960.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.MainController">
+    <stylesheets>
+        <URL value="@/views/assets/css/admin.css" />
+    </stylesheets>
    <children>
-      <Label layoutX="100.0" layoutY="146.0" text="DASHBOARD ADMIN">
-         <font>
-            <Font name="Arial Black" size="36.0" />
-         </font>
-      </Label>
+      <Pane prefHeight="600.0" prefWidth="225.0" style="-fx-background-color: #2B4EF0;">
+         <children>
+            <Label layoutX="42.0" layoutY="20.0" styleClass="text-logo" text="PENGELOLAAN" textFill="WHITE" />
+            <Label layoutX="42.0" layoutY="54.0" styleClass="text-logo" text="DONASI" textFill="WHITE" />
+            <Pane layoutX="13.0" layoutY="98.0" prefHeight="60.0" prefWidth="200.0" styleClass="profile-pane" stylesheets="@../assets/css/admin.css">
+               <children>
+                  <ImageView fx:id="infoFoto" fitHeight="47.0" fitWidth="47.0" layoutX="5.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/profile-avatar-png-5.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="infoNama" layoutX="57.0" layoutY="11.0" styleClass="text-name" stylesheets="@../assets/css/admin.css" text="Jendra Bayu Nugraha" textFill="WHITE">
+                     <font>
+                        <Font name="SansSerif Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="infoRole" layoutX="57.0" layoutY="33.0" styleClass="text-role" text="Admin" textFill="WHITE" />
+               </children>
+            </Pane>
+            <Label layoutX="23.0" layoutY="183.0" styleClass="text-menu-utama" text="Menu Utama" />
+            <Line endX="112.0" layoutX="115.0" layoutY="214.0" startX="-113.0" stroke="#ffffff72" />
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutY="224.0" mnemonicParsing="false" onAction="#showDashboard" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Dashboard" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/Icon%20material-dashboard.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="23.0" />
+               </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutY="269.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Donatur" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="16.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/Icon%20material-person-outline.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="23.0" />
+               </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutY="314.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Penerima Donasi" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="11.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/Icon%20material-people-outline.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="23.0" />
+               </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutY="359.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Data Makanan" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/Icon%20map-food.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="23.0" />
+               </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutY="404.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Data Uang" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/Icon%20awesome-donate.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="23.0" />
+               </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutY="449.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Penyaluran Makanan" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/Icon%20simple-circle-1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="23.0" />
+               </padding>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutY="494.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Penyaluran Uang" textFill="WHITE">
+               <font>
+                  <Font name="SansSerif Regular" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/img/Icon%20simple-circle-1.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <padding>
+                  <Insets left="23.0" />
+               </padding>
+            </Button>
+         </children>
+      </Pane>
+      <Pane layoutX="225.0" prefHeight="50.0" prefWidth="736.0" style="-fx-background-color: #fff;">
+         <children>
+            <Label fx:id="title" layoutX="20.0" layoutY="12.0" styleClass="label-menu" text="Dashboard" />
+            <MenuButton fx:id="labelNama" layoutX="535.0" layoutY="13.0" mnemonicParsing="false" style="-fx-background-color: #fff;" text="Hi, Jendra Bayu Nugraha">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#showProfile" text="Profile" />
+                <MenuItem mnemonicParsing="false" text="Ubah Kata Sandi" />
+                  <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
+              </items>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </MenuButton>
+         </children>
+      </Pane>
+      <AnchorPane fx:id="mainPane" layoutX="225.0" layoutY="50.0" prefHeight="550.0" prefWidth="735.0" style="-fx-background-color: #f3f3f3;" />
    </children>
 </AnchorPane>

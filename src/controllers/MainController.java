@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 
@@ -23,6 +24,8 @@ import javafx.scene.layout.Pane;
  */
 public class MainController implements Initializable {
     
+    @FXML
+    private ImageView loading;
 
 
     private Parent fxml;
@@ -35,17 +38,20 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         try {
             fxml = FXMLLoader.load(getClass().getResource("/views/Login.fxml"));
             mainPane.getChildren().removeAll();
             mainPane.getChildren().setAll(fxml);
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
  
     }
-
-
     
-    
+   
+
+      
 }

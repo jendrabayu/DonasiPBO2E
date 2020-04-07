@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="550.0" prefWidth="735.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.AdminController">
+    <stylesheets>
+        <URL value="@/views/assets/css/admin.css" />
+    </stylesheets>
+   <children>
+      <JFXTabPane>
+         <tabs>
+            <Tab text="Profil">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="735.0">
+                     <children>
+                        <Pane layoutX="72.0" layoutY="50.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 25, 0, 5, 5);;">
+                           <children>
+                              <ImageView fx:id="foto" fitHeight="150.0" fitWidth="150.0" layoutX="27.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/img/profile-avatar-png-5%20(1).png" />
+                                 </image>
+                              </ImageView>
+                              <Label fx:id="role" layoutX="71.0" layoutY="250.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Admin">
+                                 <font>
+                                    <Font name="System Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="nama" layoutX="213.0" layoutY="69.0" prefHeight="38.0" prefWidth="362.0" style="-fx-background-color: #fff; -fx-border-color: rgba(15,82,186,0.5); -fx-border-radius: 5;" text="JENDRA BAYU NUGRAHA" />
+                              <Label layoutX="213.0" layoutY="46.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="Nama" />
+                              <TextField fx:id="email" layoutX="213.0" layoutY="140.0" prefHeight="38.0" prefWidth="362.0" style="-fx-background-color: #fff; -fx-border-color: rgba(15,82,186,0.5); -fx-border-radius: 5;" text="JENDRA BAYU NUGRAHA" />
+                              <Label layoutX="213.0" layoutY="117.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="Email" />
+                              <TextField fx:id="telepon" layoutX="213.0" layoutY="208.0" prefHeight="38.0" prefWidth="362.0" style="-fx-background-color: #fff; -fx-border-color: rgba(15,82,186,0.5); -fx-border-radius: 5;" text="JENDRA BAYU NUGRAHA" />
+                              <Label layoutX="213.0" layoutY="185.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="Telepon" />
+                              <Label layoutX="215.0" layoutY="254.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="Alamat" />
+                              <TextArea fx:id="alamat" layoutX="214.0" layoutY="273.0" prefHeight="67.0" prefWidth="362.0" style="-fx-background-color: #fff; -fx-border-color: rgba(15,82,186,0.5); -fx-border-radius: 5;" />
+                           </children>
+                        </Pane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Edit Profil">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="735.0">
+                     <children>
+                        <Pane layoutX="72.0" layoutY="50.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 25, 0, 5, 5);;">
+                           <children>
+                              <ImageView fx:id="foto1" fitHeight="100.0" fitWidth="100.0" layoutX="35.0" layoutY="61.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/img/profile-avatar-png-5%20(1).png" />
+                                 </image>
+                              </ImageView>
+                              <TextField fx:id="editNama" layoutX="190.0" layoutY="76.0" prefHeight="38.0" prefWidth="362.0" style="-fx-background-color: #fff; -fx-border-color: rgba(15,82,186,0.5); -fx-border-radius: 5;" text="JENDRA BAYU NUGRAHA" />
+                              <Label layoutX="190.0" layoutY="53.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="Nama" />
+                              <TextField fx:id="editTelepon" layoutX="190.0" layoutY="145.0" prefHeight="38.0" prefWidth="362.0" style="-fx-background-color: #fff; -fx-border-color: rgba(15,82,186,0.5); -fx-border-radius: 5;" text="JENDRA BAYU NUGRAHA" />
+                              <Label layoutX="190.0" layoutY="122.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="Telepon" />
+                              <Label layoutX="191.0" layoutY="193.0" style="-fx-font-size: 15; -fx-font-weight: bold;" text="Alamat" />
+                              <TextArea fx:id="editAlamat" layoutX="190.0" layoutY="212.0" prefHeight="67.0" prefWidth="362.0" style="-fx-background-color: #fff; -fx-border-color: rgba(15,82,186,0.5); -fx-border-radius: 5;" />
+                              <Button fx:id="editFoto" layoutX="46.0" layoutY="180.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="78.0" text="Pilih Foto" />
+                              <JFXButton layoutX="431.0" layoutY="300.0" onAction="#ubahProfile" prefHeight="38.0" prefWidth="121.0" style="-fx-background-color: #0f52ba; -fx-font-size: 15px; -fx-cursor: hand;" text="Simpan" textFill="WHITE">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </JFXButton>
+                           </children>
+                        </Pane>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </children>
+</AnchorPane>
