@@ -56,12 +56,13 @@ public class MainController implements Initializable {
     @FXML
     void showProfile(ActionEvent event) {
         title.setText("Profil");
-        changeFxml("Profil");
+        changeFxml("profil/Profil");
+        
     }
     
     @FXML
     void showDashboard(ActionEvent event) {
-        title.setText("Dashboard");
+         title.setText("Dashboard");
          changeFxml("Dashboard");
     }
     
@@ -114,16 +115,19 @@ public class MainController implements Initializable {
             mainPane.getChildren().removeAll();
             mainPane.getChildren().setAll(fxml);
             
-            //efek transisi
-//            FadeTransition ft = new FadeTransition();
-//            ft.setDuration(Duration.millis(500));
-//            ft.setNode(mainPane);
-//            ft.setFromValue(0);
-//            ft.setToValue(1);
-//            ft.play();
-            
         } catch (IOException ex) {
             Logger.getLogger(controllers.MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+       
+    }
+        
+        
+    public void refreshData(){
+        if (Session.CekSessionData() == 1) {
+            infoNama.setText(User.getNama());
+            labelNama.setText(User.getNama());
         }
     }
     

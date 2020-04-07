@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 25 Mar 2020 pada 03.40
+-- Waktu pembuatan: 07 Apr 2020 pada 15.18
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.3
 
@@ -30,20 +30,23 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `nama_lengkap` varchar(255) NOT NULL,
+  `nama` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `telepon` varchar(15) DEFAULT NULL,
+  `alamat` varchar(255) DEFAULT NULL,
+  `foto` varchar(255) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
-  `role` varchar(255) NOT NULL
+  `role` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`id`, `nama_lengkap`, `email`, `password`, `role`) VALUES
-(1, 'Jendra Bayu Nugraha', 'jendra455@gmail.com', '21232f297a57a5a743894a0e4a801fc3', 'ADMIN'),
-(2, 'covid', 'covid', '827ccb0eea8a706c4c34a16891f84e7b', 'USER'),
-(3, 'sasaas', 'sassa', '9b61c436c1124d27ab3f2fd44948a77d', 'USER');
+INSERT INTO `user` (`id`, `nama`, `email`, `telepon`, `alamat`, `foto`, `password`, `role`) VALUES
+(1, 'Jendra Bayu Nugraha', 'jendra455@gmail.com', '089521698552', 'Jalan Bangka Sumbersari VII Jember', NULL, '21232f297a57a5a743894a0e4a801fc3', 1),
+(7, 'covid', 'covid', 'null', 'null', 'null', '979d5b78613520f02d4118968683fbbb', 0),
+(8, 'Kinanti Fatikha', 'kinan@yahoo.com', '0876625252', 'Depok Jawa Barat Indonesia', 'null', '21232f297a57a5a743894a0e4a801fc3', 1);
 
 --
 -- Indexes for dumped tables
@@ -63,7 +66,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

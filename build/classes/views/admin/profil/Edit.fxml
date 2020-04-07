@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="550.0" prefWidth="735.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.AdminController">
+   <stylesheets>
+      <URL value="@/views/assets/css/admin.css" />
+   </stylesheets>
+   <children>
+      <Pane layoutX="193.0" layoutY="75.0" prefHeight="400.0" prefWidth="350.0" style="-fx-background-color: #fff; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 5, 5);">
+         <children>
+            <Button layoutX="245.0" layoutY="338.0" mnemonicParsing="false" onAction="#update" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #0F52BA; -fx-text-fill: #fff; -fx-font-size: 12px; -fx-font-weight: 700; -fx-background-radius: 13px; -fx-cursor: hand;" text="Simpan" />
+            <TextField fx:id="namaField" layoutX="25.0" layoutY="53.0" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #fff; -fx-border-radius: 5px; -fx-border-color: #0F52BA;">
+               <font>
+                  <Font size="15.0" />
+               </font></TextField>
+            <Button layoutX="152.0" layoutY="338.0" mnemonicParsing="false" onAction="#showProfil" prefHeight="30.0" prefWidth="80.0" style="-fx-background-color: #FFA426; -fx-text-fill: #fff; -fx-font-size: 12px; -fx-font-weight: 700; -fx-background-radius: 13px; -fx-cursor: hand;" text="Kembali" />
+            <Label layoutX="25.0" layoutY="34.0" style="-fx-font-size: 13px; -fx-font-weight: 700;" text="Nama" />
+            <TextField fx:id="teleponField" layoutX="25.0" layoutY="121.0" prefHeight="40.0" prefWidth="300.0" style="-fx-background-color: #fff; -fx-border-radius: 5px; -fx-border-color: #0F52BA;">
+               <font>
+                  <Font size="15.0" />
+               </font></TextField>
+            <Label layoutX="25.0" layoutY="100.0" style="-fx-font-size: 13px; -fx-font-weight: 700;" text="Telepon" />
+            <Label layoutX="25.0" layoutY="168.0" style="-fx-font-size: 13px; -fx-font-weight: 700;" text="Alamat" />
+            <TextArea fx:id="alamatField" layoutX="25.0" layoutY="189.0" prefHeight="55.0" prefWidth="300.0" style="-fx-background-color: #fff; -fx-border-color: #0F52BA; -fx-border-radius: 5px;">
+               <font>
+                  <Font size="15.0" />
+               </font></TextArea>
+            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="25.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/img/profile-avatar-png-5%20(1).png" />
+               </image>
+            </ImageView>
+            <JFXButton layoutX="100.0" layoutY="274.0" style="-fx-background-color: #C7C7C7;" text="Ubah Foto" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

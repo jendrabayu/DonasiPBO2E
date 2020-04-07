@@ -107,3 +107,7 @@ and open the template in the editor.
      -fx-background-radius:10;
      
 }
+
+.tes{
+     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 2, 2);
+}
