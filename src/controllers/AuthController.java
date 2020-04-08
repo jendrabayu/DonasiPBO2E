@@ -23,7 +23,6 @@ import javafx.util.Duration;
 import models.User;
 import helpers.Dialog;
 import helpers.MyHelper;
-import helpers.Session;
 
 public class AuthController implements Initializable {
     
@@ -78,9 +77,6 @@ public class AuthController implements Initializable {
             }
         }
         
-        
-        
-      
     }
 
     @FXML

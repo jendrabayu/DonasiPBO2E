@@ -28,7 +28,7 @@ import org.xml.sax.SAXException;
  */
 public class Session {
     
-    public static int buatSessionXML(String id,String nama,String email, String telepon, String alamat, String foto,
+    public static int buatSessionXML(String id,String nama,String email, String telepon, String alamat, 
             String password, String role){
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -45,9 +45,7 @@ public class Session {
             Element nama_user = doc.createElement("nama");
             rootElement.appendChild(nama_user);
             nama_user.setTextContent(nama);
-            
-            
-            
+
             Element email_user = doc.createElement("email");
             rootElement.appendChild(email_user);
             email_user.setTextContent(email);
@@ -59,10 +57,6 @@ public class Session {
             Element alamat_user = doc.createElement("alamat");
             rootElement.appendChild(alamat_user);
             alamat_user.setTextContent(alamat);
-
-            Element foto_user = doc.createElement("foto");
-            rootElement.appendChild(foto_user);
-            foto_user.setTextContent(foto);
 
             Element password_user = doc.createElement("password");
             rootElement.appendChild(password_user);
@@ -112,7 +106,7 @@ public class Session {
                 String email = doc.getElementsByTagName("email").item(0).getTextContent();
                 String telepon = doc.getElementsByTagName("telepon").item(0).getTextContent();
                 String alamat = doc.getElementsByTagName("alamat").item(0).getTextContent();
-                String foto = doc.getElementsByTagName("foto").item(0).getTextContent();
+   
                 String password = doc.getElementsByTagName("password").item(0).getTextContent();
                 String role = doc.getElementsByTagName("role").item(0).getTextContent();
                 
@@ -121,7 +115,6 @@ public class Session {
                 User.setEmail(email);
                 User.setTelepon(telepon);
                 User.setAlamat(alamat);
-                User.setFoto(foto);
                 User.setPassword(password);
                 User.setRole(role); 
                 return 1;

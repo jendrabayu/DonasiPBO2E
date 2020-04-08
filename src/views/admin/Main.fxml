@@ -2,7 +2,6 @@
 
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
@@ -21,26 +20,15 @@
    <children>
       <Pane prefHeight="600.0" prefWidth="225.0" style="-fx-background-color: #2B4EF0;">
          <children>
-            <Label layoutX="42.0" layoutY="20.0" styleClass="text-logo" text="PENGELOLAAN" textFill="WHITE" />
-            <Label layoutX="42.0" layoutY="54.0" styleClass="text-logo" text="DONASI" textFill="WHITE" />
-            <Pane layoutX="13.0" layoutY="98.0" prefHeight="60.0" prefWidth="200.0" styleClass="profile-pane" stylesheets="@../assets/css/admin.css">
+            <Pane layoutX="13.0" layoutY="25.0" prefHeight="100.0" prefWidth="200.0" styleClass="profile-pane" stylesheets="@../assets/css/admin.css">
                <children>
-                  <ImageView fx:id="infoFoto" fitHeight="47.0" fitWidth="47.0" layoutX="5.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/img/profile-avatar-png-5.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="infoNama" layoutX="57.0" layoutY="11.0" styleClass="text-name" stylesheets="@../assets/css/admin.css" text="Jendra Bayu Nugraha" textFill="WHITE">
-                     <font>
-                        <Font name="SansSerif Bold" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="infoRole" layoutX="57.0" layoutY="33.0" styleClass="text-role" text="Admin" textFill="WHITE" />
+                  <Label layoutX="33.0" layoutY="17.0" prefWidth="135.0" style="-fx-font-size: 18px; -fx-font-weight: 700;" text="PENGELOLAAN" textFill="WHITE" />
+                  <Label layoutX="33.0" layoutY="53.0" style="-fx-font-size: 18px; -fx-font-weight: 700;" text="DONASI" textFill="WHITE" />
                </children>
             </Pane>
-            <Label layoutX="23.0" layoutY="183.0" styleClass="text-menu-utama" text="Menu Utama" />
-            <Line endX="112.0" layoutX="115.0" layoutY="214.0" startX="-113.0" stroke="#ffffff72" />
-            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutY="224.0" mnemonicParsing="false" onAction="#showDashboard" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Dashboard" textFill="WHITE">
+            <Label layoutX="22.0" layoutY="160.0" styleClass="text-menu-utama" text="Menu Utama" />
+            <Line endX="112.0" layoutX="114.0" layoutY="191.0" startX="-113.0" stroke="#ffffff72" />
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutX="-1.0" layoutY="201.0" mnemonicParsing="false" onAction="#showDashboard" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Dashboard" textFill="WHITE">
                <font>
                   <Font name="SansSerif Regular" size="14.0" />
                </font>
@@ -55,7 +43,7 @@
                   <Insets left="23.0" />
                </padding>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutY="269.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Donatur" textFill="WHITE">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutX="-1.0" layoutY="246.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Donatur" textFill="WHITE">
                <font>
                   <Font name="SansSerif Regular" size="14.0" />
                </font>
@@ -70,7 +58,7 @@
                   <Insets left="23.0" />
                </padding>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutY="314.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Penerima Donasi" textFill="WHITE">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutX="-1.0" layoutY="291.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Penerima Donasi" textFill="WHITE">
                <font>
                   <Font name="SansSerif Regular" size="14.0" />
                </font>
@@ -85,7 +73,7 @@
                   <Insets left="23.0" />
                </padding>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutY="359.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Data Makanan" textFill="WHITE">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutX="-1.0" layoutY="336.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Data Makanan" textFill="WHITE">
                <font>
                   <Font name="SansSerif Regular" size="14.0" />
                </font>
@@ -100,7 +88,7 @@
                   <Insets left="23.0" />
                </padding>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutY="404.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Data Uang" textFill="WHITE">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutX="-1.0" layoutY="381.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Data Uang" textFill="WHITE">
                <font>
                   <Font name="SansSerif Regular" size="14.0" />
                </font>
@@ -115,7 +103,7 @@
                   <Insets left="23.0" />
                </padding>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutY="449.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Penyaluran Makanan" textFill="WHITE">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutX="-1.0" layoutY="426.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Penyaluran Makanan" textFill="WHITE">
                <font>
                   <Font name="SansSerif Regular" size="14.0" />
                </font>
@@ -130,7 +118,7 @@
                   <Insets left="23.0" />
                </padding>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutY="494.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Penyaluran Uang" textFill="WHITE">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" layoutX="-1.0" layoutY="471.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Penyaluran Uang" textFill="WHITE">
                <font>
                   <Font name="SansSerif Regular" size="14.0" />
                </font>
@@ -150,18 +138,12 @@
       <Pane layoutX="225.0" prefHeight="50.0" prefWidth="736.0" style="-fx-background-color: #fff;">
          <children>
             <Label fx:id="title" layoutX="20.0" layoutY="12.0" styleClass="label-menu" text="Dashboard" />
-            <MenuButton fx:id="labelNama" layoutX="535.0" layoutY="13.0" mnemonicParsing="false" style="-fx-background-color: #fff;" text="Hi, Jendra Bayu Nugraha">
+            <MenuButton fx:id="labelNama" layoutX="530.0" layoutY="10.0" mnemonicParsing="false" style="-fx-background-color: #fff; -fx-cursor: hand; -fx-font-size: 14px;" text="Hi, Jendra Bayu Nugraha">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#showProfile" text="Profile" />
-                <MenuItem mnemonicParsing="false" text="Ubah Kata Sandi" />
+                <MenuItem mnemonicParsing="false" onAction="#showGantiPassword" text="Ganti Password" />
                   <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
               </items>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font size="13.0" />
-               </font>
             </MenuButton>
          </children>
       </Pane>

@@ -6,29 +6,21 @@
 package controllers.admin;
 
 import app.App;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import helpers.Dialog;
+import helpers.MyHelper;
 import helpers.Session;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import models.User;
@@ -46,46 +38,108 @@ public class AdminController implements Initializable {
     
     @FXML
     private AnchorPane mainPane;
+   
+    @FXML
+    private JFXTextField nama;
     
- 
     @FXML
-    private Label nama;
-
-    @FXML
-    private Label email;
-
-    @FXML
-    private Label telepon;
-
-    @FXML
-    private Label alamat;
-
-    @FXML
-    private ImageView foto;
-
-    @FXML
-    private Label role;
-        @FXML
-    private Pane profilPane;
-
+    private JFXTextField email;
     
+    @FXML
+    private JFXTextField telepon;
+
+    @FXML
+    private JFXTextArea alamat;
+    
+
+    @FXML
+    private Label titleProfil;
+
+    @FXML
+    private JFXButton editBtn;
+
+    @FXML
+    private JFXButton kembaliBtn;
+
+    @FXML
+    private JFXButton simpanBtn;
+    
+    
+    
+    @FXML
+    private JFXPasswordField passwordLama;
+
+    @FXML
+    private Label labelPasswordLama;
+
+    @FXML
+    private Label labelPasswordBaru;
+
+    @FXML
+    private JFXPasswordField passwordBaru;
+
+    @FXML
+    private JFXPasswordField konfPasswordBaru;
+
+    @FXML
+    void gantiPassword(ActionEvent event) throws Exception {
+        labelPasswordBaru.setVisible(false);
+        labelPasswordLama.setVisible(false);
         
+        String passwordLama = this.passwordLama.getText().toString();
+        String passwordBaru = this.passwordBaru.getText().toString();
+        String konfirmasiPassword = this.konfPasswordBaru.getText().toString();
         
-    @FXML
-    private TextField namaField;
+        if (passwordLama.equals("") || passwordBaru.equals("") || konfirmasiPassword.equals("")) {
+            Dialog.alertError("Semua Field Wajib Di isi!");
+        }else if (Session.CekSessionData() == 1) {
+        
+            if (!MyHelper.getMd5(passwordLama).equals(User.getPassword())) {
+                labelPasswordLama.setText("Password lama anda salah!");
+                labelPasswordLama.setVisible(true);
+            }else{
+                if (!passwordBaru.equals(konfirmasiPassword) ){
+                  
+                    labelPasswordBaru.setText("Password baru anda tidak sama!");
+                    labelPasswordBaru.setVisible(true);
+                }else{
+                    if (User.updatePassword(User.getId(), passwordBaru) == 1) {
+                        Dialog.alertError("Password Berhasil DiUbah! SIlahkan Login Ulang!");
+                        //hapus session
+                        Session.hapusSession(); 
+                        //tutup window & kembali ke login
+                        Stage stage = (Stage) mainPane.getScene().getWindow();
+                        stage.close();      
+                        App app = new App();
+                        app.start(stage);
+                    }
+                }
+            }
+        }
+             
+        
+    }
+    
 
     @FXML
-    private TextField teleponField;
+    void showProfile(ActionEvent event) {     
+        transition();
+        disableEditField();
+        email.setDisable(false);
+        
+        simpanBtn.setVisible(false);
+        kembaliBtn.setVisible(false);
+        editBtn.setVisible(true);
 
-    @FXML
-    private TextArea alamatField;
-
+        
+        titleProfil.setText("Info Profil");
+    }
 
     @FXML
     void update(ActionEvent event) throws Exception {
-        String nama = namaField.getText();
-        String telepon = teleponField.getText();
-        String alamat = alamatField.getText();
+        String nama = this.nama.getText();
+        String telepon = this.telepon.getText();
+        String alamat = this.alamat.getText();
         
         if (Session.CekSessionData() == 1) {
             if (User.updateUser(User.getId(), nama, telepon, alamat) == 1) {
@@ -96,105 +150,80 @@ public class AdminController implements Initializable {
                 mainPane.getScene().getWindow().hide();
                 Stage stage = new Stage();
                 App app = new App();
-                
-                app.start(stage);
-                
+                app.start(stage);            
             }
-            
-           
-             
         }
-    }    
+    }
+    
+   
+      
     
     @FXML
-    void showEdit(ActionEvent event) {
+    void showEdit(ActionEvent event) {   
+        transition();
+        enableEditField();
         
-        changeFxml("profil/Edit");
- 
-     
-    }
-    
-    
-    
-          @FXML
-    void showProfil(ActionEvent event) {
-        changeFxml("profil/Profil");
+        kembaliBtn.setVisible(true);
+        simpanBtn.setVisible(true);
+        editBtn.setVisible(false);
+        
+        titleProfil.setText("Edit Profil");
+        email.setDisable(true);
+        
     }
 
-    
+
     
     @Override
-    
-    public void initialize(URL url, ResourceBundle rb) {
-        
-          
+    public void initialize(URL url, ResourceBundle rb) { 
         try {
-            if (Session.CekSessionData() == 1) {
-                   System.out.println(User.getNama());
-                //edit
-                namaField.setText(User.getNama());
-                teleponField.setText(User.getTelepon());
-                alamatField.setText(User.getAlamat());
-                
-            }
+            labelPasswordBaru.setVisible(false);
+            labelPasswordLama.setVisible(false);
         } catch (Exception e) {
+            e.printStackTrace();
         }
         
-        
         try {
-       
-        
+            kembaliBtn.setVisible(false);
+            simpanBtn.setVisible(false);
+            disableEditField();
+
             if (Session.CekSessionData() == 1) {
-                     // profile
                 nama.setText(User.getNama());
                 email.setText(User.getEmail());
                 telepon.setText(User.getTelepon());
                 alamat.setText(User.getAlamat());
-                
-             
-                
-           
-
-                if (User.getRole().equals("1")) {
-                    role.setText("ADMIN");
-                }
-
-                Image image = new Image(getClass().getResourceAsStream("/views/assets/img/foto/kinan.png"));
-                System.out.println(image);
-                foto.setImage(image);
-
-
             }
-            
         } catch (Exception e) {
+            e.printStackTrace();
         }
+        
        
-        
-        
-        
-      
-     
-        
-    }    
+    }   
     
     
-       
-        private void changeFxml(String file){
-        try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("/views/admin/"+file+".fxml"));
-            mainPane.getChildren().removeAll();
-            mainPane.getChildren().setAll(fxml);
-            
-           
-            FadeTransition ft = new FadeTransition();
-            ft.setDuration(Duration.millis(500));
-            ft.setNode(mainPane);
-            ft.setFromValue(0);
-            ft.setToValue(1);
-            ft.play();
-            
-        } catch (IOException ex) {
-            Logger.getLogger(controllers.MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void transition(){
+        FadeTransition ft = new FadeTransition();
+        ft.setDuration(Duration.millis(500));
+        ft.setNode(mainPane);
+        ft.setFromValue(0);
+        ft.setToValue(1);
+        ft.play();
     }
+    
+    private void disableEditField(){
+        nama.setEditable(false);
+        email.setEditable(false);
+        telepon.setEditable(false);
+        alamat.setEditable(false);
+    }
+    
+    private void enableEditField(){
+        nama.setEditable(true);
+        email.setEditable(true);
+        telepon.setEditable(true);
+        alamat.setEditable(true);
+    }
+    
+   
 }

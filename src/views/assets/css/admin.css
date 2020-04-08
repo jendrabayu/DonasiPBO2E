@@ -9,17 +9,13 @@ and open the template in the editor.
 */
 @font-face {
     font-family: 'Roboto';
-    src: url('Roboto-Medium.ttf');
+    src: url('/views/assets/roboto/Roboto-Medium.ttf');
 }
 
 .text{
      -fx-font-family: "Roboto";
 }
 
-.text-logo{
-    -fx-font-size: 20px; 
-
-}
 
 .text-menu-utama{
     -fx-font-size: 15px;
@@ -53,26 +49,6 @@ and open the template in the editor.
 
 .btn-menu:hover{
     -fx-background-color: #0f25d5;
-}
-
-.text-name{
-    -fx-font-weight: bold; 
-    -fx-font-size: 12px;
-}
-
-.text-role{
-    -fx-font-size: 11px;
-}
-
-.menu-item  {
-    -fx-text-fill: #414141;
-    -fx-font-size: 16px; 
-    -fx-cursor: hand;
-    -fx-padding: 5px 15px;
-}
-
-.menu-item .label:hover{
-     -fx-text-fill: #00065D;
 }
 
 

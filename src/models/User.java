@@ -6,6 +6,7 @@
 package models;
 
 import helpers.DBHelper;
+import helpers.MyHelper;
 import helpers.Session;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,7 +25,6 @@ public class User {
     private static String email;
     private static String telepon;
     private static String alamat;
-    private static String foto;
     private static String password;
     private static String role;
 
@@ -68,14 +68,6 @@ public class User {
         User.alamat = alamat;
     }
 
-    public static String getFoto() {
-        return foto;
-    }
-
-    public static void setFoto(String foto) {
-        User.foto = foto;
-    }
-
     public static String getPassword() {
         return password;
     }
@@ -95,14 +87,13 @@ public class User {
     
 
     
-    public User(String id, String nama, String email, String telepon, String alamat, String foto, String password, String role) {
+    public User(String id, String nama, String email, String telepon, String alamat, String password, String role) {
         
         this.id = id;
         this.nama = nama;
         this.email = email;
         this.telepon = telepon;
         this.alamat = alamat;
-        this.foto = foto;
         this.password = password;
         this.role = role;
         
@@ -114,7 +105,7 @@ public class User {
         this.nama = nama;
         this.telepon = telepon;
         this.alamat = alamat;
-        this.foto = foto;
+
         
     }
     
@@ -134,11 +125,11 @@ public class User {
                 email = rs.getString("email");
                 telepon = rs.getString("telepon");
                 alamat = rs.getString("alamat");
-                foto = rs.getString("foto");
+             
                 password = rs.getString("password");
                 role = rs.getString("role");
                 
-                Session.buatSessionXML(id, nama, email, telepon, alamat, foto, password, role);
+                Session.buatSessionXML(id, nama, email, telepon, alamat, password, role);
               
         }
         } catch (SQLException e) {
@@ -169,7 +160,7 @@ public class User {
     
     public static int addNewUser(String name, String email, String password){
         
-        User user = new User(null, name, email, null, null, null, password, "0");
+        User user = new User(null, name, email, null, null, password, "0");
          
         Map<String, String> params = new LinkedHashMap<>();
         params.put("`id`", User.id);
@@ -177,7 +168,6 @@ public class User {
         params.put("`email`", String.format("'%s'", User.email));
         params.put("`telepon`", String.format("'%s'", User.telepon));
         params.put("`alamat`", String.format("'%s'", User.alamat));
-        params.put("`foto`", String.format("'%s'", User.foto));
         params.put("`password`", String.format("'%s'", User.password));
         params.put("`role`", String.format("'%s'", User.role));
         
@@ -191,9 +181,7 @@ public class User {
         
            
 //        User user = new User(id, nama, telepon, alamat, foto);
-        
-        System.out.println(id+nama+telepon+alamat);
-        
+         
         Map<String, String> params = new LinkedHashMap<String, String>();
         params.put("`nama`", String.format("'%s'", nama));
         params.put("`telepon`", String.format("'%s'", telepon)); 
@@ -205,6 +193,17 @@ public class User {
         }
         return 0;
        
+    }
+    
+    public static int updatePassword(String id, String password){
+           
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("`password`", String.format("'%s'", MyHelper.getMd5(password)));
+        String clause = String.format("id = %s", id);
+        if (DBHelper.update(TABLE, params, clause)) {
+            return 1;
+        }
+        return 0;
     }
     
 }

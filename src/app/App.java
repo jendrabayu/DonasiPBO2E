@@ -1,18 +1,12 @@
 package app;
 
-import controllers.AuthController;
-import controllers.MainController;
+
 import helpers.Session;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import models.User;
 
 public class App extends Application {
@@ -47,12 +41,4 @@ public class App extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
-    
-
-    
-    
-    
-    
-    
 }
