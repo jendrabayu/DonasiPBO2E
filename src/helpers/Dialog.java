@@ -4,9 +4,7 @@ import javafx.scene.control.Alert;
 
 
 public class Dialog {
-    
-    
-                
+         
     public static void alertWarning(String pesan){
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Peringatan");

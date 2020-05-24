@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="630.0" prefWidth="975.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.AdminController">
+   <stylesheets>
+      <URL value="@/views/assets/css/admin.css" />
+   </stylesheets>
+   <children>
+      <Label layoutX="432.0" layoutY="79.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text="Edit Profil" />
+      <VBox layoutX="297.0" layoutY="152.0" prefHeight="349.0" prefWidth="400.0" style="-fx-background-color: #fff;">
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="50.0" />
+         </padding>
+         <children>
+            <JFXTextField fx:id="nama" focusColor="#003399" labelFloat="true" prefHeight="35.0" prefWidth="370.0" promptText="Nama Lengkap" style="-fx-font-size: 15px;" unFocusColor="#2b4ef0">
+               <VBox.margin>
+                  <Insets bottom="25.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <JFXTextArea fx:id="alamat" focusColor="#003399" labelFloat="true" prefHeight="80.0" prefWidth="370.0" promptText="Alamat" style="-fx-font-size: 15px;" unFocusColor="#2b4ef0">
+               <VBox.margin>
+                  <Insets bottom="25.0" />
+               </VBox.margin>
+            </JFXTextArea>
+            <JFXTextField fx:id="telepon" focusColor="#003399" labelFloat="true" prefHeight="35.0" prefWidth="370.0" promptText="No. Telepon" style="-fx-font-size: 15px;" unFocusColor="#2b4ef0">
+               <VBox.margin>
+                  <Insets bottom="25.0" />
+               </VBox.margin>
+            </JFXTextField>
+            <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="340.0" spacing="10.0">
+               <children>
+                  <JFXButton onAction="#profile" prefHeight="40.0" prefWidth="80.0" style="-fx-font-size: 14px; -fx-text-fill: #fff; -fx-background-color: #ffaf00; -fx-cursor: hand;" text="Kembali" />
+                  <JFXButton onAction="#update" prefHeight="40.0" prefWidth="80.0" style="-fx-font-size: 14px; -fx-text-fill: #fff; -fx-background-color: #2196f3; -fx-cursor: hand;" text="Simpan" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

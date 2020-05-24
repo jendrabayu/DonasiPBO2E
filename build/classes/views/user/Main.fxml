@@ -1,57 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.Cursor?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.MainController">
-   <top>
-      <Pane prefHeight="70.0" prefWidth="960.0" style="-fx-background-color: #2F66A9;" BorderPane.alignment="CENTER">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.MainController">
+   <children>
+      <Pane prefHeight="70.0" prefWidth="1000.0" style="-fx-background-color: #FFF;">
          <children>
-            <Label layoutX="38.0" layoutY="27.0" text="Hi, Jendra Bayu Nugraha" textFill="WHITE">
+            <Label layoutX="43.0" layoutY="17.0" text="DONASI" textFill="#005073">
                <font>
-                  <Font name="SansSerif Bold" size="15.0" />
+                  <Font name="System Bold" size="27.0" />
                </font>
             </Label>
-            <HBox layoutX="541.0" layoutY="10.0" prefHeight="50.0" prefWidth="384.0">
+            <HBox layoutX="557.0" layoutY="18.0" prefHeight="37.0" prefWidth="361.0">
                <children>
-                  <JFXButton prefHeight="50.0" prefWidth="100.0" text="Beranda" textFill="WHITE">
-                     <font>
-                        <Font name="SansSerif Regular" size="13.0" />
-                     </font>
-                     <effect>
-                        <Shadow />
-                     </effect>
-                  </JFXButton>
-                  <JFXButton prefHeight="50.0" prefWidth="100.0" text="Donasi" textFill="WHITE">
-                     <font>
-                        <Font name="SansSerif Regular" size="13.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton prefHeight="50.0" prefWidth="100.0" text="Profile" textFill="WHITE">
-                     <font>
-                        <Font name="SansSerif Regular" size="13.0" />
-                     </font>
-                  </JFXButton>
-                  <JFXButton fx:id="logout" onAction="#logout" prefHeight="50.0" prefWidth="100.0" text="Logout" textFill="WHITE">
-                     <font>
-                        <Font name="SansSerif Regular" size="13.0" />
-                     </font>
-                  </JFXButton>
+                  <Label fx:id="labelBeranda" onMouseClicked="#showBeranda" prefHeight="37.0" prefWidth="90.0" style="-fx-font-size: 16px; -fx-cursor: hand;" text="Beranda" textFill="#3d3d3d">
+                     <HBox.margin>
+                        <Insets right="1.0" />
+                     </HBox.margin>
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
+                  </Label>
+                  <Label onMouseClicked="#showDonasi" prefHeight="37.0" prefWidth="80.0" style="-fx-font-size: 16px; -fx-cursor: hand;" text="Donasi" textFill="#3d3d3d">
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets right="1.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label onMouseClicked="#showPenerima" prefHeight="37.0" prefWidth="99.0" style="-fx-font-size: 16px; -fx-cursor: hand;" text="Penerima" textFill="#3d3d3d">
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets right="1.0" />
+                     </HBox.margin>
+                  </Label>
+                  <MenuButton mnemonicParsing="false" style="-fx-background-color: none; -fx-font-size: 16px; -fx-font-weight: 500; -fx-cursor: hand;" text="Akun" textFill="#3d3d3d">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#showProfile" text="Profile" />
+                      <MenuItem mnemonicParsing="false" onAction="#showUbahPassword" text="Ubah Password" />
+                        <MenuItem mnemonicParsing="false" onAction="#logout" text="Logout" />
+                    </items>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </MenuButton>
                </children>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
             </HBox>
-         </children></Pane>
-   </top>
-   <center>
-      <AnchorPane fx:id="mainPane" prefHeight="530.0" prefWidth="960.0" BorderPane.alignment="CENTER" />
-   </center>
-</BorderPane>
+         </children>
+      </Pane>
+      <AnchorPane fx:id="mainPane" layoutY="65.0" prefHeight="580.0" prefWidth="1000.0" />
+   </children>
+</AnchorPane>

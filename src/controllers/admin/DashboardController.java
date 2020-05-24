@@ -1,27 +1,39 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers.admin;
 
+import helpers.MyHelper;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import models.UangModel;
+import models.DonaturModel;
+import models.PenerimaModel;
+        
 
-/**
- * FXML Controller class
- *
- * @author ACER
- */
 public class DashboardController implements Initializable {
+    
+    @FXML
+    private Label jumlahDonatur;
 
-    /**
-     * Initializes the controller class.
-     */
+    @FXML
+    private Label jumlahPenerima;
+    
+    @FXML
+    private Label jumlahUang;
+  
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+    public void initialize(URL url, ResourceBundle rb) {        
+        try {
+            this.jumlahDonatur.setText(Integer.toString(DonaturModel.getAll().size()));
+            this.jumlahPenerima.setText(Integer.toString(PenerimaModel.getAll().size()));
+            this.jumlahUang.setText(MyHelper.rupiahFormat(Long.toString(UangModel.getTotal())));
+        } catch (SQLException ex) {
+            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }    
     
 }

@@ -7,14 +7,6 @@ and open the template in the editor.
     Created on : Apr 5, 2020, 7:46:31 PM
     Author     : ACER
 */
-@font-face {
-    font-family: 'Roboto';
-    src: url('/views/assets/roboto/Roboto-Medium.ttf');
-}
-
-.text{
-     -fx-font-family: "Roboto";
-}
 
 
 .text-menu-utama{
@@ -87,3 +79,7 @@ and open the template in the editor.
 .tes{
      -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 2, 2);
 }
+
+
+
+

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="580.0" prefWidth="1000.0" style="-fx-background-color: #8DBDFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.DonasiController">
+   <children>
+      <ImageView fitHeight="220.0" fitWidth="190.0" layoutX="21.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../assets/img/user/pngguru.com.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="235.0" layoutY="23.0" prefHeight="535.0" prefWidth="680.0" style="-fx-background-color: #fff;">
+         <children>
+            <VBox layoutX="340.0" layoutY="70.0" prefHeight="464.0" prefWidth="340.0">
+               <children>
+                  <JFXTextField fx:id="nama_makanan" focusColor="#3b7dd8" labelFloat="true" prefHeight="36.0" prefWidth="300.0" promptText="Jenis / Nama Makanan" style="-fx-font-size: 14px;">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXDatePicker fx:id="expired_date" defaultColor="#3b7dd8" prefHeight="36.0" prefWidth="320.0" promptText="Perkiraan Tanggal Kadaluwarsa" style="-fx-font-size: 14px;">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </JFXDatePicker>
+                  <JFXTimePicker fx:id="expired_time" defaultColor="#3b7dd8" prefHeight="36.0" prefWidth="318.0" promptText="Perkiraan Waktu Kadaluwarsa" style="-fx-font-size: 14px;">
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin>
+                  </JFXTimePicker>
+                  <JFXTextField fx:id="jumlah_makanan" focusColor="#3b7dd8" labelFloat="true" prefHeight="36.0" prefWidth="300.0" promptText="Jumlah / Porsi / Banyak Makanan" style="-fx-font-size: 14px;">
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextArea fx:id="keterangan" focusColor="#3b7dd8" labelFloat="true" prefHeight="150.0" prefWidth="300.0" promptText="Keterangan Tambahan" style="-fx-font-size: 14px;">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </JFXTextArea>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="43.0" prefWidth="310.0" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#showBeranda" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4A91F2; -fx-text-fill: #fff; -fx-background-radius: 25px; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="KEMBALI" />
+                        <Button mnemonicParsing="false" onAction="#addMakanan" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4A91F2; -fx-text-fill: #fff; -fx-background-radius: 25px; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="KIRIM" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
+            </VBox>
+            <VBox layoutY="70.0" prefHeight="464.0" prefWidth="340.0">
+               <children>
+                  <Label text="Ubah data diri : Pilih Akun &gt; Profile &gt; Edit" textFill="RED">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXTextField fx:id="nama" editable="false" focusColor="#3b7dd8" labelFloat="true" mouseTransparent="true" prefHeight="36.0" prefWidth="300.0" promptText="Nama Lengkap" style="-fx-font-size: 14px; -fx-text-fill: #777;" unFocusColor="RED">
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="email" editable="false" focusColor="#3b7dd8" labelFloat="true" mouseTransparent="true" prefHeight="36.0" prefWidth="300.0" promptText="Email" style="-fx-font-size: 14px; -fx-text-fill: #777;" unFocusColor="RED">
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="no_telp" editable="false" focusColor="#3b7dd8" labelFloat="true" mouseTransparent="true" prefHeight="36.0" prefWidth="300.0" promptText="No. Telepon / Wa" style="-fx-font-size: 14px; -fx-text-fill: #777;" unFocusColor="RED">
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextArea fx:id="alamat" editable="false" focusColor="#3b7dd8" labelFloat="true" mouseTransparent="true" prefHeight="130.0" prefWidth="300.0" promptText="Alamat Lengkap" style="-fx-font-size: 14px; -fx-text-fill: #777;" unFocusColor="RED">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </JFXTextArea>
+               </children>
+               <padding>
+                  <Insets left="15.0" right="15.0" />
+               </padding>
+            </VBox>
+            <Label layoutX="255.0" layoutY="15.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="KIRIM MAKANAN" />
+            <VBox layoutX="20.0" layoutY="439.0" prefHeight="43.0" prefWidth="310.0">
+               <children>
+                  <Label style="-fx-font-size: 13px; -fx-text-fill: #111e6c;" text="Note: Isikan data Anda dengan sebenar-benarnya" />
+                  <Label style="-fx-font-size: 13px; -fx-text-fill: #111e6c;" text="Kami akan menghubungi anda, untuk proses" />
+                  <Label style="-fx-font-size: 13px; -fx-text-fill: #111e6c;" text="Penjemputan makanan" />
+               </children>
+            </VBox>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

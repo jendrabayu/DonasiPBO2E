@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.PenerimaController">
+   <children>
+      <VBox layoutX="50.0" layoutY="50.0" prefHeight="400.0" prefWidth="900.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="70.0" prefWidth="900.0" spacing="10.0">
+               <children>
+                  <JFXButton contentDisplay="RIGHT" graphicTextGap="10.0" prefHeight="45.0" prefWidth="300.0" style="-fx-background-color: #107DAC;" text="Data penyaluran makanan" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/img/user/Icon%20awesome-download.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton contentDisplay="RIGHT" graphicTextGap="10.0" prefHeight="45.0" prefWidth="300.0" style="-fx-background-color: #107DAC;" text="Data penyaluran uang" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/img/user/Icon%20awesome-download.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <TableView fx:id="tabel_penerima" prefHeight="348.0" prefWidth="900.0" stylesheets="@../assets/css/user.css">
+               <columns>
+                  <TableColumn fx:id="col_no" prefWidth="70.0" text="No" />
+                  <TableColumn fx:id="col_nama" prefWidth="250.0" text="Nama" />
+                  <TableColumn fx:id="col_jumlah_orang" prefWidth="100.0" text="Jumlah Orang" />
+                  <TableColumn fx:id="col_alamat" prefWidth="479.0" text="Alamat" />
+               </columns>
+            </TableView>
+         </children>
+      </VBox>
+      <ImageView fitHeight="232.23" fitWidth="427.0" layoutY="349.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/img/user/Path%205.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

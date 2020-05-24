@@ -11,6 +11,10 @@ public class DBHelper {
         String sql = String.format("SELECT * FROM %s", table);
         return getResultSet(sql);
     }
+    
+    public static ResultSet query(String q){
+        return getResultSet(q);
+    }
 
     public static ResultSet selectAll(String table, String requirment){
         String sql = String.format("SELECT * FROM %s WHERE %s", table, requirment);
@@ -74,6 +78,7 @@ public class DBHelper {
             Statement statement = db.getConnection().createStatement();
             return statement.executeUpdate(sql) > 0;
         } catch (Exception e) {
+            System.out.println(e);
             return false;
         }
     }

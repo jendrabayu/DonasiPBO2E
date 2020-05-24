@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="630.0" prefWidth="975.0" style="-fx-background-color: #E8E9E8;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.PenerimaController">
+   <children>
+      <HBox layoutX="184.0" layoutY="113.0" prefHeight="464.0" prefWidth="608.0" style="-fx-background-color: #fff;">
+         <children>
+            <VBox prefHeight="498.0" prefWidth="447.0">
+               <children>
+                  <JFXTextField fx:id="nama" labelFloat="true" promptText="Nama Lengkap">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="23.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="email" labelFloat="true" promptText="Email">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="23.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="no_telp" labelFloat="true" promptText="Nomor Telepon / WhatsApp">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="23.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="jumlah_orang" accessibleRole="TEXT" labelFloat="true" promptText="Jumlah Orang">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets bottom="23.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextArea fx:id="alamat" labelFloat="true" prefHeight="223.0" prefWidth="360.0" promptText="Alamat Lengkap">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                  </JFXTextArea>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="523.0" prefWidth="160.0">
+               <children>
+                  <JFXButton onAction="#updatePenerima" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #398ad7;" text="UBAH" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+                  <JFXButton onAction="#showPenerima" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FDB931;" text="KEMBALI" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" top="20.0" />
+         </padding>
+      </HBox>
+      <Label layoutX="422.0" layoutY="54.0" text="EDIT PENERIMA" textFill="#0000008e">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

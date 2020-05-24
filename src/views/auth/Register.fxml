@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="960.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AuthController">
+   <right>
+      <Pane prefHeight="600.0" prefWidth="410.0" style="-fx-background-color: linear-gradient(#000080, #0f52ba, #0080ff);" BorderPane.alignment="CENTER" />
+   </right>
+   <left>
+      <Pane prefHeight="600.0" prefWidth="550.0" style="-fx-background-color: #fff;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox layoutX="90.0" layoutY="157.0" prefHeight="433.0" prefWidth="370.0">
+               <children>
+                  <JFXTextField fx:id="nama" focusColor="#0f52ba" labelFloat="true" prefHeight="30.0" prefWidth="320.0" promptText="Nama Lengkap" style="-fx-text-fill: #3D3D3D;" unFocusColor="NAVY">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="email" focusColor="#0f52ba" labelFloat="true" prefHeight="30.0" prefWidth="320.0" promptText="Email" style="-fx-text-fill: #3D3D3D;" unFocusColor="NAVY">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="telepon" focusColor="#0f52ba" labelFloat="true" prefHeight="30.0" prefWidth="320.0" promptText="No. telepon / WhatsApp" style="-fx-text-fill: #3D3D3D;" unFocusColor="NAVY">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextArea fx:id="alamat" focusColor="#0f52ba" labelFloat="true" prefHeight="110.0" prefWidth="367.0" promptText="Alamat Lengkap" style="-fx-text-fill: #3D3D3D;" unFocusColor="NAVY">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="25.0" />
+                     </VBox.margin>
+                  </JFXTextArea>
+                  <HBox prefHeight="9.0" prefWidth="360.0">
+                     <children>
+                        <JFXPasswordField fx:id="password" focusColor="#0f52ba" labelFloat="true" prefHeight="30.0" prefWidth="320.0" promptText="Password" style="-fx-text-fill: #3D3D3D;" unFocusColor="NAVY">
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXPasswordField>
+                        <JFXPasswordField fx:id="repassword" focusColor="#0f52ba" labelFloat="true" prefHeight="30.0" prefWidth="320.0" promptText="Konfirmasi Password" style="-fx-text-fill: #3D3D3D;" unFocusColor="NAVY">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </JFXPasswordField>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="30.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <JFXButton buttonType="RAISED" focusTraversable="false" onAction="#register" prefHeight="40.0" prefWidth="370.0" style="-fx-background-color: linear-gradient(to right, #0f52ba, #0080ff);" text="Submit" textFill="WHITE">
+                     <font>
+                        <Font name="SansSerif Regular" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <HBox alignment="TOP_RIGHT" prefHeight="0.0" prefWidth="360.0">
+                     <children>
+                        <Label text="Sudah Punya Akun ?" textFill="#3d3d3d">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Label onMouseClicked="#showLogin" style="-fx-cursor: hand;" text="Masuk" textFill="#0f52ba">
+                           <font>
+                              <Font size="13.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Label layoutX="90.0" layoutY="61.0" text="Buat Akun" textFill="#3d3d3d">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </left>
+</BorderPane>

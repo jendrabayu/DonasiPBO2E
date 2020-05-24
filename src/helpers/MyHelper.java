@@ -1,8 +1,18 @@
 
 package helpers;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javafx.animation.FadeTransition;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
+import javafx.util.Duration;
 
 
 public class MyHelper {
@@ -39,4 +49,34 @@ public class MyHelper {
         }
         return 1;
     }
+    
+    public static String rupiahFormat(String money){
+        
+        double harga = Double.parseDouble(money);
+ 
+        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
+ 
+        formatRp.setCurrencySymbol("Rp. ");
+        formatRp.setMonetaryDecimalSeparator(',');
+        formatRp.setGroupingSeparator('.');
+        
+ 
+        kursIndonesia.setDecimalFormatSymbols(formatRp);
+        String x = kursIndonesia.format(harga);
+       
+        
+        return x;
+    }
+
+    
+    
+    
+
+    public static String getDateNow(){
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy/MM/dd");
+        Date date = new Date(System.currentTimeMillis());
+        return formatter.format(date);
+    }
+
 }

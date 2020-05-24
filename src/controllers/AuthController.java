@@ -1,13 +1,11 @@
 package controllers;
 
 import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,114 +13,119 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
-//my code
-import models.User;
+import models.UserModel;
 import helpers.Dialog;
 import helpers.MyHelper;
+import java.sql.SQLException;
+import javafx.scene.layout.BorderPane;
 
 public class AuthController implements Initializable {
+    
+    @FXML
+    private BorderPane mainPane;
+      
+    @FXML
+    private JFXTextField nama;
     
     @FXML
     private JFXTextField email;
 
     @FXML
+    private JFXTextField telepon;
+
+    @FXML
+    private JFXTextArea alamat;
+
+    @FXML
     private JFXPasswordField password;
-    
+
     @FXML
     private JFXPasswordField repassword;
 
-    @FXML
-    private JFXTextField name;
-    
-    @FXML
-    private Pane mainPane;
 
     @FXML
-    private void daftarAction(ActionEvent event) {
-        if (name.getText().equals("") || email.getText().equals("") || password.getText().equals("") || repassword.getText().equals("")) {
-            Dialog.alertWarning("Semua filed tidak boleh kosong!");
+    void showLogin(MouseEvent event) {
+        changeFxml("Login");
+    }
+    
+    @FXML
+    void showRegister(MouseEvent event) {
+        changeFxml("Register");
+    }
+    
+    @FXML
+    void login(ActionEvent event) throws IOException, SQLException {
+        if (email.getText().equals("") || password.getText().equals("")) {
+            Dialog.alertWarning("Email atau Password tidak boleh kosong!");
+        }else{
+            if (MyHelper.checkConnection() == 1) {
+                String role = UserModel.getRole(email.getText(), password.getText());
+                if (! role.equals("")) {
+                    if (role.equals("ADMIN")) {        
+                        UserModel.CreateSession();
+                        loadFxml("admin",1200,700);
+                    }else if(role.equals("USER")){     
+                        System.out.println(UserModel.getId());
+                        loadFxml("user",1000,670);
+                        UserModel.CreateSession();
+                    }
+                }else{
+                    Dialog.alertError("Email atau kata sandi tidak valid!");
+                }
+            }else{
+                Dialog.alertError("Whoops, Database belum aktif!");
+            }
+        }
+    }
+    
+    
+    @FXML
+    void register(ActionEvent event) {
+        if (nama.getText().equals("") || email.getText().equals("") || telepon.getText().equals("") || alamat.getText().equals("") || password.getText().equals("") || repassword.getText().equals("")) {
+            Dialog.alertWarning("Semua field harus diisi!");
         }else{
             if (!password.getText().equals(repassword.getText())) {
                 Dialog.alertWarning("Password harus sama!");
             }else{
-                User.addNewUser(name.getText(), email.getText(), MyHelper.getMd5(password.getText()));
-                Dialog.alertSuccess("Registrasi Berhasil! Silahkan Login :)");
-                changeFxml("Login");
+                if (UserModel.create(nama.getText(), email.getText(), telepon.getText() ,alamat.getText(), password.getText())) {
+                    Dialog.alertSuccess("Registrasi Berhasil! Silahkan Login :)");
+                    changeFxml("Login");
+                }else{
+                    Dialog.alertError("Registrasi Gagal :)");
+                }       
             } 
         }     
     }
 
-    @FXML
-    private void masukAction(ActionEvent event) throws IOException {
-        //ROLE 1 = Admin
-        //ROLE 0 = User
-
-        if (email.getText().equals("") || password.getText().equals("")) {
-            Dialog.alertWarning("Email dan Password tidak boleh kosong!");
-        }else{
-            if (MyHelper.checkConnection() == 1) {  
-                if (User.getLoginStatus(email.getText(), MyHelper.getMd5(password.getText())) == 1) {
-                    if (User.getRole(email.getText(), MyHelper.getMd5(password.getText())) == 1) {
-                        loadFxml("admin");
-                    }else{
-                        loadFxml("user");
-                    }
-                }else{
-                    Dialog.alertError("Email atau Password tidak valid!");
-                }
-            }
+    
+    private void changeFxml(String name){
+        try {
+            Parent fxml = FXMLLoader.load(getClass().getResource("/views/auth/"+name+".fxml"));
+            mainPane.getChildren().removeAll();
+            mainPane.getChildren().setAll(fxml); 
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        
     }
-
-    @FXML
-    private void openRegister(MouseEvent event) {
-        changeFxml("Register");
-    }
-       
-    @FXML
-    private void openLogin(MouseEvent event) {
-        changeFxml("Login");
-    }
-     
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-     
+           
     }    
-    
-    private void changeFxml(String file){
-        mainPane.setOpacity(0);
-        try {
-            Parent fxml = FXMLLoader.load(getClass().getResource("/views/"+file+".fxml"));
-            mainPane.getChildren().removeAll();
-            mainPane.getChildren().setAll(fxml);
-            
-            //efek transisi
-            FadeTransition ft = new FadeTransition();
-            ft.setDuration(Duration.millis(500));
-            ft.setNode(mainPane);
-            ft.setFromValue(0);
-            ft.setToValue(1);
-            ft.play();
-            
-        } catch (IOException ex) {
-            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    private void loadFxml(String role) throws IOException{
-        mainPane.getScene().getWindow().hide();
+ 
+       private void loadFxml(String role, int width, int height) throws IOException{
+        
         Stage stage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("/views/"+role+"/Main.fxml")); 
+        Parent root = FXMLLoader.load(getClass().getResource("/views/"+role+"/Main.fxml"));
         Scene scene = new Scene(root);
-//        stage.setResizable(false);
         stage.setScene(scene);
+        stage.setWidth(width);
+        stage.setHeight(height);
+        stage.setTitle("DONASI");
+        stage.setResizable(false);
         stage.show();
+        
     }
 
 }

@@ -1,0 +1,107 @@
+package models;
+
+import helpers.DBHelper;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class PenerimaModel extends Person{
+    private final static String TABLE = "penerima";
+    private int jumlahOrang;
+    
+    public PenerimaModel(int id, String nama, String email, String telepon, String alamat, int jumlahOrang) {
+        super(id, nama, email, telepon, alamat);
+        this.jumlahOrang = jumlahOrang;
+    }
+    
+    public PenerimaModel(){
+        
+    }
+
+    public static ArrayList<PenerimaModel> getAll(String keyword) throws SQLException{
+        ArrayList<PenerimaModel> result = new ArrayList<PenerimaModel>();
+        ResultSet resultSet = DBHelper.selectAll(TABLE, "nama LIKE '%"+keyword+"%'");
+        
+         while (resultSet.next()){
+                PenerimaModel penerima = new PenerimaModel();
+                penerima.setId(resultSet.getInt("id"));
+                penerima.setNama(resultSet.getString("nama"));
+                penerima.setEmail(resultSet.getString("email"));
+                penerima.setNo_telp(resultSet.getString("no_telp"));
+                penerima.setAlamat(resultSet.getString("alamat"));
+                penerima.setJumlahOrang(resultSet.getInt("jumlah_orang"));
+                result.add(penerima);
+            }
+        return result;
+    }
+    
+    public static ArrayList<PenerimaModel> getAll() throws SQLException{
+        ArrayList<PenerimaModel> result = new ArrayList<PenerimaModel>();
+        ResultSet resultSet = DBHelper.selectAll(TABLE);
+         while (resultSet.next()){
+                PenerimaModel penerima = new PenerimaModel();
+                penerima.setId(resultSet.getInt("id"));
+                penerima.setNama(resultSet.getString("nama"));
+                penerima.setEmail(resultSet.getString("email"));
+                penerima.setNo_telp(resultSet.getString("no_telp"));
+                penerima.setAlamat(resultSet.getString("alamat"));
+                penerima.setJumlahOrang(resultSet.getInt("jumlah_orang"));
+                result.add(penerima);
+            }
+        return result;
+    }
+    
+    public static ArrayList<PenerimaModel> get(int id) throws SQLException{
+        ArrayList<PenerimaModel> result = new ArrayList<PenerimaModel>();
+        ResultSet resultSet = DBHelper.selectAll(TABLE, "id = '"+id+"'");
+        while (resultSet.next()){
+               PenerimaModel penerima = new PenerimaModel();
+               penerima.setId(resultSet.getInt("id"));
+               penerima.setNama(resultSet.getString("nama"));
+               penerima.setEmail(resultSet.getString("email"));
+               penerima.setNo_telp(resultSet.getString("no_telp"));
+               penerima.setAlamat(resultSet.getString("alamat"));
+               penerima.setJumlahOrang(resultSet.getInt("jumlah_orang"));
+               result.add(penerima);
+        }
+        return result;
+       
+    }
+    
+    public static boolean create(String nama, String email, String no_telp, int jumlah_orang, String alamat){
+        Map<String, String> params = new LinkedHashMap<>();
+        params.put("`nama`", String.format("'%s'",nama));
+        params.put("`email`", String.format("'%s'", email));
+        params.put("`no_telp`", String.format("'%s'", no_telp));
+        params.put("`jumlah_orang`", String.format("'%s'", jumlah_orang));
+        params.put("`alamat`", String.format("'%s'", alamat));         
+        return DBHelper.insert("penerima", params);
+    }
+    
+    public static boolean update(int id, String nama, String email, String no_telp, int jumlah_orang, String alamat){        
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("`nama`", String.format("'%s'", nama));
+        params.put("`email`", String.format("'%s'", email));
+        params.put("`no_telp`", String.format("'%s'", no_telp)); 
+        params.put("`jumlah_orang`", String.format("'%s'", jumlah_orang));
+        params.put("`alamat`", String.format("'%s'", alamat));    
+        return DBHelper.update("penerima", params, String.format("id = %s", id));
+    }
+    
+    public static boolean delete(int id){
+       return DBHelper.delete(TABLE, Integer.toString(id));
+    }
+
+    public int getJumlahOrang() {
+        return jumlahOrang;
+    }
+
+    public void setJumlahOrang(int jumlahOrang) {
+        this.jumlahOrang = jumlahOrang;
+    }
+
+
+    
+}

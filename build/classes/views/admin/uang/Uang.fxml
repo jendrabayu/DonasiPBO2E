@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="630.0" prefWidth="975.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.UangController">
+    <stylesheets>
+        <URL value="@/views/assets/css/admin.css" />
+    </stylesheets>
+   <children>
+      <VBox layoutX="38.0" layoutY="9.0" prefHeight="600.0" prefWidth="900.0" spacing="20.0">
+         <children>
+            <Pane prefHeight="50.0" prefWidth="900.0">
+               <children>
+                  <Label layoutY="12.0" text="UANG BELUM DICEK">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <JFXButton layoutX="780.0" layoutY="8.0" onAction="#showUbahStatus" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #ffa426; -fx-text-fill: #fff;" text="Ubah Status">
+                     <font>
+                        <Font name="System Bold" size="15.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </JFXButton>
+               </children>
+            </Pane>
+            <TableView fx:id="tabelUangMasuk" prefHeight="250.0" prefWidth="200.0">
+              <columns>
+                <TableColumn fx:id="col_no" prefWidth="50.0" style="-fx-font-size: 14px;" text="No" />
+                <TableColumn fx:id="col_date" prefWidth="120.0" style="-fx-font-size: 14px;" text="Tanggal" />
+                  <TableColumn fx:id="col_donatur_name" prefWidth="150.0" style="-fx-font-size: 14px;" text="Nama Donatur" />
+                  <TableColumn fx:id="col_transfer_from" prefWidth="120.0" style="-fx-font-size: 14px;" text="Transfer From" />
+                  <TableColumn fx:id="col_transfer_to" prefWidth="200.0" style="-fx-font-size: 14px;" text="Transfer To" />
+                  <TableColumn fx:id="col_jumlah" prefWidth="120.0" style="-fx-font-size: 14px;" text="Jumlah" />
+                  <TableColumn fx:id="col_status" prefWidth="139.0" style="-fx-font-size: 14px;" text="Status" />
+              </columns>
+            </TableView>
+            <HBox prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0" spacing="20.0" />
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="400.0" spacing="10.0">
+                     <children>
+                        <Label text="TOTAL UANG TERSEDIA">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="totalUangLabel" text="Rp.200.000.000.000">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

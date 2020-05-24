@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package helpers;
 
 import java.io.File;
 import java.io.IOException;
-import javafx.scene.Node;
-import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,19 +10,14 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import models.User;
+import models.UserModel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-/**
- *
- * @author ACER
- */
 public class Session {
     
-    public static int buatSessionXML(String id,String nama,String email, String telepon, String alamat, 
-            String password, String role){
+    public static int createSession(UserModel user){
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -38,51 +26,56 @@ public class Session {
             Element rootElement = doc.createElement("session");
             doc.appendChild(rootElement);
 
-            Element id_user = doc.createElement("id");
-            rootElement.appendChild(id_user);
-            id_user.setTextContent(id);
+            Element id = doc.createElement("id");
+            rootElement.appendChild(id);
+            id.setTextContent(Integer.toString(user.getId()));
             
-            Element nama_user = doc.createElement("nama");
-            rootElement.appendChild(nama_user);
-            nama_user.setTextContent(nama);
+            Element nama = doc.createElement("nama");
+            rootElement.appendChild(nama);
+            nama.setTextContent(user.getNama());
 
-            Element email_user = doc.createElement("email");
-            rootElement.appendChild(email_user);
-            email_user.setTextContent(email);
+            Element email = doc.createElement("email");
+            rootElement.appendChild(email);
+            email.setTextContent(user.getEmail());
 
-            Element telepon_user = doc.createElement("telepon");
-            rootElement.appendChild(telepon_user);
-            telepon_user.setTextContent(telepon);
+            Element no_telp = doc.createElement("no_telp");
+            rootElement.appendChild(no_telp);
+            no_telp.setTextContent(user.getNo_telp());
 
-            Element alamat_user = doc.createElement("alamat");
-            rootElement.appendChild(alamat_user);
-            alamat_user.setTextContent(alamat);
+            Element alamat = doc.createElement("alamat");
+            rootElement.appendChild(alamat);
+            alamat.setTextContent(user.getAlamat());
 
-            Element password_user = doc.createElement("password");
-            rootElement.appendChild(password_user);
-            password_user.setTextContent(password);
+            Element password = doc.createElement("password");
+            rootElement.appendChild(password);
+            password.setTextContent(user.getPassword());
 
-            Element role_user = doc.createElement("role");
-            rootElement.appendChild(role_user);
-            role_user.setTextContent(role);
+            Element roles = doc.createElement("role");
+            rootElement.appendChild(roles);
+            roles.setTextContent(user.getRole());
+            
+            Element created_at = doc.createElement("created_at");
+            rootElement.appendChild(created_at);
+            created_at.setTextContent(user.getCreated_at());
+            
+            Element updated_at = doc.createElement("updated_at");
+            rootElement.appendChild(updated_at);
+            updated_at.setTextContent(user.getUpdated_at());
 
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
+            TransformerFactory tf = TransformerFactory.newInstance();
+            Transformer t = tf.newTransformer();
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(new File(System.getProperty("user.dir") + "/session.xml"));
-            transformer.transform(source, result);
+            t.transform(source, result);
             
             return 1;
-
         } catch (ParserConfigurationException | TransformerException e) {
-             System.out.println(e);
+            return 0;
         }
-        
-        return 0;
-  }
+    }
+
       
-      
-    public static int hapusSession(){  
+    public static int sessionDestroy(){  
         File data = new File(System.getProperty("user.dir") + "/session.xml");
         if (data.exists()) {
             data.delete();
@@ -92,7 +85,7 @@ public class Session {
     }
       
       
-    public static int CekSessionData(){
+    public static int cekSession(){
         
         File data = new File(System.getProperty("user.dir") + "/session.xml");
         if (data.exists()) {
@@ -101,69 +94,33 @@ public class Session {
                 DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
                 Document doc = (Document) dBuilder.parse(data);
                 
-                String id = doc.getElementsByTagName("id").item(0).getTextContent();
+                int id = Integer.parseInt(doc.getElementsByTagName("id").item(0).getTextContent());
                 String nama = doc.getElementsByTagName("nama").item(0).getTextContent();
                 String email = doc.getElementsByTagName("email").item(0).getTextContent();
-                String telepon = doc.getElementsByTagName("telepon").item(0).getTextContent();
+                String no_telp = doc.getElementsByTagName("no_telp").item(0).getTextContent();
                 String alamat = doc.getElementsByTagName("alamat").item(0).getTextContent();
-   
                 String password = doc.getElementsByTagName("password").item(0).getTextContent();
-                String role = doc.getElementsByTagName("role").item(0).getTextContent();
+                String roles = doc.getElementsByTagName("role").item(0).getTextContent();
+                String created_at = doc.getElementsByTagName("created_at").item(0).getTextContent();
+                String updated_at = doc.getElementsByTagName("updated_at").item(0).getTextContent();                   
                 
-                User.setId(id);
-                User.setNama(nama);
-                User.setEmail(email);
-                User.setTelepon(telepon);
-                User.setAlamat(alamat);
-                User.setPassword(password);
-                User.setRole(role); 
-                return 1;
+                UserModel.setId(id);
+                UserModel.setNama(nama);
+                UserModel.setEmail(email);
+                UserModel.setNo_telp(no_telp);
+                UserModel.setAlamat(alamat);
+                UserModel.setPassword(password);
+                UserModel.setRole(roles);
+                UserModel.setCreated_at(created_at);
+                UserModel.setUpdated_at(updated_at);
                 
-                
-            } catch (IOException | ParserConfigurationException | SAXException e) {
-                JOptionPane.showMessageDialog(null, e);
-                
-            }
-            
-        }else {
-            return 0;
-        }                      
-        
-        return 0;
-    }
-    
-    public static int updateSessionData(String nama, String telepon, String alamat){
-        File data = new File(System.getProperty("user.dir") + "/session.xml");
-        if (data.exists()) {
-            try {
-                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-                Document doc = (Document) dBuilder.parse(data);
-          
-                
-                
-                doc.getElementsByTagName("nama").item(0);
-                doc.getElementsByTagName("telepon").item(0).setTextContent(telepon);
-                doc.getElementsByTagName("alamat").item(0).setTextContent(alamat);
-
-                User.setNama(nama);
-                User.setTelepon(telepon);
-                User.setAlamat(alamat);
-             
-                return 1;
-                
+                return 1;           
                 
             } catch (IOException | ParserConfigurationException | SAXException e) {
-                JOptionPane.showMessageDialog(null, e);
-                
+                return 0; 
             }
-            
-        }else {
-            return 0;
-        }             
-        
+     
+        }                         
         return 0;
     }
-
-      
 }

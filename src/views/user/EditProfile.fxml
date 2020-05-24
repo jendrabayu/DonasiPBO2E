@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="580.0" prefWidth="1000.0" style="-fx-background-color: #fff;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.UserController">
+   <stylesheets>
+      <URL value="@/views/assets/css/user.css" />
+   </stylesheets>
+   <children>
+      <Pane prefHeight="580.0" prefWidth="427.0">
+         <children>
+            <ImageView fitHeight="232.23" fitWidth="427.0" layoutY="349.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/img/user/Path%205.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="295.0" fitWidth="288.0" layoutX="70.0" layoutY="143.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/img/user/profile-emo-edit.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="427.0" prefHeight="580.0" prefWidth="573.0" style="-fx-background-color: #F6F6F6;">
+         <children>
+            <VBox layoutX="63.0" layoutY="169.0" prefHeight="240.0" prefWidth="439.0">
+               <children>
+                  <JFXTextField fx:id="nama" focusColor="#3b7dd8" labelFloat="true" prefHeight="35.0" prefWidth="300.0" promptText="Nama Lengkap" style="-fx-font-size: 15px;">
+                     <VBox.margin>
+                        <Insets bottom="30.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="telepon" focusColor="#3b7dd8" labelFloat="true" prefHeight="35.0" prefWidth="300.0" promptText="No. Telepon / WhatsApp" style="-fx-font-size: 15px;">
+                     <VBox.margin>
+                        <Insets bottom="30.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextArea fx:id="alamat" focusColor="#3b7dd8" labelFloat="true" prefHeight="100.0" prefWidth="300.0" promptText="Alamat Lengkap" style="-fx-font-size: 15px;">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </JFXTextArea>
+               </children>
+            </VBox>
+            <Button layoutX="403.0" layoutY="438.0" mnemonicParsing="false" onAction="#updateProfile" prefHeight="40.0" prefWidth="106.0" style="-fx-background-color: #4A91F2; -fx-text-fill: #fff; -fx-background-radius: 25px; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="SIMPAN" />
+            <Label layoutX="191.0" layoutY="40.0" text="EDIT PROFILE" textFill="#005073">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <Button layoutX="283.0" layoutY="438.0" mnemonicParsing="false" onAction="#showProfile" prefHeight="40.0" prefWidth="106.0" style="-fx-background-color: #4A91F2; -fx-text-fill: #fff; -fx-background-radius: 25px; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="KEMBALI" />
+            <Label fx:id="last_update" layoutX="71.0" layoutY="454.0" text="last update at " textFill="#6b6b6b">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
