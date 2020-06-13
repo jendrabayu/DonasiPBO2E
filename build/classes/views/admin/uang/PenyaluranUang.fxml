@@ -47,7 +47,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton prefHeight="35.0" prefWidth="270.0" style="-fx-background-color: #6777ef; -fx-text-fill: #fff; -fx-cursor: hand;" text="Simpan Ke Database dan Cetak Data">
+                  <JFXButton prefHeight="35.0" prefWidth="270.0" style="-fx-background-color: #6777ef; -fx-text-fill: #fff; -fx-cursor: hand;" text="Cetak Data">
                      <font>
                         <Font size="15.0" />
                      </font>

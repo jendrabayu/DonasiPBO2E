@@ -18,7 +18,7 @@
             <VBox alignment="CENTER" prefHeight="500.0" prefWidth="600.0" spacing="40.0">
                <children>
                   <JFXComboBox fx:id="penerimaComboBox" prefHeight="50.0" prefWidth="609.0" promptText="Pilih Penerima" style="-fx-font-size: 15px;" />
-                  <JFXTextField fx:id="jumlahUangField" prefHeight="50.0" promptText="Masukkan Jumlah Uang">
+                  <JFXTextField fx:id="jumlahUangField" onKeyTyped="#handleJumlahUang" prefHeight="50.0" promptText="Masukkan Jumlah Uang">
                      <font>
                         <Font size="15.0" />
                      </font>

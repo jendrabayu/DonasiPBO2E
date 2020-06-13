@@ -222,8 +222,8 @@ public class PenerimaController implements Initializable {
                     alamat.setText(penerima.getAlamat());
                     jumlah_orang.setText(Integer.toString(penerima.getJumlahOrang()));
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(PenerimaController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
         

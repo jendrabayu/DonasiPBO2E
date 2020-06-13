@@ -28,6 +28,11 @@
                   <Font size="15.0" />
                </font>
             </JFXTextField>
+            <JFXTextField prefHeight="50.0" promptText="Atas Nama">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXTextField>
             <JFXTextField fx:id="noRekeningField" prefHeight="50.0" promptText="Nomor Rekening">
                <font>
                   <Font size="15.0" />

@@ -49,10 +49,11 @@
       <TableView fx:id="table" layoutX="38.0" layoutY="94.0" prefHeight="400.0" prefWidth="900.0">
          <columns>
             <TableColumn fx:id="colNo" prefWidth="49.0" style="-fx-font-size: 15px;" text="No." />
-            <TableColumn fx:id="colNamaBank" prefWidth="250.0" style="-fx-font-size: 15px;" text="Nama Bank" />
+            <TableColumn fx:id="colNamaBank" prefWidth="200.0" style="-fx-font-size: 15px;" text="Nama Bank" />
+            <TableColumn prefWidth="200.0" style="-fx-font-size: 15px;" text="Atas Nama" />
             <TableColumn fx:id="colNoRekening" prefWidth="200.0" style="-fx-font-size: 15px;" text="Nomor Rekening" />
-            <TableColumn fx:id="colCreatedAt" prefWidth="200.0" style="-fx-font-size: 15px;" text="Created At" />
-            <TableColumn fx:id="colUpdatedAt" prefWidth="200.0" style="-fx-font-size: 15px;" text="Updated At" />
+            <TableColumn fx:id="colCreatedAt" prefWidth="125.0" style="-fx-font-size: 15px;" text="Created At" />
+            <TableColumn fx:id="colUpdatedAt" prefWidth="125.0" style="-fx-font-size: 15px;" text="Updated At" />
          </columns>
       </TableView>
    </children>

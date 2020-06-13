@@ -17,8 +17,9 @@
          <children>
             <VBox alignment="CENTER" prefHeight="500.0" prefWidth="600.0" spacing="40.0">
                <children>
+                  <JFXComboBox fx:id="penerimaComboBox1" prefHeight="50.0" prefWidth="609.0" promptText="Nasi Uduk Lauk Ayam dan Dendeng (Kotak)" style="-fx-font-size: 15px;" />
                   <JFXComboBox fx:id="penerimaComboBox" prefHeight="50.0" prefWidth="609.0" promptText="Pilih Penerima" style="-fx-font-size: 15px;" />
-                  <JFXTextField fx:id="jumlahUangField" onKeyTyped="#handleJumlahUang" prefHeight="50.0" promptText="Masukkan Jumlah Uang">
+                  <JFXTextField fx:id="jumlahUangField" onKeyTyped="#handleJumlahUang" prefHeight="50.0" promptText="Jumlah / Porsi">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -26,17 +27,23 @@
                </children>
                <padding>
                   <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
-               </padding></VBox>
+               </padding>
+            </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="300.0" spacing="10.0">
                <children>
-                  <Label text="TOTAL UANG">
+                  <Label text="Nasi Uduk Lauk Ayam dan ">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="17.0" />
                      </font>
                   </Label>
-                  <Label fx:id="totalUangLabel" text="Rp.200.000.000.000">
+                  <Label text="Dendeng (Kotak)">
                      <font>
-                        <Font size="25.0" />
+                        <Font name="System Bold" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="totalUangLabel" text="Jumlah Tersedia : 45">
+                     <font>
+                        <Font size="20.0" />
                      </font>
                   </Label>
                   <HBox alignment="CENTER" prefHeight="70.0" prefWidth="300.0" spacing="10.0">
