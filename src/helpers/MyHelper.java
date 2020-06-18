@@ -1,18 +1,12 @@
 
 package helpers;
 
-import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javafx.animation.FadeTransition;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
-import javafx.util.Duration;
 
 
 public class MyHelper {
@@ -64,14 +58,9 @@ public class MyHelper {
  
         kursIndonesia.setDecimalFormatSymbols(formatRp);
         String x = kursIndonesia.format(harga);
-       
-        
+            
         return x;
     }
-
-    
-    
-    
 
     public static String getDateNow(){
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy/MM/dd");

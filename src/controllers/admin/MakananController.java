@@ -31,12 +31,10 @@ import javafx.util.StringConverter;
 import models.StatusModel;
 
 public class MakananController implements Initializable {
-    
 
     @FXML
     private AnchorPane mainPane;
-
-    
+ 
     //tabel dengan status_id 1
     @FXML
     private TableView<Makanan> table;
@@ -70,8 +68,6 @@ public class MakananController implements Initializable {
 
     @FXML
     private TableColumn<Makanan, String> colKet;
-
-    ObservableList<Makanan> makanan = FXCollections.observableArrayList();
     
     //tabel dengan status_id 2 & 3
     @FXML
@@ -104,45 +100,42 @@ public class MakananController implements Initializable {
     @FXML
     private TableColumn<Makanan, String> colStatus2;
     
-    ObservableList<Makanan> makanan2 = FXCollections.observableArrayList();
-   
-    ObservableList<Status> status = FXCollections.observableArrayList();
-    
-    private static int selectedMakananRow;
-    private static int id= 0;
-    
     @FXML
     private JFXComboBox<Status> statusComboBox;
-
+    
+    ObservableList<Makanan> makanan = FXCollections.observableArrayList();
+    ObservableList<Makanan> makanan2 = FXCollections.observableArrayList();
+    ObservableList<Status> status = FXCollections.observableArrayList();
+    private static int selectedStatusId;
+    private static int id = 0;
+    
     @FXML
     void index(ActionEvent event) {
         changeFxml("Makanan");
     }
     
-    
     @FXML
     void edit(ActionEvent event) {
         int selectedIndex = table.getSelectionModel().getSelectedIndex();
         if(selectedIndex >= 0){
-            Makanan makanan = table.getItems().get(selectedIndex);
-            MakananController.id = makanan.getId().getValue();
+            Makanan m = table.getItems().get(selectedIndex);
+            MakananController.id = m.getId().getValue();
             changeFxml("EditStatus");
         }else{
-            Dialog.alertWarning("Klik row makanan yang ingin diedit!");
+            Dialog.alertWarning("Klik row yang ingin diedit!");
         } 
-
     }
 
     @FXML
     void update(ActionEvent event) {
         if (MakananController.id > 0) {
             Map<String, String> params = new LinkedHashMap<>();
-            params.put("status_id", String.format("'%s'", MakananController.selectedMakananRow));
+            params.put("status_id", String.format("'%s'", MakananController.selectedStatusId));
             if (DBHelper.update("makanan", params, String.format("id = '%s'", MakananController.id))) {
-                Dialog.alertSuccess("Status makanan berhasil di update");
+                Dialog.alertSuccess("Data berhasil diupdate");
                 changeFxml("Makanan");
             }else{
-                Dialog.alertError("Status makanan gagal di update");
+                Dialog.alertError("Data gagal diupdate!");
             }
         }
     }
@@ -151,40 +144,32 @@ public class MakananController implements Initializable {
     private void iniTable(){
         ResultSet rs = DBHelper.query(
          "SELECT DATE(makanan.created_at) as date, "
-                 + "users.nama as nama, "
-                 + "users.email as email, "
-                 + "users.no_telp as telepon, "
-                 + "users.alamat as alamat, "
-                 + "makanan.nama as makanan, "
-                 + "makanan.id as id, "
-                 + "makanan.jumlah_awal as jumlah_awal, "
-                 + "makanan.jumlah as jumlah, "
-                 + "makanan.expired_date as exp, "
-                 + "makanan.keterangan as keterangan "
+                 + "users.*, "
+                 + "makanan.* "
                  + "FROM makanan JOIN users ON makanan.user_id = users.id "
-                 + "WHERE makanan.status_id = '1'"
-                 + "ORDER BY makanan.created_at DESC"
-                
+                 + "WHERE makanan.status_id = '1' "
+                 + "GROUP BY makanan.id "
+                 + "ORDER BY makanan.created_at DESC "        
         );
         
         try {
             int no = 1;
             while (rs.next()) {     
                 makanan.add(new Makanan(
-                        no++, 
-                        rs.getInt("id"), 
-                        rs.getInt("jumlah_awal"), 
-                        rs.getInt("jumlah"), 
-                        rs.getString("date"), 
-                        rs.getString("nama"), 
-                        rs.getString("email"), 
-                        rs.getString("telepon"), 
-                        rs.getString("alamat"), 
-                        rs.getString("makanan"), 
-                        rs.getString("exp"), 
-                        rs.getString("keterangan")
-                   
+                    no++, 
+                    rs.getInt("makanan.id"), 
+                    rs.getInt("makanan.jumlah_awal"), 
+                    rs.getInt("makanan.jumlah"), 
+                    rs.getString("date"), 
+                    rs.getString("users.nama"), 
+                    rs.getString("users.email"), 
+                    rs.getString("users.no_telp"), 
+                    rs.getString("users.alamat"), 
+                    rs.getString("makanan.nama"), 
+                    rs.getString("makanan.expired_date"), 
+                    rs.getString("makanan.keterangan") 
                 ));
+               
             }
             
             try {
@@ -213,17 +198,14 @@ public class MakananController implements Initializable {
         
         ResultSet rs= DBHelper.query(
             "SELECT DATE(makanan.created_at) as date, "
-                + "users.nama as nama, "
-                + "users.email as email, "
-                + "users.no_telp as telepon, "
-                + "users.alamat as alamat, "
-                + "makanan.nama as makanan, "
-                + "makanan.jumlah_awal as jumlah_awal, "
-                + "status.nama as status "
+                + "users.*, "
+                + "makanan.*, "
+                + "status.*"
                 + "FROM makanan JOIN users ON makanan.user_id = users.id "
                 + "JOIN status ON makanan.status_id = status.id "
-                + "WHERE makanan.status_id <> '1'"
-                + "ORDER BY makanan.created_at DESC"        
+                + "WHERE makanan.status_id <> '1' "
+                + "GROUP BY makanan.id "
+                + "ORDER BY makanan.created_at DESC "        
         );
         
         try {
@@ -232,14 +214,15 @@ public class MakananController implements Initializable {
             while (rs.next()) {   
                 makanan2.add(new Makanan(
                     no++, 
-                    rs.getInt("jumlah_awal"), 
+                    rs.getInt("makanan.jumlah_awal"), 
                     rs.getString("date"), 
-                    rs.getString("nama"), 
-                    rs.getString("email"),
-                    rs.getString("telepon"),
-                    rs.getString("alamat"), 
-                    rs.getString("makanan"), 
-                    rs.getString("status")));
+                    rs.getString("users.nama"), 
+                    rs.getString("users.email"),
+                    rs.getString("users.no_telp"),
+                    rs.getString("users.alamat"), 
+                    rs.getString("makanan.nama"), 
+                    rs.getString("status.nama")));
+                 System.out.println( rs.getInt("makanan.jumlah_awal"));
             }
             
             try {
@@ -251,7 +234,7 @@ public class MakananController implements Initializable {
                 colTelp2.setCellValueFactory(cellData -> cellData.getValue().getTelepon());
                 colAlamat2.setCellValueFactory(cellData -> cellData.getValue().getAlamat());
                 colMakanan2.setCellValueFactory(cellData -> cellData.getValue().getMakanan());
-                colJumlah2.setCellValueFactory(cellData -> cellData.getValue().getJumlah());
+                colJumlah2.setCellValueFactory(cellData -> cellData.getValue().getJumlah_awal());
                 colStatus2.setCellValueFactory(cellData -> cellData.getValue().getStatus());
             } catch (Exception e) {
                 System.err.println(e);
@@ -285,7 +268,7 @@ public class MakananController implements Initializable {
            
         statusComboBox.valueProperty().addListener((obs, oldval, newval) -> {
             if (newval != null) {
-               selectedMakananRow = newval.getId();
+               selectedStatusId = newval.getId();
             }
         });
         } catch (Exception e) {
@@ -295,11 +278,9 @@ public class MakananController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         iniTable();
         initTable2();
-        initStatus();
-      
+        initStatus(); 
     }    
     
     
@@ -322,8 +303,7 @@ public class MakananController implements Initializable {
             System.err.println(e);
         }
     }
-    
-    
+
 }
 
 
@@ -376,109 +356,56 @@ class Makanan{
         this.status = new SimpleStringProperty(status);
     }
 
-
     public IntegerProperty getNo() {
         return no;
-    }
-
-    public void setNo(IntegerProperty no) {
-        this.no = no;
     }
 
     public IntegerProperty getId() {
         return id;
     }
 
-    public void setId(IntegerProperty id) {
-        this.id = id;
-    }
-
     public IntegerProperty getJumlah_awal() {
         return jumlah_awal;
-    }
-
-    public void setJumlah_awal(IntegerProperty jumlah_awal) {
-        this.jumlah_awal = jumlah_awal;
     }
 
     public IntegerProperty getJumlah() {
         return jumlah;
     }
 
-    public void setJumlah(IntegerProperty jumlah) {
-        this.jumlah = jumlah;
-    }
-
     public StringProperty getDate() {
         return date;
-    }
-
-    public void setDate(StringProperty date) {
-        this.date = date;
     }
 
     public StringProperty getNama() {
         return nama;
     }
 
-    public void setNama(StringProperty nama) {
-        this.nama = nama;
-    }
-
     public StringProperty getEmail() {
         return email;
-    }
-
-    public void setEmail(StringProperty email) {
-        this.email = email;
     }
 
     public StringProperty getTelepon() {
         return telepon;
     }
 
-    public void setTelepon(StringProperty telepon) {
-        this.telepon = telepon;
-    }
-
     public StringProperty getAlamat() {
         return alamat;
-    }
-
-    public void setAlamat(StringProperty alamat) {
-        this.alamat = alamat;
     }
 
     public StringProperty getMakanan() {
         return makanan;
     }
 
-    public void setMakanan(StringProperty makanan) {
-        this.makanan = makanan;
-    }
-
     public StringProperty getExpdate() {
         return expdate;
-    }
-
-    public void setExpdate(StringProperty expdate) {
-        this.expdate = expdate;
     }
 
     public StringProperty getKeterangan() {
         return keterangan;
     }
 
-    public void setKeterangan(StringProperty keterangan) {
-        this.keterangan = keterangan;
-    }
-
     public StringProperty getStatus() {
         return status;
-    }
-
-    public void setStatus(StringProperty status) {
-        this.status = status;
     }
 
 }
@@ -498,16 +425,8 @@ class Status {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getNama() {
         return nama;
-    }
-
-    public void setNama(String nama) {
-        this.nama = nama;
     }
 
 }

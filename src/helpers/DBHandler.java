@@ -20,7 +20,7 @@ public class DBHandler {
         try {
             conn = DriverManager.getConnection(url,Config.USERNAME,Config.PASSWORD);
         } catch (SQLException e) {
-            System.err.println("Koneksi Gagal");
+            Dialog.alertError("Tidak Ada Koneksi!");
             e.printStackTrace();
             
         }

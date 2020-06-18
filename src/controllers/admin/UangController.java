@@ -146,10 +146,7 @@ public class UangController implements Initializable {
                 Dialog.alertSuccess("Status uang berhasil di update");
                 jumlahUang = 0;
                 selectedStatus = 0;
-                changeFxml("Uang");
-                
-               
-                
+                changeFxml("Uang");         
             }else{
                 Dialog.alertError("Status uang gagal di update");
             }

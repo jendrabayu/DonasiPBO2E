@@ -121,8 +121,6 @@ public class PenerimaController implements Initializable {
 
     }
 
-    
-    
     @FXML
     void searchPenerima(KeyEvent event) {
         try {

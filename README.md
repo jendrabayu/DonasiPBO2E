@@ -13,3 +13,8 @@ Project Pemrograman Berorientasi Obyek 2 Menggunakan Metode MVC
 - __helpers__     : Berisi class-class yang menyediakan fungsi-fungsi yang dibutuhkan dan sering dipakai
 - __models__      : Berisi class-class yang menyediakan data dari database
 - __views__       : Berisi semua file-file FXML
+
+## Fitur
+1. Autentikasi
+- Login Multiuser menggunkan role (1=>Admin, 2=>User)
+- Tiruan Cookie dengan membuat file xml yang berisi data-data user secara otomatis ketika login dan menghapusnya ketika logout sehingga user tidak perlu login ulang jika user menutup aplikasi 

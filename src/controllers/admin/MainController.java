@@ -21,7 +21,6 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuButton;
 import javafx.util.Duration;
 import models.UserModel;
-import models.UangModel;
 
 
 public class MainController implements Initializable {
@@ -78,7 +77,6 @@ public class MainController implements Initializable {
         changeFxml("uang/Uang");
     }
     
-    
     @FXML
     void penyaluranUang(ActionEvent event) {
         menuTitle.setText("Penyaluran Uang");
@@ -96,7 +94,6 @@ public class MainController implements Initializable {
         menuTitle.setText("Rekening");
         changeFxml("rekening/Rekening");
     }
-    
     
     @FXML
     void logout(ActionEvent event) throws Exception {  
@@ -117,13 +114,10 @@ public class MainController implements Initializable {
     
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-    
-        
+    public void initialize(URL url, ResourceBundle rb) {     
         if (Session.cekSession() == 1){  
             myName.setText(UserModel.getNama());
-        }
-        
+        }    
         try {
             Parent fxml = FXMLLoader.load(getClass().getResource("/views/admin/Dashboard.fxml"));
             mainPane.getChildren().removeAll();
