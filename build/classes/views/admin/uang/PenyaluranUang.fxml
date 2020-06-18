@@ -19,19 +19,19 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <TableView prefHeight="400.0" prefWidth="900.0">
+            <TableView fx:id="table" prefHeight="400.0" prefWidth="900.0">
               <columns>
-                <TableColumn prefWidth="40.0" text="No" />
-                <TableColumn prefWidth="130.0" text="Nama" />
-                  <TableColumn prefWidth="120.0" text="Email" />
-                  <TableColumn prefWidth="120.0" text="No. Telp / Wa" />
-                  <TableColumn minWidth="0.0" prefWidth="370.0" text="Alamat" />
-                  <TableColumn minWidth="0.0" prefWidth="120.0" text="Jumlah Uang" />
+                <TableColumn fx:id="colNo" prefWidth="40.0" text="No" />
+                <TableColumn fx:id="colNama" prefWidth="130.0" text="Nama" />
+                  <TableColumn fx:id="colEmail" prefWidth="120.0" text="Email" />
+                  <TableColumn fx:id="colTelp" prefWidth="120.0" text="No. Telp / Wa" />
+                  <TableColumn fx:id="colAlamat" minWidth="0.0" prefWidth="370.0" text="Alamat" />
+                  <TableColumn fx:id="colJumlah" minWidth="0.0" prefWidth="120.0" text="Jumlah Uang" />
               </columns>
             </TableView>
             <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="900.0" spacing="10.0">
                <children>
-                  <JFXButton prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #fc544b; -fx-text-fill: #fff;" text="Hapus">
+                  <JFXButton onAction="#delete" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #fc544b; -fx-text-fill: #fff;" text="Hapus">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -39,7 +39,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton onAction="#addPenyaluranUang" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #3abaf4; -fx-text-fill: #fff;" text="Tambah">
+                  <JFXButton onAction="#add" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #3abaf4; -fx-text-fill: #fff;" text="Tambah">
                      <font>
                         <Font size="15.0" />
                      </font>

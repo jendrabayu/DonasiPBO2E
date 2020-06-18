@@ -47,20 +47,23 @@ and open the template in the editor.
 
 
 .tab{
-    -fx-background-color:  #0080ff;
-    -fx-pref-width: 367;
-    -fx-pref-height: 50;
-    -fx-cursor: hand;
+    -fx-background-color: #189AD3;
+    -fx-pref-width: 250;
+    -fx-pref-height: 40;
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #005073;
 }
 
 .jfx-tab-pane .tab-header-background {
-        -fx-background-color:  #0080ff;
-    
+    -fx-background-color:transparent;
 }
 
 .jfx-tab-pane .tab-selected-line {
     -fx-background-color: white;
-    
+    -fx-pref-height: 4px;
 }
 
 .profil-info-pane{

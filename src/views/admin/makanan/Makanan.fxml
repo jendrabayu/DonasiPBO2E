@@ -1,85 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="630.0" prefWidth="975.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.MakananController">
-    <stylesheets>
-        <URL value="@/views/assets/css/admin.css" />
-    </stylesheets>
+   <stylesheets>
+      <URL value="@/views/assets/css/admin.css" />
+   </stylesheets>
    <children>
-      <VBox layoutX="38.0" layoutY="20.0" prefHeight="590.0" prefWidth="900.0" spacing="20.0">
-         <children>
-            <Pane prefHeight="50.0" prefWidth="900.0">
-               <children>
-                  <HBox alignment="CENTER" layoutX="623.0" prefHeight="50.0" prefWidth="277.0" spacing="10.0">
+      <JFXTabPane layoutX="28.0" layoutY="40.0" prefHeight="550.0" prefWidth="920.0">
+         <tabs>
+            <Tab text="Makanan Sedang Diproses">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <JFXButton prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #6777ef; -fx-text-fill: #fff; -fx-cursor: hand;" text="Cetak Data">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </JFXButton>
-                        <JFXButton prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #ffa426; -fx-text-fill: #fff;" text="Ubah Status">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </JFXButton>
+                        <VBox layoutY="1.0" prefHeight="510.0" prefWidth="920.0">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="920.0" spacing="10.0">
+                                 <children>
+                                    <JFXButton onAction="#edit" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FFA426;" text="Ubah Status" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font></JFXButton>
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="table" prefHeight="488.0" prefWidth="920.0">
+                                <columns>
+                                  <TableColumn fx:id="colNo" prefWidth="35.0" text="No" />
+                                  <TableColumn fx:id="colDate" prefWidth="60.0" text="Tanggal" />
+                                    <TableColumn fx:id="colNama" prefWidth="100.0" text="Nama" />
+                                    <TableColumn fx:id="colEmail" prefWidth="90.0" text="Email" />
+                                    <TableColumn fx:id="colTelp" prefWidth="90.0" text="Telepon" />
+                                    <TableColumn fx:id="colAlamat" prefWidth="150.0" text="Alamat" />
+                                    <TableColumn fx:id="colMakanan" prefWidth="100.0" text="Makanan" />
+                                    <TableColumn minWidth="0.0" prefWidth="0.0" text="Column X" />
+                                    <TableColumn fx:id="colJumlah" prefWidth="50.0" text="Jumlah" />
+                                    <TableColumn fx:id="colExp" prefWidth="100.0" text="Tanggal Exp" />
+                                    <TableColumn fx:id="colKet" prefWidth="144.0" text="Keterangan" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
                      </children>
-                     <padding>
-                        <Insets left="10.0" right="10.0" />
-                     </padding></HBox>
-                  <Label layoutY="12.0" text="MAKANAN BELUM DICEK">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <TableView prefHeight="220.0" prefWidth="200.0">
-               <columns>
-                <TableColumn prefWidth="30.0" text="No" />
-                  <TableColumn prefWidth="70.0" text="Tanggal" />
-                <TableColumn prefWidth="100.0" text="Nama" />
-                  <TableColumn prefWidth="100.0" text="No. Telp / Wa" />
-                  <TableColumn prefWidth="180.0" text="Alamat" />
-                  <TableColumn prefWidth="100.0" text="Nama Makanan" />
-                  <TableColumn prefWidth="70.0" text="Jumlah" />
-                  <TableColumn prefWidth="70.0" text="Exp Date" />
-                  <TableColumn prefWidth="179.0" text="Keterangan" />
-               </columns>
-            </TableView>
-            <Label text="MAKANAN TERSEDIA">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <TableView prefHeight="220.0" prefWidth="200.0">
-               <columns>
-                  <TableColumn prefWidth="30.0" text="No" />
-                  <TableColumn prefWidth="70.0" text="Tanggal" />
-                  <TableColumn prefWidth="100.0" text="Nama" />
-                  <TableColumn prefWidth="100.0" text="No. Telp / Wa" />
-                  <TableColumn prefWidth="180.0" text="Alamat" />
-                  <TableColumn prefWidth="100.0" text="Nama Makanan" />
-                  <TableColumn prefWidth="70.0" text="Jumlah" />
-                  <TableColumn prefWidth="70.0" text="Exp Date" />
-                  <TableColumn prefWidth="179.0" text="Keterangan" />
-               </columns>
-            </TableView>
-         </children>
-      </VBox>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Semua Data Makanan">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="512.0" prefWidth="920.0">
+                           <children>
+                              <TableView fx:id="table2" prefHeight="541.0" prefWidth="920.0">
+                                 <columns>
+                                    <TableColumn fx:id="colNo2" prefWidth="35.0" text="No" />
+                                    <TableColumn fx:id="colTgl2" text="Tanggal" />
+                                    <TableColumn fx:id="colNama2" prefWidth="120.0" text="Nama" />
+                                    <TableColumn fx:id="colEmail2" prefWidth="120.0" text="Email" />
+                                    <TableColumn fx:id="colTelp2" prefWidth="100.0" text="Telepon" />
+                                    <TableColumn fx:id="colAlamat2" prefWidth="150.0" text="Alamat" />
+                                    <TableColumn fx:id="colMakanan2" prefWidth="150.0" text="Makanan" />
+                                    <TableColumn minWidth="0.0" prefWidth="0.0" text="Column X" />
+                                    <TableColumn fx:id="colJumlah2" prefWidth="50.0" text="Jumlah" />
+                                    <TableColumn fx:id="colStatus2" prefWidth="114.0" text="Status" />
+                                 </columns>
+                                 <VBox.margin>
+                                    <Insets top="25.0" />
+                                 </VBox.margin>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
    </children>
 </AnchorPane>

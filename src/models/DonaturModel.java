@@ -18,7 +18,7 @@ public class DonaturModel extends Person{
     }
    
     public static ArrayList<DonaturModel> getAll(String keyword){
-        String sql = "roles = 'USER' AND nama LIKE '%"+keyword+"%'";
+        String sql = "role = '2' AND nama LIKE '%"+keyword+"%'";
         ResultSet rs = DBHelper.selectAll(TABLE,sql);
         ArrayList<DonaturModel> result = new ArrayList<DonaturModel>();
         try {
@@ -39,7 +39,7 @@ public class DonaturModel extends Person{
     
     
     public static ArrayList<DonaturModel> getAll(){
-        ResultSet rs = DBHelper.selectAll(TABLE,"roles = 'USER'");
+        ResultSet rs = DBHelper.selectAll(TABLE,"role = '2'");
         ArrayList<DonaturModel> result = new ArrayList<DonaturModel>();
         try {
             while (rs.next()){

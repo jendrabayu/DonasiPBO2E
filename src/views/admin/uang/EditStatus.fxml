@@ -15,7 +15,7 @@
             <JFXComboBox fx:id="statusComboBox" prefHeight="37.0" prefWidth="411.0" promptText="Ubah Status" style="-fx-font-size: 16px;" />
             <HBox alignment="CENTER_RIGHT" prefHeight="55.0" prefWidth="400.0" spacing="10.0">
                <children>
-                  <JFXButton onAction="#showUang" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #ffa426; -fx-text-fill: #fff;" text="Batal">
+                  <JFXButton onAction="#index" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #ffa426; -fx-text-fill: #fff;" text="Batal">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -23,7 +23,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton onAction="#handleUbahStatus" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #6777ef; -fx-text-fill: #fff;" text="Submit">
+                  <JFXButton onAction="#update" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #6777ef; -fx-text-fill: #fff;" text="Submit">
                      <font>
                         <Font size="16.0" />
                      </font>

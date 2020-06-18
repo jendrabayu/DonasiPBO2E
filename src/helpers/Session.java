@@ -52,7 +52,7 @@ public class Session {
 
             Element roles = doc.createElement("role");
             rootElement.appendChild(roles);
-            roles.setTextContent(user.getRole());
+            roles.setTextContent(String.valueOf(user.getRole()));
             
             Element created_at = doc.createElement("created_at");
             rootElement.appendChild(created_at);
@@ -100,7 +100,7 @@ public class Session {
                 String no_telp = doc.getElementsByTagName("no_telp").item(0).getTextContent();
                 String alamat = doc.getElementsByTagName("alamat").item(0).getTextContent();
                 String password = doc.getElementsByTagName("password").item(0).getTextContent();
-                String roles = doc.getElementsByTagName("role").item(0).getTextContent();
+                int role = Integer.parseInt(doc.getElementsByTagName("role").item(0).getTextContent());
                 String created_at = doc.getElementsByTagName("created_at").item(0).getTextContent();
                 String updated_at = doc.getElementsByTagName("updated_at").item(0).getTextContent();                   
                 
@@ -110,7 +110,7 @@ public class Session {
                 UserModel.setNo_telp(no_telp);
                 UserModel.setAlamat(alamat);
                 UserModel.setPassword(password);
-                UserModel.setRole(roles);
+                UserModel.setRole(role);
                 UserModel.setCreated_at(created_at);
                 UserModel.setUpdated_at(updated_at);
                 

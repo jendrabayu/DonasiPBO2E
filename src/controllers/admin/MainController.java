@@ -88,7 +88,7 @@ public class MainController implements Initializable {
     @FXML
     void penyaluranMakanan(ActionEvent event) {
         menuTitle.setText("Penyaluran Makanan");
-        //
+        changeFxml("makanan/PenyaluranMakanan");
     }
     
     @FXML

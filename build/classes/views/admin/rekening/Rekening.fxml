@@ -17,7 +17,7 @@
    <children>
       <HBox alignment="CENTER" layoutX="658.0" layoutY="36.0" prefHeight="50.0" spacing="10.0">
          <children>
-            <JFXButton onAction="#addRekening" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #3abaf4; -fx-text-fill: #fff;" text="Tambah">
+            <JFXButton onAction="#add" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #3abaf4; -fx-text-fill: #fff;" text="Tambah">
                <font>
                   <Font size="15.0" />
                </font>
@@ -25,7 +25,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton onAction="#editRekening" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #ffa426; -fx-text-fill: #fff;" text="Edit">
+            <JFXButton onAction="#edit" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #ffa426; -fx-text-fill: #fff;" text="Edit">
                <font>
                   <Font size="15.0" />
                </font>
@@ -33,7 +33,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </JFXButton>
-            <JFXButton onAction="#deleteRekening" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #fc544b; -fx-text-fill: #fff;" text="Hapus">
+            <JFXButton onAction="#delete" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #fc544b; -fx-text-fill: #fff;" text="Hapus">
                <font>
                   <Font size="15.0" />
                </font>
@@ -49,11 +49,9 @@
       <TableView fx:id="table" layoutX="38.0" layoutY="94.0" prefHeight="400.0" prefWidth="900.0">
          <columns>
             <TableColumn fx:id="colNo" prefWidth="49.0" style="-fx-font-size: 15px;" text="No." />
-            <TableColumn fx:id="colNamaBank" prefWidth="200.0" style="-fx-font-size: 15px;" text="Nama Bank" />
-            <TableColumn prefWidth="200.0" style="-fx-font-size: 15px;" text="Atas Nama" />
-            <TableColumn fx:id="colNoRekening" prefWidth="200.0" style="-fx-font-size: 15px;" text="Nomor Rekening" />
-            <TableColumn fx:id="colCreatedAt" prefWidth="125.0" style="-fx-font-size: 15px;" text="Created At" />
-            <TableColumn fx:id="colUpdatedAt" prefWidth="125.0" style="-fx-font-size: 15px;" text="Updated At" />
+            <TableColumn fx:id="colNamaBank" prefWidth="250.0" style="-fx-font-size: 15px;" text="Nama Bank" />
+            <TableColumn fx:id="colAtasNama" prefWidth="300.0" style="-fx-font-size: 15px;" text="Atas Nama" />
+            <TableColumn fx:id="colNoRekening" prefWidth="300.0" style="-fx-font-size: 15px;" text="Nomor Rekening" />
          </columns>
       </TableView>
    </children>

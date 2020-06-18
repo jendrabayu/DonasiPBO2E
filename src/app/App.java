@@ -15,10 +15,9 @@ public class App extends Application {
     public void start(Stage stage) throws Exception {
 
         if (Session.cekSession() == 1) {         
-            System.out.println(UserModel.getRole());
-            if (UserModel.getRole().equals("ADMIN")) {
+            if (UserModel.getRole() == 1) {
                 loadFxml("admin", 1200, 700);              
-            }else if(UserModel.getRole().equals("USER")){
+            }else if(UserModel.getRole() == 2){
                 loadFxml("user", 1000, 670);
             }
             

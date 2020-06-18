@@ -22,6 +22,7 @@ public class DBHandler {
         } catch (SQLException e) {
             System.err.println("Koneksi Gagal");
             e.printStackTrace();
+            
         }
         
         return conn;

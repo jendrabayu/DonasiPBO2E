@@ -78,5 +78,10 @@ public class MyHelper {
         Date date = new Date(System.currentTimeMillis());
         return formatter.format(date);
     }
+    
+    public static String getCurrentTimeStamp(){
+        SimpleDateFormat timeStamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return timeStamp.format(new Date());
+    }
 
 }

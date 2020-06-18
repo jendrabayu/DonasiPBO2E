@@ -56,19 +56,23 @@ public class AuthController implements Initializable {
     
     @FXML
     void login(ActionEvent event) throws IOException, SQLException {
+           
+        Stage stage = (Stage) mainPane.getScene().getWindow();
         if (email.getText().equals("") || password.getText().equals("")) {
             Dialog.alertWarning("Email atau Password tidak boleh kosong!");
         }else{
             if (MyHelper.checkConnection() == 1) {
-                String role = UserModel.getRole(email.getText(), password.getText());
-                if (! role.equals("")) {
-                    if (role.equals("ADMIN")) {        
+                int role = UserModel.getRole(email.getText(), password.getText());
+                if (role != 0) {
+                    if (role == 1) {        
                         UserModel.CreateSession();
+                        stage.close();
                         loadFxml("admin",1200,700);
-                    }else if(role.equals("USER")){     
-                        System.out.println(UserModel.getId());
-                        loadFxml("user",1000,670);
+                    }else if(role == 2){     
                         UserModel.CreateSession();
+                        stage.close();
+                        loadFxml("user",1000,670);
+                        
                     }
                 }else{
                     Dialog.alertError("Email atau kata sandi tidak valid!");
@@ -88,7 +92,7 @@ public class AuthController implements Initializable {
             if (!password.getText().equals(repassword.getText())) {
                 Dialog.alertWarning("Password harus sama!");
             }else{
-                if (UserModel.create(nama.getText(), email.getText(), telepon.getText() ,alamat.getText(), password.getText())) {
+                if (UserModel.store(nama.getText(), email.getText(), telepon.getText() ,alamat.getText(), password.getText())) {
                     Dialog.alertSuccess("Registrasi Berhasil! Silahkan Login :)");
                     changeFxml("Login");
                 }else{
@@ -114,8 +118,8 @@ public class AuthController implements Initializable {
            
     }    
  
-       private void loadFxml(String role, int width, int height) throws IOException{
-        
+    private void loadFxml(String role, int width, int height) throws IOException{
+
         Stage stage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/views/"+role+"/Main.fxml"));
         Scene scene = new Scene(root);

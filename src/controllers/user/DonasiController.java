@@ -26,14 +26,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import models.MakananModel;
 import models.RekeningModel;
 
@@ -44,11 +42,9 @@ public class DonasiController implements Initializable {
 
     @FXML
     private AnchorPane mainPane;
-    
-    
+       
     @FXML
     private HBox hboxContainer;
-
 
     @FXML
     private JFXTextField nama_makanan;
@@ -79,33 +75,32 @@ public class DonasiController implements Initializable {
 
     
     
-    
     //Makanan
     @FXML
-    private TableView<MakananModel> tabel_makanan;
+    private TableView<Makanan> tabel_makanan;
 
     @FXML
-    private TableColumn<MakananModel, Integer> col_mkn_no;
+    private TableColumn<Makanan, Number> col_mkn_no;
 
     @FXML
-    private TableColumn<MakananModel, String> col_mkn_date;
+    private TableColumn<Makanan, String> col_mkn_date;
 
     @FXML
-    private TableColumn<MakananModel, String> col_mkn_nama;
+    private TableColumn<Makanan, String> col_mkn_nama;
 
     @FXML
-    private TableColumn<MakananModel, String> col_mkn_jumlah;
+    private TableColumn<Makanan, Number> col_mkn_jumlah;
 
     @FXML
-    private TableColumn<MakananModel, String> col_mkn_expdate;
+    private TableColumn<Makanan, String> col_mkn_expdate;
 
     @FXML
-    private TableColumn<MakananModel, String> col_mkn_status;
+    private TableColumn<Makanan, String> col_mkn_status;
 
     @FXML
-    private TableColumn<MakananModel, String> col_mkn_keterangan;
+    private TableColumn<Makanan, String> col_mkn_keterangan;
     
-    private ObservableList<MakananModel> listMakanan;
+    private ObservableList<Makanan> listMakanan;
     
     
     //uang
@@ -137,21 +132,27 @@ public class DonasiController implements Initializable {
         listUang = FXCollections.observableArrayList();
          
 
-        ResultSet rs = DBHelper.selectAll("uang", 
-         String.format("user_id = '%s'", UserModel.getId()), 
-         "rekening", 
-         "rekening_id");
+        ResultSet rs = DBHelper.query(String.format(
+                "SELECT DATE(uang.created_at) as tanggal, "
+                        + "CONCAT_WS('-', uang.nama_bank, uang.atas_nama, uang.no_rekening) as rekening_user, "
+                        + "CONCAT_WS('-', rekening.nama_bank, rekening.atas_nama, rekening.no_rekening) as rekening, "
+                        + "uang.jumlah as jumlah, "
+                        + "status.nama as status "
+                        + "FROM uang JOIN status ON uang.status_id = status.id "
+                        + "JOIN rekening ON uang.rekening_id = rekening.id "
+                        + "WHERE uang.user_id = '%s'"
+                , UserModel.getId()));
         
         try {
             int no = 0;
             while (rs.next()) {                    
                 listUang.add(new Uang(
                         1+no++, 
-                        rs.getString("uang.created_at"), 
-                        rs.getString("uang.no_rekening"), 
-                        rs.getString("rekening.nama_bank")+" - "+rs.getString("rekening.no_rekening"), 
-                        MyHelper.rupiahFormat(rs.getString("uang.jumlah")), 
-                        rs.getString("uang.status")
+                        rs.getString("tanggal"), 
+                        rs.getString("rekening_user"), 
+                        rs.getString("rekening"), 
+                        MyHelper.rupiahFormat(rs.getString("jumlah")), 
+                        rs.getString("status")
                 ));   
             }
             
@@ -166,15 +167,9 @@ public class DonasiController implements Initializable {
         
             
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("eror"+e);;
         }
         
-       
-       
-        
-                
-     
-     
     }
 
     
@@ -183,24 +178,48 @@ public class DonasiController implements Initializable {
         
         listMakanan = FXCollections.observableArrayList();
         
-        ArrayList<MakananModel> makanans = new ArrayList<MakananModel>();
-        makanans = MakananModel.get(UserModel.getId());
-        for(MakananModel makanan : makanans){
-            listMakanan.add(makanan);
-        }
+        ResultSet rs = DBHelper.query(String.format(
+                "SELECT DATE(makanan.created_at) as tanggal, "
+                        + "makanan.id as id, "
+                        + "makanan.nama as makanan, "
+                        + "makanan.jumlah as jumlah, "
+                        + "makanan.expired_date as exp, "
+                        + "makanan.keterangan as keterangan, "
+                        + "status.nama as status "
+                        + "FROM makanan JOIN status ON makanan.status_id = status.id "
+                        + "WHERE makanan.user_id = '%s'"
+                , UserModel.getId()));
         
         try {
-            col_mkn_no.setCellValueFactory(new PropertyValueFactory<>("id"));
-            col_mkn_date.setCellValueFactory(new PropertyValueFactory<>("created_at"));
-            col_mkn_nama.setCellValueFactory(new PropertyValueFactory<>("nama"));
-            col_mkn_jumlah.setCellValueFactory(new PropertyValueFactory<>("jumlah_awal"));
-            col_mkn_expdate.setCellValueFactory(new PropertyValueFactory<>("expired_date"));
-            col_mkn_status.setCellValueFactory(new PropertyValueFactory<>("status"));
-            col_mkn_keterangan.setCellValueFactory(new PropertyValueFactory<>("keterangan"));
-            tabel_makanan.setItems(listMakanan);
-        } catch (Exception e) {
+            int no = 0;
+            while (rs.next()) {                    
+                listMakanan.add(new Makanan(
+                        rs.getInt("id"), 
+                        1+no++, 
+                        rs.getInt("jumlah"), 
+                        rs.getString("tanggal"), 
+                        rs.getString("makanan"), 
+                        rs.getString("exp"), 
+                        rs.getString("keterangan"), 
+                        rs.getString("status")
+                ));   
+            }
             
+            col_mkn_no.setCellValueFactory(cellData -> cellData.getValue().getNo());
+            col_mkn_date.setCellValueFactory(cellData -> cellData.getValue().getTanggal());
+            col_mkn_nama.setCellValueFactory(cellData -> cellData.getValue().getMakanan());
+            col_mkn_jumlah.setCellValueFactory(cellData -> cellData.getValue().getJumlah());
+            col_mkn_expdate.setCellValueFactory(cellData -> cellData.getValue().getExp());
+            col_mkn_status.setCellValueFactory(cellData -> cellData.getValue().getStatus());
+            col_mkn_keterangan.setCellValueFactory(cellData -> cellData.getValue().getKeterangan());
+            tabel_makanan.setItems(listMakanan);
+            
+                   
+        } catch (Exception e) {
+            System.err.println(e);;
         }
+        
+   
     }
     
     
@@ -327,7 +346,7 @@ class Uang {
             status;
 
     public Uang(int no, String createdAt, String rekeningFrom, String rekeningTo, String jumlah, String status) {
-        this.no =  new SimpleIntegerProperty(no);;
+        this.no =  new SimpleIntegerProperty(no);
         this.createdAt =  new SimpleStringProperty(createdAt);
         this.rekeningFrom =  new SimpleStringProperty(rekeningFrom);
         this.rekeningTo =  new SimpleStringProperty(rekeningTo);
@@ -387,6 +406,89 @@ class Uang {
     
 }
 
+
+class Makanan {
+    IntegerProperty id, no, jumlah;
+    StringProperty tanggal, makanan, exp, keterangan, status;
+
+    public Makanan(int id, int no, int jumlah, String tanggal, String makanan, String exp, String keterangan, String status) {
+        this.id =  new SimpleIntegerProperty(id);
+        this.no = new SimpleIntegerProperty(no);
+        this.jumlah = new SimpleIntegerProperty(jumlah);;
+        this.tanggal = new SimpleStringProperty(tanggal);
+        this.makanan = new SimpleStringProperty(makanan);
+        this.exp = new SimpleStringProperty(exp);
+        this.keterangan = new SimpleStringProperty(keterangan);
+        this.status = new SimpleStringProperty(status);
+    }
+
+    public IntegerProperty getId() {
+        return id;
+    }
+
+    public void setId(IntegerProperty id) {
+        this.id = id;
+    }
+
+    public IntegerProperty getNo() {
+        return no;
+    }
+
+    public void setNo(IntegerProperty no) {
+        this.no = no;
+    }
+
+    public IntegerProperty getJumlah() {
+        return jumlah;
+    }
+
+    public void setJumlah(IntegerProperty jumlah) {
+        this.jumlah = jumlah;
+    }
+
+    public StringProperty getTanggal() {
+        return tanggal;
+    }
+
+    public void setTanggal(StringProperty tanggal) {
+        this.tanggal = tanggal;
+    }
+
+    public StringProperty getMakanan() {
+        return makanan;
+    }
+
+    public void setMakanan(StringProperty makanan) {
+        this.makanan = makanan;
+    }
+
+    public StringProperty getExp() {
+        return exp;
+    }
+
+    public void setExp(StringProperty exp) {
+        this.exp = exp;
+    }
+
+    public StringProperty getKeterangan() {
+        return keterangan;
+    }
+
+    public void setKeterangan(StringProperty keterangan) {
+        this.keterangan = keterangan;
+    }
+
+    public StringProperty getStatus() {
+        return status;
+    }
+
+    public void setStatus(StringProperty status) {
+        this.status = status;
+    }
+    
+    
+    
+}
 
 
 

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="630.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.PenyaluranUangController">
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="630.0" prefWidth="975.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.PenyaluranMakananController">
    <children>
       <VBox layoutX="38.0" layoutY="50.0" prefHeight="530.0" prefWidth="900.0" spacing="20.0">
          <children>
@@ -19,20 +19,26 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <TableView prefHeight="400.0" prefWidth="900.0">
+            <TableView fx:id="table" prefHeight="400.0" prefWidth="900.0">
                <columns>
-                  <TableColumn prefWidth="40.0" text="No" />
-                  <TableColumn prefWidth="130.0" text="Nama" />
-                  <TableColumn prefWidth="120.0" text="Email" />
-                  <TableColumn prefWidth="120.0" text="No. Telp / Wa" />
-                  <TableColumn minWidth="0.0" prefWidth="221.0" text="Alamat" />
-                  <TableColumn minWidth="0.0" prefWidth="169.0" text="Nama Makanan" />
-                  <TableColumn minWidth="0.0" prefWidth="99.0" text="Jumlah / Porsi" />
+                  <TableColumn fx:id="colNo" prefWidth="30.0" text="No" />
+                  <TableColumn prefWidth="442.00001525878906" text="Penerima">
+                     <columns>
+                        <TableColumn fx:id="colNama" prefWidth="100.0" text="Nama" />
+                        <TableColumn fx:id="colEmail" prefWidth="100.0" text="Email" />
+                        <TableColumn fx:id="colTelp" prefWidth="100.0" text="Telepon" />
+                        <TableColumn fx:id="colJmlOrg" prefWidth="75.0" text="Jumlah Org" />
+                        <TableColumn fx:id="colAlamat" prefWidth="220.0" text="Alamat" />
+                     </columns>
+                  </TableColumn>
+                  <TableColumn fx:id="colmakanan" prefWidth="130.0" text="Makanan" />
+                  <TableColumn fx:id="colJumlah" prefWidth="50.0" text="Jumlah" />
+                  <TableColumn fx:id="colExpired" prefWidth="94.0" text="Tgl Expired" />
                </columns>
             </TableView>
             <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="900.0" spacing="10.0">
                <children>
-                  <JFXButton prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #fc544b; -fx-text-fill: #fff;" text="Hapus">
+                  <JFXButton onAction="#delete" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #fc544b; -fx-text-fill: #fff;" text="Hapus">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -40,7 +46,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton onAction="#addPenyaluranUang" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #3abaf4; -fx-text-fill: #fff;" text="Tambah">
+                  <JFXButton onAction="#add" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #3abaf4; -fx-text-fill: #fff;" text="Tambah">
                      <font>
                         <Font size="15.0" />
                      </font>

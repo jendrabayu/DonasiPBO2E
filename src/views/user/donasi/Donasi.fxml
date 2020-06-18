@@ -30,13 +30,13 @@
                            <children>
                               <TableView fx:id="tabel_makanan" prefHeight="350.0" prefWidth="820.0">
                                  <columns>
-                                    <TableColumn fx:id="col_mkn_no" prefWidth="50.0" text="No" />
-                                    <TableColumn fx:id="col_mkn_date" prefWidth="120.0" text="Tanggal" />
-                                    <TableColumn fx:id="col_mkn_nama" prefWidth="170.0" text="Nama Makanan" />
-                                    <TableColumn fx:id="col_mkn_jumlah" prefWidth="90.0" text="Jumlah" />
-                                    <TableColumn fx:id="col_mkn_expdate" prefWidth="120.0" text="Tanggal Exp" />
+                                    <TableColumn fx:id="col_mkn_no" prefWidth="35.0" text="No" />
+                                    <TableColumn fx:id="col_mkn_date" prefWidth="90.0" text="Tanggal" />
+                                    <TableColumn fx:id="col_mkn_nama" prefWidth="200.0" text="Nama Makanan" />
+                                    <TableColumn fx:id="col_mkn_jumlah" text="Jumlah" />
+                                    <TableColumn fx:id="col_mkn_expdate" prefWidth="130.0" text="Tgl Kadaluarsa " />
                                     <TableColumn fx:id="col_mkn_keterangan" prefWidth="220.0" text="Keterangan" />
-                                    <TableColumn fx:id="col_mkn_status" prefWidth="129.0" text="Status" />
+                                    <TableColumn fx:id="col_mkn_status" prefWidth="144.0" text="Status" />
                                  </columns>
                               </TableView>
                            </children>
@@ -53,12 +53,12 @@
                            <children>
                               <TableView fx:id="tabel_uang" prefHeight="350.0" prefWidth="820.0">
                                  <columns>
-                                    <TableColumn fx:id="col_uang_no" prefWidth="50.0" text="No" />
-                                    <TableColumn fx:id="col_uang_date" prefWidth="150.0" text="Tanggal" />
-                                    <TableColumn fx:id="col_uang_rekening_from" prefWidth="170.0" text="No. Rekening" />
-                                    <TableColumn fx:id="col_uang_rekening_to" prefWidth="170.0" text="Transfer To" />
-                                    <TableColumn fx:id="col_uang_jumlah" prefWidth="200.0" text="Jumlah" />
-                                    <TableColumn fx:id="col_uang_status" prefWidth="159.0" text="Status" />
+                                    <TableColumn fx:id="col_uang_no" prefWidth="35.0" text="No" />
+                                    <TableColumn fx:id="col_uang_date" prefWidth="90.0" text="Tanggal" />
+                                    <TableColumn fx:id="col_uang_rekening_from" prefWidth="250.0" text="Rekening Anda" />
+                                    <TableColumn fx:id="col_uang_rekening_to" prefWidth="250.0" text="Transfer Ke" />
+                                    <TableColumn fx:id="col_uang_jumlah" prefWidth="130.0" text="Jumlah" />
+                                    <TableColumn fx:id="col_uang_status" prefWidth="144.0" text="Status" />
                                  </columns>
                               </TableView>
                            </children>

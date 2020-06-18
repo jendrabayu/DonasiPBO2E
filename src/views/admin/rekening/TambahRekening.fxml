@@ -23,24 +23,24 @@
                   </Label>
                </children>
             </HBox>
-            <JFXTextField fx:id="namaBankField" prefHeight="50.0" promptText="Nama Bank">
+            <JFXTextField fx:id="fieldNamaBank" prefHeight="50.0" promptText="Nama Bank">
                <font>
                   <Font size="15.0" />
                </font>
             </JFXTextField>
-            <JFXTextField prefHeight="50.0" promptText="Atas Nama">
+            <JFXTextField fx:id="fieldAtasNama" prefHeight="50.0" promptText="Atas Nama">
                <font>
                   <Font size="15.0" />
                </font>
             </JFXTextField>
-            <JFXTextField fx:id="noRekeningField" prefHeight="50.0" promptText="Nomor Rekening">
+            <JFXTextField fx:id="fieldNoRekening" prefHeight="50.0" promptText="Nomor Rekening">
                <font>
                   <Font size="15.0" />
                </font>
             </JFXTextField>
             <HBox alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="300.0" spacing="10.0">
                <children>
-                  <JFXButton onAction="#showRekening" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #ffa426; -fx-text-fill: #fff;" text="Kembali">
+                  <JFXButton onAction="#index" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #ffa426; -fx-text-fill: #fff;" text="Kembali">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
@@ -48,7 +48,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton onAction="#createRekening" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #6777ef; -fx-text-fill: #fff; -fx-cursor: hand;" text="Simpan">
+                  <JFXButton onAction="#store" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #6777ef; -fx-text-fill: #fff; -fx-cursor: hand;" text="Simpan">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>

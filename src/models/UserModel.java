@@ -14,18 +14,17 @@ public class UserModel{
     public static String TABLE = "users";
  
     
-    private static int id;
+    private static int id, role;
     private static String
             nama,
             email,
             no_telp,
             alamat,
             password,
-            role,
             created_at,
             updated_at;
 
-    public UserModel(int id, String nama, String email, String no_telp, String alamat, String password, String role, String created_at, String updated_at ) {
+    public UserModel(int id, String nama, String email, String no_telp, String alamat, String password, int role, String created_at, String updated_at ) {
         UserModel.id = id; 
         UserModel.nama = nama;
         UserModel.email = email;
@@ -42,7 +41,7 @@ public class UserModel{
     }
 
     
-    public static boolean create(String nama, String email, String no_telp, String alamat, String password){
+    public static boolean store(String nama, String email, String no_telp, String alamat, String password){
         Map<String, String> params = new LinkedHashMap<>();
         params.put("`nama`", String.format("'%s'", nama));
         params.put("`email`", String.format("'%s'", email));
@@ -69,13 +68,13 @@ public class UserModel{
         return DBHelper.update(TABLE, params, String.format("id = %s", UserModel.id));
     }
     
-    public static String getRole(String email, String password) throws SQLException{    
+    public static int getRole(String email, String password) throws SQLException{    
         ResultSet rs = DBHelper.selectAll(TABLE, String.format("email = '%s' and password = '%s'", email, MyHelper.getMd5(password)));
         while ( rs.next() ) {
             UserModel.setId(rs.getInt("id"));
-            return rs.getString("roles");                
+            return rs.getInt("role");                
         }  
-        return "";
+        return 0;
     }
     
     public static void CreateSession() throws SQLException{
@@ -88,7 +87,7 @@ public class UserModel{
                    rs.getString("no_telp"), 
                    rs.getString("alamat"),
                    rs.getString("password"), 
-                   rs.getString("roles"), 
+                   rs.getInt("role"), 
                    rs.getString("created_at"), 
                    rs.getString("updated_at"));
                Session.createSession(user);
@@ -144,11 +143,11 @@ public class UserModel{
         UserModel.password = password;
     }
 
-    public static String getRole() {
+    public static int getRole() {
         return role;
     }
 
-    public static void setRole(String role) {
+    public static void setRole(int role) {
         UserModel.role = role;
     }
 

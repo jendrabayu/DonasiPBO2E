@@ -1,6 +1,7 @@
 package models;
 
 import helpers.DBHelper;
+import helpers.MyHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,78 +12,76 @@ import java.util.Map;
 public class RekeningModel {
     
     private final static String TABLE = "rekening";
-    
     private int id;
-    private String namaBank,  noRekening, createdAt, updatedAt;
+    private String namaBank, atasNama, noRekening;
 
-    public RekeningModel(int id, String namaBank, String noRekening, String createdAt, String updatedAt) {
+    public RekeningModel(int id, String namaBank, String atasNama, String noRekening) {
         this.id = id;
         this.namaBank = namaBank;
-        this.noRekening = noRekening;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
-    public RekeningModel(String namaBank, String noRekening) {
-        this.namaBank = namaBank;
+        this.atasNama = atasNama;
         this.noRekening = noRekening;
     }
     
-    
+    public RekeningModel(){
+        
+    }
 
-    public static boolean create(String namaBank, String noRekening){
+    public static boolean store(String namaBank, String atasNama, String noRekening){
         Map<String, String> params = new LinkedHashMap<>();
         params.put("nama_bank", String.format("'%s'", namaBank));
+        params.put("atas_nama", String.format("'%s'", atasNama));
         params.put("no_rekening", String.format("'%s'", noRekening));
         return DBHelper.insert(TABLE, params);
     }
     
     public static boolean delete(int id){
-        return DBHelper.delete(TABLE, Integer.toString(id));
+        Map<String, String> params = new LinkedHashMap<>();
+        params.put("deleted_at", String.format("'%s'", MyHelper.getCurrentTimeStamp() ));
+        return DBHelper.update(TABLE, params, String.format("id = '%s'", id));
     }
     
-    public static boolean update(int id, String namaBank, String noRekening){
+    public static boolean update(int id, String namaBank, String atasNama ,String noRekening){
         Map<String, String> params = new LinkedHashMap<>();
         params.put("nama_bank", String.format("'%s'", namaBank));
+        params.put("atas_nama", String.format("'%s'", atasNama));
         params.put("no_rekening", String.format("'%s'", noRekening));
         return DBHelper.update(TABLE, params, String.format("id = '%s'", id));
     }
     
-    public static String getUpdateAt(int id) throws SQLException{
-        ResultSet rs = DBHelper.selectAll(TABLE, String.format("id = '%s'", id));
-        while (rs.next()) {            
-            return rs.getString("updated_at");
-        }
-        return "";
-    }
     
-    public static ArrayList<RekeningModel> getAll() throws SQLException{
+    public static ArrayList<RekeningModel> getAll(){
         ArrayList<RekeningModel> result = new ArrayList<>();
-        ResultSet rs = DBHelper.selectAll(TABLE);
-        while (rs.next()) {            
-            result.add(new RekeningModel(
+        ResultSet rs = DBHelper.selectAll(TABLE, "deleted_at IS NULL"); 
+        try {
+            while (rs.next()) {            
+                result.add(new RekeningModel(
                     rs.getInt("id"), 
                     rs.getString("nama_bank"), 
-                    rs.getString("no_rekening"),
-                    rs.getString("created_at"),
-                    rs.getString("updated_at")
-            ));
-        } 
+                    rs.getString("atas_nama"),
+                    rs.getString("no_rekening")
+                ));
+            } 
+        } catch (SQLException e) {
+            System.err.println(e);
+        }     
         return result;
     }
     
-    public static ArrayList<RekeningModel> get(int id) throws SQLException{
+    public static ArrayList<RekeningModel> get(int id){
         ArrayList<RekeningModel> result = new ArrayList<>();
-        ResultSet rs = DBHelper.selectAll(TABLE, String.format("id = '%s'", id));
-        while (rs.next()) {            
-            result.add(new RekeningModel(
+        ResultSet rs = DBHelper.selectAll(TABLE, String.format("id = '%s' AND deleted_at IS NULL", id));
+        try {
+            while (rs.next()) {            
+                result.add(new RekeningModel(
                     rs.getInt("id"), 
                     rs.getString("nama_bank"), 
-                    rs.getString("no_rekening"),
-                    rs.getString("created_at"),
-                    rs.getString("updated_at")
-            ));
-        } 
+                    rs.getString("atas_nama"),
+                    rs.getString("no_rekening")    
+                ));
+            } 
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
         return result;
     }
 
@@ -102,6 +101,14 @@ public class RekeningModel {
         this.namaBank = namaBank;
     }
 
+    public String getAtasNama() {
+        return atasNama;
+    }
+
+    public void setAtasNama(String atasNama) {
+        this.atasNama = atasNama;
+    }
+
     public String getNoRekening() {
         return noRekening;
     }
@@ -109,21 +116,9 @@ public class RekeningModel {
     public void setNoRekening(String noRekening) {
         this.noRekening = noRekening;
     }
+    
+    
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
 
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(String updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
 }

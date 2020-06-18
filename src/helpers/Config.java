@@ -11,5 +11,5 @@ public class Config {
     public static final String PORT = "3306";
     public static final String USERNAME = "root";
     public static final String PASSWORD = "";
-    public static final String DATABASE = "donasi";
+    public static final String DATABASE = "pbo_donasi";
 }

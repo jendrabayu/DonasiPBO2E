@@ -8,6 +8,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.IntegerProperty;
@@ -26,6 +29,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
+import models.StatusModel;
 
 
 import models.UangModel;
@@ -36,141 +41,283 @@ public class UangController implements Initializable {
     private static int id;
     
     private static long jumlahUang;
-    
    
-    @FXML
-    private Label totalUangLabel;
+              
+    ObservableList<StatusUang> status = FXCollections.observableArrayList();
     
+    @FXML
+    private JFXComboBox<StatusUang> statusComboBox;
+    
+    private static int selectedStatus;
+
     @FXML
     private AnchorPane mainPane;
     
     @FXML
-    private JFXComboBox<String> statusComboBox;
+    private Label totalUangLabel;
+
+    //Table dengan status_id = 1
+    @FXML
+    private TableView<Uang> table;
+
+    @FXML
+    private TableColumn<Uang, Number> colNo;
+
+    @FXML
+    private TableColumn<Uang, String> colDate;
+
+    @FXML
+    private TableColumn<Uang, String> colBank;
+
+    @FXML
+    private TableColumn<Uang, String> colAtasNama;
+
+    @FXML
+    private TableColumn<Uang, String> colNoRekening;
+
+    @FXML
+    private TableColumn<Uang, String> colJumlah;
+
+    @FXML
+    private TableColumn<Uang, String> colBankAdmin;
+
+    @FXML
+    private TableColumn<Uang, String> colAtasnamaAdmin;
+
+    @FXML
+    private TableColumn<Uang, String> colNoRekeningAdmin;
+    
+    ObservableList<Uang> uang = FXCollections.observableArrayList();
+    
+    //Table dengan status_id = 1 & 2
+    @FXML
+    private TableView<Uang> table2;
+
+    @FXML
+    private TableColumn<Uang, Number> colNo2;
+
+    @FXML
+    private TableColumn<Uang, String> colDate2;
+
+    @FXML
+    private TableColumn<Uang, String> colBank2;
+
+    @FXML
+    private TableColumn<Uang, String> colAtasNama2;
+
+    @FXML
+    private TableColumn<Uang, String> colNoRekening2;
+
+    @FXML
+    private TableColumn<Uang, String> colJumlah2;
+
+    @FXML
+    private TableColumn<Uang, String> colBankAdmin2;
+
+    @FXML
+    private TableColumn<Uang, String> colAtasnamaAdmin2;
+
+    @FXML
+    private TableColumn<Uang, String> colNoRekeningAdmin2;
     
     @FXML
-    private TableView<DataUang> tabelUangMasuk;
-
-    @FXML
-    private TableColumn<DataUang, Number> col_no;
-
-    @FXML
-    private TableColumn<DataUang, String> col_date;
-
-    @FXML
-    private TableColumn<DataUang, String> col_donatur_name;
-
-    @FXML
-    private TableColumn<DataUang, String> col_transfer_from;
-
-    @FXML
-    private TableColumn<DataUang, String> col_transfer_to;
-
-    @FXML
-    private TableColumn<DataUang, String> col_jumlah;
-
-    @FXML
-    private TableColumn<DataUang, String> col_status;
+    private TableColumn<Uang, String> colStatus2;
     
-    ObservableList<DataUang> listUangMasuk = FXCollections.observableArrayList();
+    ObservableList<Uang> uang2 = FXCollections.observableArrayList();
     
-    ObservableList<String> listStatus = FXCollections.observableArrayList("DIPROSES","SELESAI","GAGAL");
-
-    
-    private void initTableUangMasuk(){
-        ResultSet rs = DBHelper.query(
-        
-        "SELECT * "
-                + "FROM users "
-                + "JOIN uang ON users.id = uang.user_id "
-                + "JOIN rekening ON uang.rekening_id = rekening.id "
-                + "WHERE status = 'DIPROSES'"        
-        );
-        
-        try {
-            int no = 0;
-            while (rs.next()) {                
-                listUangMasuk.add(new DataUang(
-                        rs.getInt("uang.id"),
-                        1+no++, 
-                        rs.getString("uang.created_at"), 
-                        rs.getString("users.nama"), 
-                        rs.getString("uang.no_rekening"), 
-                        rs.getString("rekening.nama_bank")+" - "+rs.getString("rekening.no_rekening"), 
-                        MyHelper.rupiahFormat(rs.getString("uang.jumlah")), 
-                        rs.getString("uang.jumlah"),
-                        rs.getString("uang.status")) );
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        col_no.setCellValueFactory(cellData -> cellData.getValue().getNo());
-        col_date.setCellValueFactory(cellData -> cellData.getValue().getCreatedAt());
-        col_donatur_name.setCellValueFactory(cellData -> cellData.getValue().getDonaturName());
-        col_transfer_from.setCellValueFactory(cellData -> cellData.getValue().getRekeningFrom());
-        col_transfer_to.setCellValueFactory(cellData -> cellData.getValue().getRekeningTo());
-        col_jumlah.setCellValueFactory(cellData -> cellData.getValue().getJumlah());
-        col_status.setCellValueFactory(cellData -> cellData.getValue().getStatus());
-        tabelUangMasuk.setItems(listUangMasuk);
+    @FXML
+    void index(ActionEvent event) {
+        changeFxml("Uang");
     }
 
-   
+    @FXML
+    void update(ActionEvent event) {
+        
+        if (UangController.id > 0 && selectedStatus > 0) {
+            Map<String, String> params = new LinkedHashMap<>();
+            params.put("status_id", String.format("'%s'", selectedStatus));   
+            if (DBHelper.update("uang", params, String.format("id = '%s'", UangController.id))) {
+                if (selectedStatus == 3) {
+                    Map<String, String> params2 = new LinkedHashMap<>();
+                    params2.put("total", String.format("'%s'", UangModel.getTotal()+jumlahUang)); 
+                    DBHelper.update("total_uang", params2, String.format("id = '%s'", 1));
+                }
+                
+                Dialog.alertSuccess("Status uang berhasil di update");
+                jumlahUang = 0;
+                selectedStatus = 0;
+                changeFxml("Uang");
+                
+               
+                
+            }else{
+                Dialog.alertError("Status uang gagal di update");
+            }
+        }
+    }
+
     
     @FXML
-    void showUbahStatus(ActionEvent event) {
-        UangController.id = -1;
-        int selectedIndex = tabelUangMasuk.getSelectionModel().getSelectedIndex();
-        System.out.println(selectedIndex);
+    void edit(ActionEvent event) {
+        int selectedIndex = table.getSelectionModel().getSelectedIndex();
         if(selectedIndex >= 0){
-            DataUang uang = tabelUangMasuk.getItems().get(selectedIndex);
-
+            Uang uang = table.getItems().get(selectedIndex);
             UangController.id = uang.getId().getValue();
-          
-            UangController.jumlahUang = Long.parseLong(uang.getJumlahNumber().getValue());
-
+            UangController.jumlahUang = Long.parseLong(uang.getJumlah().getValue());
             changeFxml("EditStatus");
         }else{
             Dialog.alertWarning("Mohon klik row yang dipilih");
         } 
     }
+    
 
-    @FXML
-    void handleUbahStatus(ActionEvent event) {
-        String status = statusComboBox.getSelectionModel().getSelectedItem();
+    private void initStatus(){
+        ArrayList<StatusModel> statuss = StatusModel.getAll();
+        for(StatusModel s : statuss){
+            status.add(new StatusUang(s.getId(), s.getStatus()));
+        }
         
-        if(status.equals("SELESAI")){
-            if (UangModel.updateStatus(status, UangController.id, UangController.jumlahUang + UangModel.getTotal()) == 1) {
-                Dialog.alertSuccess(String.format("Berhasil menambahkan uang sebannyak Rp.%s"
-                        + "Total uang : Rp.%s", UangController.jumlahUang, UangModel.getTotal()));
-                changeFxml("Uang");
-                UangController.jumlahUang = 0;
-            }else{
-                Dialog.alertError("Terjadi Keslahan...");
-                changeFxml("Uang");
-                UangController.jumlahUang = 0;
+        try {
+            statusComboBox.setItems(status);
+            statusComboBox.setConverter(new StringConverter<StatusUang>(){
+            @Override
+            public String toString(StatusUang object) {
+               return object.getNama();
             }
+
+            @Override
+            public StatusUang fromString(String string) {
+                 return statusComboBox.getItems().stream().filter(ap -> 
+                     ap.getNama().equals(string)).findFirst().orElse(null);
+            }
+
+        });
+           
+        statusComboBox.valueProperty().addListener((obs, oldval, newval) -> {
+            if (newval != null) {
+               selectedStatus = newval.getId();
+            }
+        });
+        } catch (Exception e) {
+            System.err.println(e);
+        }
+    }
+    
+    private void initTable(){
+        ResultSet rs = DBHelper.query(""
+                + "SELECT "
+                + "DATE(uang.created_at) as date, "
+                + "uang.id as id, "
+                + "uang.nama_bank as bank, "
+                + "uang.atas_nama as atasNama, "
+                + "uang.no_rekening as norek, "
+                + "uang.jumlah as jumlah, "
+                + "rekening.nama_bank as bankAdmin, "
+                + "rekening.atas_nama as atasNamaAdmin, "
+                + "rekening.no_rekening as noRekAdmin "
+                + "FROM uang join rekening on uang.rekening_id = rekening.id "
+                + "WHERE status_id = '1' "
+                + "ORDER BY uang.created_at DESC");
+         
+        try {
+            int no = 1;
+            while (rs.next()) {                
+                uang.add(new Uang(
+                    no++, 
+                    rs.getInt("id"), 
+                    rs.getString("date"), 
+                    rs.getString("bank"), 
+                    rs.getString("atasNama"), 
+                    rs.getString("norek"), 
+                    rs.getString("jumlah"), 
+                    rs.getString("bankAdmin"), 
+                    rs.getString("atasNamaAdmin"), 
+                    rs.getString("noRekAdmin")
+                ));
+            }
+            
+            try {
+                
+                table.setItems(uang);
+                colNo.setCellValueFactory(cellData -> cellData.getValue().getNo());
+                colDate.setCellValueFactory(cellData -> cellData.getValue().getDate());
+                colBank.setCellValueFactory(cellData -> cellData.getValue().getBank());
+                colAtasNama.setCellValueFactory(cellData -> cellData.getValue().getAtasNama());
+                colNoRekening.setCellValueFactory(cellData -> cellData.getValue().getNoRekening());
+                colJumlah.setCellValueFactory(cellData -> cellData.getValue().getJumlah());
+                colBankAdmin.setCellValueFactory(cellData -> cellData.getValue().getBankAdmin());
+                colAtasnamaAdmin.setCellValueFactory(cellData -> cellData.getValue().getAtasNamaAdmin());
+                colNoRekeningAdmin.setCellValueFactory(cellData -> cellData.getValue().getNoRekeningAdmin());
         
-        }else if (status.equals("GAGAL")) {
-            if (UangModel.updateStatus(status, UangController.id, UangController.jumlahUang + UangModel.getTotal()) == 1) {
-                Dialog.alertSuccess("Status berhasil di update");
-                changeFxml("Uang");
-                UangController.jumlahUang = 0;
-            }else{
-                Dialog.alertError("Terjadi Keslahan...");
-                changeFxml("Uang");
-                UangController.jumlahUang = 0;
+                
+            } catch (Exception e) {
+                System.err.println(e);
             }
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+    }
+    
+    
+    private void initTable2(){
+         ResultSet rs = DBHelper.query(""
+                + "SELECT "
+                + "DATE(uang.created_at) as date, "
+                + "uang.id as id, "
+                + "uang.nama_bank as bank, "
+                + "uang.atas_nama as atasNama, "
+                + "uang.no_rekening as norek, "
+                + "uang.jumlah as jumlah, "
+                + "rekening.nama_bank as bankAdmin, "
+                + "rekening.atas_nama as atasNamaAdmin, "
+                + "rekening.no_rekening as noRekAdmin, "
+                + "status.nama as status "
+                + "FROM uang JOIN rekening ON uang.rekening_id = rekening.id "
+                + "JOIN status on uang.status_id = status.id "
+                + "WHERE status_id <> '1' "
+                + "ORDER BY uang.created_at DESC");
+         
+        try {
+            int no = 1;
+            while (rs.next()) {                
+                uang2.add(new Uang(
+                    no++, 
+                    rs.getInt("id"), 
+                    rs.getString("date"), 
+                    rs.getString("bank"), 
+                    rs.getString("atasNama"), 
+                    rs.getString("norek"), 
+                    rs.getString("jumlah"), 
+                    rs.getString("bankAdmin"), 
+                    rs.getString("atasNamaAdmin"), 
+                    rs.getString("noRekAdmin"),
+                    rs.getString("status")
+                ));
+            }
+            
+            try {
+                
+                table2.setItems(uang2);
+                colNo2.setCellValueFactory(cellData -> cellData.getValue().getNo());
+                colDate2.setCellValueFactory(cellData -> cellData.getValue().getDate());
+                colBank2.setCellValueFactory(cellData -> cellData.getValue().getBank());
+                colAtasNama2.setCellValueFactory(cellData -> cellData.getValue().getAtasNama());
+                colNoRekening2.setCellValueFactory(cellData -> cellData.getValue().getNoRekening());
+                colJumlah2.setCellValueFactory(cellData -> cellData.getValue().getJumlah());
+                colBankAdmin2.setCellValueFactory(cellData -> cellData.getValue().getBankAdmin());
+                colAtasnamaAdmin2.setCellValueFactory(cellData -> cellData.getValue().getAtasNamaAdmin());
+                colNoRekeningAdmin2.setCellValueFactory(cellData -> cellData.getValue().getNoRekeningAdmin());
+                colStatus2.setCellValueFactory(cellData -> cellData.getValue().getStatus());
+        
+                
+            } catch (Exception e) {
+                System.err.println(e);
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
         }
     }
 
-    @FXML
-    void showUang(ActionEvent event) {
-        changeFxml("Uang");
-        UangController.id = -1;
-        UangController.jumlahUang = 0;
-    }
-    
-    
    
     private void changeFxml(String file){
         mainPane.setOpacity(0);
@@ -194,54 +341,53 @@ public class UangController implements Initializable {
       
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            statusComboBox.setItems(listStatus);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        initTable();
+        initTable2();
+        initStatus();
         
         try {
-            initTableUangMasuk();
             totalUangLabel.setText(MyHelper.rupiahFormat(Long.toString(UangModel.getTotal())));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }    
+    
 }
 
 
-class DataUang {
+class Uang{
     
     IntegerProperty no, id;
-    StringProperty
-            createdAt,
-            donaturName,
-            rekeningFrom,
-            rekeningTo,
-            jumlah,
-            jumlahNumber,
-            status;
+    StringProperty date, bank, atasNama, noRekening, jumlah;
+    StringProperty bankAdmin, atasNamaAdmin, noRekeningAdmin;
+    StringProperty status;
 
-    public DataUang(int id, int no,  String createdAt, String donaturName, String rekeningFrom, String rekeningTo, String jumlah, String jumlahNumber,  String status) {
-        this.id =  new SimpleIntegerProperty(id);
-        this.no =  new SimpleIntegerProperty(no);
-        this.createdAt =  new SimpleStringProperty(createdAt);
-        this.donaturName =  new SimpleStringProperty(donaturName);
-        this.rekeningFrom =  new SimpleStringProperty(rekeningFrom);
-        this.rekeningTo =  new SimpleStringProperty(rekeningTo);
-        this.jumlah =  new SimpleStringProperty(jumlah);
-        this.jumlahNumber =  new SimpleStringProperty(jumlahNumber);
-        this.status =  new SimpleStringProperty(status);
+    public Uang(int no, int id, String date, String bank, String atasNama, String noRekening, String jumlah, String bankAdmin, String atasNamaAdmin, String noRekeningAdmin, String status) {
+        this.no = new SimpleIntegerProperty(no);
+        this.id = new SimpleIntegerProperty(id);
+        this.date = new SimpleStringProperty(date);
+        this.bank = new SimpleStringProperty(bank);
+        this.atasNama = new SimpleStringProperty(atasNama);
+        this.noRekening = new SimpleStringProperty(noRekening);
+        this.jumlah = new SimpleStringProperty(jumlah);
+        this.bankAdmin = new SimpleStringProperty(bankAdmin);
+        this.atasNamaAdmin = new SimpleStringProperty(atasNamaAdmin);
+        this.noRekeningAdmin = new SimpleStringProperty(noRekeningAdmin);
+        this.status = new SimpleStringProperty(status);
     }
     
-    public IntegerProperty getId() {
-        return id;
+    public Uang(int no, int id, String date, String bank, String atasNama, String noRekening, String jumlah, String bankAdmin, String atasNamaAdmin, String noRekeningAdmin) {
+        this.no = new SimpleIntegerProperty(no);
+        this.id = new SimpleIntegerProperty(id);
+        this.date = new SimpleStringProperty(date);
+        this.bank = new SimpleStringProperty(bank);
+        this.atasNama = new SimpleStringProperty(atasNama);
+        this.noRekening = new SimpleStringProperty(noRekening);
+        this.jumlah = new SimpleStringProperty(jumlah);
+        this.bankAdmin = new SimpleStringProperty(bankAdmin);
+        this.atasNamaAdmin = new SimpleStringProperty(atasNamaAdmin);
+        this.noRekeningAdmin = new SimpleStringProperty(noRekeningAdmin);
     }
-
-    public void setId(IntegerProperty id) {
-        this.id = id;
-    }
-
 
     public IntegerProperty getNo() {
         return no;
@@ -251,36 +397,44 @@ class DataUang {
         this.no = no;
     }
 
-    public StringProperty getCreatedAt() {
-        return createdAt;
+    public IntegerProperty getId() {
+        return id;
     }
 
-    public void setCreatedAt(StringProperty createdAt) {
-        this.createdAt = createdAt;
+    public void setId(IntegerProperty id) {
+        this.id = id;
     }
 
-    public StringProperty getDonaturName() {
-        return donaturName;
+    public StringProperty getDate() {
+        return date;
     }
 
-    public void setDonaturName(StringProperty donaturName) {
-        this.donaturName = donaturName;
+    public void setDate(StringProperty date) {
+        this.date = date;
     }
 
-    public StringProperty getRekeningFrom() {
-        return rekeningFrom;
+    public StringProperty getBank() {
+        return bank;
     }
 
-    public void setRekeningFrom(StringProperty rekeningFrom) {
-        this.rekeningFrom = rekeningFrom;
+    public void setBank(StringProperty bank) {
+        this.bank = bank;
     }
 
-    public StringProperty getRekeningTo() {
-        return rekeningTo;
+    public StringProperty getAtasNama() {
+        return atasNama;
     }
 
-    public void setRekeningTo(StringProperty rekeningTo) {
-        this.rekeningTo = rekeningTo;
+    public void setAtasNama(StringProperty atasNama) {
+        this.atasNama = atasNama;
+    }
+
+    public StringProperty getNoRekening() {
+        return noRekening;
+    }
+
+    public void setNoRekening(StringProperty noRekening) {
+        this.noRekening = noRekening;
     }
 
     public StringProperty getJumlah() {
@@ -288,17 +442,32 @@ class DataUang {
     }
 
     public void setJumlah(StringProperty jumlah) {
-        this.jumlahNumber = jumlah;
-    }
-    
-        public StringProperty getJumlahNumber() {
-        return jumlahNumber;
+        this.jumlah = jumlah;
     }
 
-    public void setJumlahNumber(StringProperty jumlah) {
-        this.jumlahNumber = jumlahNumber;
+    public StringProperty getBankAdmin() {
+        return bankAdmin;
     }
 
+    public void setBankAdmin(StringProperty bankAdmin) {
+        this.bankAdmin = bankAdmin;
+    }
+
+    public StringProperty getAtasNamaAdmin() {
+        return atasNamaAdmin;
+    }
+
+    public void setAtasNamaAdmin(StringProperty atasNamaAdmin) {
+        this.atasNamaAdmin = atasNamaAdmin;
+    }
+
+    public StringProperty getNoRekeningAdmin() {
+        return noRekeningAdmin;
+    }
+
+    public void setNoRekeningAdmin(StringProperty noRekeningAdmin) {
+        this.noRekeningAdmin = noRekeningAdmin;
+    }
 
     public StringProperty getStatus() {
         return status;
@@ -308,7 +477,28 @@ class DataUang {
         this.status = status;
     }
     
+    
+    
 }
 
 
 
+class StatusUang {
+    
+    int id;
+    String nama;
+
+    public StatusUang(int id, String nama) {
+        this.id = id;
+        this.nama = nama;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getNama() {
+        return nama;
+    }
+
+}

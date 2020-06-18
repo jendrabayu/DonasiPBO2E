@@ -4,12 +4,9 @@ import com.jfoenix.controls.JFXTextField;
 import helpers.Dialog;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -30,192 +27,183 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
-import models.PenerimaModel;
 import models.RekeningModel;
 
 
 public class RekeningController implements Initializable {
     
     private static int id;
-
+    
     @FXML
     private AnchorPane mainPane;
 
     @FXML
-    private JFXTextField namaBankField;
+    private TableView<Rekening> table;
 
     @FXML
-    private JFXTextField noRekeningField;
+    private TableColumn<Rekening, Number> colNo;
 
     @FXML
-    void createRekening(ActionEvent event) {
-        RekeningController.id = -1;
-        if (namaBankField.getText().equals("") || noRekeningField.getText().equals("")) {
-            Dialog.alertWarning("Semua field harus diisi!");
-        }else{
-            if (RekeningModel.create(namaBankField.getText(), noRekeningField.getText())) {
-                Dialog.alertSuccess("Berhasil Menambahkan Rekening Baru");
-                changeFxml("Rekening");
-            }else{
-                Dialog.alertError("Terjadi Kesalahan");
-            }
-        }
-    }
+    private TableColumn<Rekening, String> colNamaBank;
 
     @FXML
-    void showRekening(ActionEvent event) {
+    private TableColumn<Rekening, String> colAtasNama;
+
+    @FXML
+    private TableColumn<Rekening, String> colNoRekening;
+    
+    private ObservableList<Rekening> data = FXCollections.observableArrayList();
+    
+    @FXML
+    private JFXTextField fieldNamaBank;
+
+    @FXML
+    private JFXTextField fieldAtasNama;
+
+    @FXML
+    private JFXTextField fieldNoRekening;
+
+    @FXML
+    void index(ActionEvent event) {
         changeFxml("Rekening");
     }
 
-    @FXML
-    private TableView<DataRekening> table;
 
     @FXML
-    private TableColumn<DataRekening, Number> colNo;
-
-    @FXML
-    private TableColumn<DataRekening, String> colNamaBank;
-
-    @FXML
-    private TableColumn<DataRekening, String> colNoRekening;
-
-    @FXML
-    private TableColumn<DataRekening, String> colCreatedAt;
-
-    @FXML
-    private TableColumn<DataRekening, String> colUpdatedAt;
-    
-    
-    private ObservableList<DataRekening> dataRekening = FXCollections.observableArrayList();
-
-    @FXML
-    void addRekening(ActionEvent event) {
-        RekeningController.id = -1;
+    void add(ActionEvent event) {
+        RekeningController.id = 0;
         changeFxml("TambahRekening");
+    }
+    
+    @FXML
+    void edit(ActionEvent event) {
+        int selectedIndex = table.getSelectionModel().getSelectedIndex();
+        if(selectedIndex >= 0){
+            Rekening rekening = table.getItems().get(selectedIndex);
+            RekeningController.id = rekening.getId().getValue();
+            changeFxml("EditRekening");
+        }else{
+            Dialog.alertWarning("Klik row rekening yang ingin diedit!");
+        } 
     }
 
     @FXML
-    void deleteRekening(ActionEvent event) throws SQLException {
+    void delete(ActionEvent event) {
         int selectedIndex = table.getSelectionModel().getSelectedIndex();
-        System.out.println(selectedIndex);
         if(selectedIndex >= 0){
-            DataRekening penerima = table.getItems().get(selectedIndex);
-            RekeningController.id = penerima.getId().getValue();
-            
+            Rekening rekening = table.getItems().get(selectedIndex);
+            RekeningController.id = rekening.getId().getValue();
+            //Konfirmasi
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Hapus Rekening");
             alert.setContentText("Apakah anda yakin?");
-
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
-               
                 if (RekeningModel.delete(RekeningController.id)) {
-                    Dialog.alertSuccess("Berhasil Dihapus");
+                    Dialog.alertSuccess("Rekening berhasil dihapus");
                     initTable();
                 }else{
-                      Dialog.alertError("Terjadi Kesalahan");
-                }
-              
+                      Dialog.alertError("Rekening gagal dihapus");
+                }  
             }
         }else{
-            Dialog.alertWarning("Klik row yang akan di hapus");
+            Dialog.alertWarning("Klik row rekening yang ingin dihapus!");
         } 
-}
-
-    @FXML
-    void editRekening(ActionEvent event) {
-        int selectedIndex = table.getSelectionModel().getSelectedIndex();
-        System.out.println(selectedIndex);
-        if(selectedIndex >= 0){
-            DataRekening penerima = table.getItems().get(selectedIndex);
-            RekeningController.id = penerima.getId().getValue();
-            changeFxml("EditRekening");
-            System.out.println(RekeningController.id);
-        }else{
-            Dialog.alertWarning("Klik row yang akan di edit");
-        } 
-      
     }
     
     @FXML
-    void updateRekening(ActionEvent event) {
-        if (RekeningModel.update(RekeningController.id, namaBankField.getText(), noRekeningField.getText())) {
-            Dialog.alertSuccess("Rekening Berhasil Diupdate");
-            changeFxml("Rekening");
+    void store(ActionEvent event) {
+        RekeningController.id = 0;
+        if (fieldNamaBank.getText().equals("") || fieldAtasNama.getText().equals("") || fieldNoRekening.getText().equals("")) {
+            Dialog.alertWarning("Semua field tidak boleh kosong!");
         }else{
-            Dialog.alertError("Terjadi Kesalahan");
+            if(RekeningModel.store(fieldNamaBank.getText(), fieldAtasNama.getText(), fieldNoRekening.getText())) {
+                Dialog.alertSuccess("Rekening berhasil ditambahkan");
+                changeFxml("Rekening");
+            }else{
+                Dialog.alertError("Gagal menambahkan rekening");
+            }
         }
     }
     
-    private void initTable() throws SQLException{
-        dataRekening.clear();
-        
+    
+    @FXML
+    void update(ActionEvent event) {
+        if (fieldNamaBank.getText().equals("") || fieldAtasNama.getText().equals("") || fieldNoRekening.getText().equals("")) {
+            Dialog.alertWarning("Semua field tidak boleh kosong!");
+        }else{
+            if(RekeningModel.update(RekeningController.id, fieldNamaBank.getText(), fieldAtasNama.getText(), fieldNoRekening.getText())) {
+            Dialog.alertSuccess("Rekening Berhasil diupdate");
+            changeFxml("Rekening");
+            }else{
+                Dialog.alertError("Rekening gagal diupdate");
+            }
+        }
+      
+    }
+
+    
+    private void initTable(){
+        data.clear();
         ArrayList<RekeningModel> rekenings = RekeningModel.getAll();
-        
-        int no = 0;
-        
+        int no = 0; 
         for (RekeningModel rm : rekenings){
-            dataRekening.add(
-                new DataRekening(
+            data.add(new Rekening(
                     1+no++, 
                     rm.getId(), 
                     rm.getNamaBank(), 
-                    rm.getNoRekening(), 
-                    rm.getCreatedAt(),
-                    rm.getUpdatedAt()
+                    rm.getAtasNama(),
+                    rm.getNoRekening()
                     )
                 );
         }
         
-        table.setItems(dataRekening);
+        table.setItems(data);
         colNo.setCellValueFactory(cellData -> cellData.getValue().getNo());
         colNamaBank.setCellValueFactory(cellData -> cellData.getValue().getNamaBank());
+        colAtasNama.setCellValueFactory(cellData -> cellData.getValue().getAtasNama());
         colNoRekening.setCellValueFactory(cellData -> cellData.getValue().getNoRekening());
-        colCreatedAt.setCellValueFactory(cellData -> cellData.getValue().getCreatedAt());
-        colUpdatedAt.setCellValueFactory(cellData -> cellData.getValue().getUpdatedAt());
     }
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb) {  
         
-        if (RekeningController.id >= 0) {
-            System.out.println(RekeningController.id);
+        if (RekeningController.id > 0) {
             try {
-                 ArrayList<RekeningModel> rekenings = RekeningModel.get(RekeningController.id);
-                 
-                 
-                 for(RekeningModel rekening : rekenings){
-                     namaBankField.setText(rekening.getNamaBank());
-                     noRekeningField.setText(rekening.getNoRekening());
-                 }
+                ArrayList<RekeningModel> rekenings = RekeningModel.get(RekeningController.id);
+                for(RekeningModel rekening : rekenings){
+                    fieldNamaBank.setText(rekening.getNamaBank());
+                    fieldAtasNama.setText(rekening.getAtasNama());
+                    fieldNoRekening.setText(rekening.getNoRekening());
+                }
             } catch (Exception e) {
-                
+                System.err.println(e);
             }
         }
         
         try {
-            
-            
-            noRekeningField.textProperty().addListener(new ChangeListener<String>() {
+            //set inputan hanya angka
+            fieldNoRekening.textProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                     if (!newValue.matches("\\d{0,25}")) {
-                        noRekeningField.setText(oldValue);
-                        }
+                        fieldNoRekening.setText(oldValue);
                     }
+                }
            });
         } catch (Exception e) {
+            System.err.println(e);
         }
         
-        
-        
+        //inisialisai data table
         try {
-             initTable();
+            initTable();
         } catch (Exception e) {
+            System.err.println(e);
         }
     }
 
-        private void changeFxml(String file){
+    private void changeFxml(String file){
         mainPane.setOpacity(0);
         try {
             Parent fxml = FXMLLoader.load(getClass().getResource("/views/admin/rekening/"+file+".fxml"));
@@ -230,7 +218,7 @@ public class RekeningController implements Initializable {
             ft.play();
 
         } catch (IOException e) {
-          e.printStackTrace();
+            System.err.println(e);
         }
     }
     
@@ -238,20 +226,18 @@ public class RekeningController implements Initializable {
 
 
 
-class DataRekening{
+class Rekening{
     
     IntegerProperty no, id;
-    StringProperty namaBank, noRekening, createdAt, updatedAt;
+    StringProperty namaBank, atasNama ,noRekening;
 
-    public DataRekening(int no, int id, String namaBank, String noRekening, String createdAt, String updatedAt) {
+    public Rekening(int no, int id, String namaBank, String atasNama, String noRekening) {
         this.no = new SimpleIntegerProperty(no);
         this.id = new SimpleIntegerProperty(id);
         this.namaBank = new SimpleStringProperty(namaBank);
+        this.atasNama = new SimpleStringProperty(atasNama);
         this.noRekening = new SimpleStringProperty(noRekening);
-        this.createdAt = new SimpleStringProperty(createdAt);
-        this.updatedAt = new SimpleStringProperty(updatedAt);
     }
-
 
     public IntegerProperty getNo() {
         return no;
@@ -260,6 +246,7 @@ class DataRekening{
     public void setNo(IntegerProperty no) {
         this.no = no;
     }
+    
 
     public IntegerProperty getId() {
         return id;
@@ -277,6 +264,14 @@ class DataRekening{
         this.namaBank = namaBank;
     }
 
+    public StringProperty getAtasNama() {
+        return atasNama;
+    }
+
+    public void setAtasNama(StringProperty atasNama) {
+        this.atasNama = atasNama;
+    }
+
     public StringProperty getNoRekening() {
         return noRekening;
     }
@@ -285,24 +280,4 @@ class DataRekening{
         this.noRekening = noRekening;
     }
 
-    public StringProperty getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(StringProperty createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public StringProperty getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(StringProperty updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-  
-    
-    
-    
 }

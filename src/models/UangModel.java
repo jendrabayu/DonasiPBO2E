@@ -1,25 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package models;
 
-import controllers.admin.UangController;
 import helpers.DBHelper;
-import helpers.Dialog;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- *
- * @author ACER
- */
+
 public class UangModel {
     
+    private final static String TABLE = "uang";
     
+    public static boolean store(String namaBank, String atasNama, String noRekening, long jumlah, int rekeningId){
+        Map<String, String> params = new LinkedHashMap<>();
+        params.put("user_id", String.format("'%s'", UserModel.getId()));
+        params.put("rekening_id", String.format("'%s'", rekeningId));
+        params.put("nama_bank", String.format("'%s'", namaBank));
+        params.put("atas_nama", String.format("'%s'", atasNama));
+        params.put("no_rekening", String.format("'%s'", noRekening));
+        params.put("jumlah", String.format("'%s'", jumlah));
+        return DBHelper.insert(TABLE, params);
+    }
     
+
     public static long getTotal(){
         long total = 0;
         ResultSet rs = DBHelper.selectAll("total_uang", "id = '1'");
@@ -49,33 +52,41 @@ public class UangModel {
     }
 
     
-    public static int updateStatus(String status, int id, long total){
-        Map<String, String> params = new LinkedHashMap<String, String>();   
-        Map<String, String> params2 = new LinkedHashMap<String, String>();
-
-        if (status.equals("SELESAI") || status.equals("GAGAL")) {
-            params.put("`status`", String.format("'%s'", status));
-            params2.put("`total`", String.format("'%s'", total));
-            
-            if (status.equals("GAGAL")) {
-                if (DBHelper.update("uang", params, String.format("id = '%s'", id))) {
-                    return 1;
-                }   
-                return 0;
-            }
-            
-            if (status.equals("SELESAI")) {
-                if (DBHelper.update("uang", params, String.format("id = '%s'", id)) == true
-                        && 
-                    DBHelper.update("total_uang", params2, String.format("id = %s", 1)) == true) {
-                    return 1;
-                }  
-                return 0;
-            }
-
-        }
+    public static boolean update(int id, int status){
+        Map<String, String> paramsUang = new LinkedHashMap<String, String>();   
+        Map<String, String> paramsTotalUang = new LinkedHashMap<String, String>();
         
-        return 0;
+        ResultSet rs = DBHelper.selectAll(TABLE, String.format("id = '%s'", id));
+        long jumlah = 0;
+        
+        try {
+            while (rs.next()) {                
+                jumlah = rs.getLong("jumlah");
+            }
+            
+            if(status == 2){
+                paramsUang.put("`status_id`", String.format("'%s'", 2));
+                paramsTotalUang.put("`total`", String.format("'%s'", jumlah + UangModel.getTotal()));
+                if (DBHelper.update("uang", paramsUang, String.format("id = '%s'", id)) == true
+                        && 
+                    DBHelper.update("total_uang", paramsTotalUang, String.format("id = %s", 1)) == true) 
+                {
+                    return true;
+                }  
+                return false;
+            }else if(status == 3){
+                paramsUang.put("`status_id`", String.format("'%s'", 3));
+                if (DBHelper.update("uang", paramsUang, String.format("id = '%s'", id)) == true)
+                {
+                    return true;
+                }  
+                return false;
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+
+        return false;
     }
     
     

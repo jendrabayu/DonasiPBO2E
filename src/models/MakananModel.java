@@ -12,20 +12,21 @@ public class MakananModel {
             nama, 
             expired_date,
             keterangan,
-            status,
             created_at,
             updated_at;
     private int 
             id, 
             user_id, 
+            status_id,
             jumlah_awal,
             jumlah;
+            
 
-    public MakananModel(int id, int user_id, String nama,int jumlah_awal,  int jumlah, String expired_date, String keterangan, String status, String created_at, String updated_at) {
+    public MakananModel(int id, int user_id, String nama,int jumlah_awal,  int jumlah, String expired_date, String keterangan, int status_id, String created_at, String updated_at) {
         this.nama = nama;
         this.expired_date = expired_date;
         this.keterangan = keterangan;
-        this.status = status;
+        this.status_id = status_id;
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.id = id;
@@ -61,12 +62,12 @@ public class MakananModel {
                 MakananModel makanan = new MakananModel();
                 makanan.setId(rs.getInt("id"));
                 makanan.setUser_id(rs.getInt("user_id"));
-                makanan.setNama(rs.getString("email"));
+                makanan.setNama(rs.getString("nama"));
                 makanan.setJumlah_awal(rs.getInt("jumlah_awal"));
                 makanan.setJumlah(rs.getInt("jumlah"));
                 makanan.setExpired_date(rs.getString("expired_date"));
                 makanan.setKeterangan(rs.getString("keterangan"));
-                makanan.setStatus(rs.getString("status"));
+                makanan.setStatus_id(rs.getInt("status_id"));
                 makanan.setCreated_at(rs.getString("created_at"));
                 makanan.setUpdated_at(rs.getString("updated_at"));
                 result.add(makanan);
@@ -91,7 +92,7 @@ public class MakananModel {
                 makanan.setJumlah(rs.getInt("jumlah"));
                 makanan.setExpired_date(rs.getString("expired_date"));
                 makanan.setKeterangan(rs.getString("keterangan"));
-                makanan.setStatus(rs.getString("status"));
+                makanan.setStatus_id(rs.getInt("status_id"));
                 makanan.setCreated_at(rs.getString("created_at"));
                 makanan.setUpdated_at(rs.getString("updated_at"));
                 result.add(makanan);
@@ -101,9 +102,6 @@ public class MakananModel {
         }        
         return result; 
     }
-   
-    
-    
 
     public String getNama() {
         return nama;
@@ -127,14 +125,6 @@ public class MakananModel {
 
     public void setKeterangan(String keterangan) {
         this.keterangan = keterangan;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String staus) {
-        this.status = staus;
     }
 
     public String getCreated_at() {
@@ -169,14 +159,14 @@ public class MakananModel {
         this.user_id = user_id;
     }
 
-    public int getJumlah() {
-        return jumlah;
+    public int getStatus_id() {
+        return status_id;
     }
 
-    public void setJumlah(int jumlah) {
-        this.jumlah = jumlah;
+    public void setStatus_id(int status_id) {
+        this.status_id = status_id;
     }
-    
+
     public int getJumlah_awal() {
         return jumlah_awal;
     }
@@ -184,5 +174,18 @@ public class MakananModel {
     public void setJumlah_awal(int jumlah_awal) {
         this.jumlah_awal = jumlah_awal;
     }
+
+    public int getJumlah() {
+        return jumlah;
+    }
+
+    public void setJumlah(int jumlah) {
+        this.jumlah = jumlah;
+    }
+   
+    
+    
+
+    
     
 }

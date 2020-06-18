@@ -20,12 +20,8 @@
          <font>
             <Font size="14.0" />
          </font></TextField>
-      <HBox layoutX="514.0" layoutY="44.0" prefHeight="35.0" prefWidth="417.0" spacing="10.0">
+      <HBox layoutX="663.0" layoutY="44.0" prefHeight="35.0" prefWidth="268.0" spacing="10.0">
          <children>
-            <JFXButton onAction="#showDataDonasi" prefHeight="35.0" prefWidth="147.0" style="-fx-background-color: #6777ef; -fx-text-fill: #fff; -fx-cursor: hand;" text="Lihat Data Donasi">
-               <font>
-                  <Font size="15.0" />
-               </font></JFXButton>
             <JFXButton onAction="#showAddPenerima" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #3abaf4; -fx-text-fill: #fff;" text="Tambah">
                <font>
                   <Font size="15.0" />

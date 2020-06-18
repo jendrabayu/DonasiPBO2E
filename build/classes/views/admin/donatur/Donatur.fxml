@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -20,14 +19,7 @@
             <Font size="14.0" />
          </font>
       </TextField>
-      <HBox layoutX="797.0" layoutY="46.0" prefHeight="35.0" prefWidth="141.0" spacing="10.0">
-         <children>
-            <JFXButton prefHeight="35.0" prefWidth="147.0" style="-fx-background-color: #6777ef; -fx-text-fill: #fff; -fx-cursor: hand;" text="Lihat Data Donasi">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </JFXButton>
-         </children></HBox>
+      <HBox layoutX="797.0" layoutY="46.0" prefHeight="35.0" prefWidth="141.0" spacing="10.0" />
       <TableView fx:id="table" layoutX="38.0" layoutY="94.0" prefHeight="503.0" prefWidth="900.0">
          <columns>
             <TableColumn fx:id="colNo" prefWidth="70.0" style="-fx-font-size: 15px;" text="No." />

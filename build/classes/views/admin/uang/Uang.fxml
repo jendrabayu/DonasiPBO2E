@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
 <?import java.net.URL?>
-<?import javafx.scene.Cursor?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -17,56 +18,94 @@
         <URL value="@/views/assets/css/admin.css" />
     </stylesheets>
    <children>
-      <VBox layoutX="38.0" layoutY="9.0" prefHeight="600.0" prefWidth="900.0" spacing="20.0">
-         <children>
-            <Pane prefHeight="50.0" prefWidth="900.0">
-               <children>
-                  <Label layoutY="12.0" text="UANG BELUM DICEK">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <JFXButton layoutX="780.0" layoutY="8.0" onAction="#showUbahStatus" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #ffa426; -fx-text-fill: #fff;" text="Ubah Status">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </JFXButton>
-               </children>
-            </Pane>
-            <TableView fx:id="tabelUangMasuk" prefHeight="250.0" prefWidth="200.0">
-              <columns>
-                <TableColumn fx:id="col_no" prefWidth="50.0" style="-fx-font-size: 14px;" text="No" />
-                <TableColumn fx:id="col_date" prefWidth="120.0" style="-fx-font-size: 14px;" text="Tanggal" />
-                  <TableColumn fx:id="col_donatur_name" prefWidth="150.0" style="-fx-font-size: 14px;" text="Nama Donatur" />
-                  <TableColumn fx:id="col_transfer_from" prefWidth="120.0" style="-fx-font-size: 14px;" text="Transfer From" />
-                  <TableColumn fx:id="col_transfer_to" prefWidth="200.0" style="-fx-font-size: 14px;" text="Transfer To" />
-                  <TableColumn fx:id="col_jumlah" prefWidth="120.0" style="-fx-font-size: 14px;" text="Jumlah" />
-                  <TableColumn fx:id="col_status" prefWidth="139.0" style="-fx-font-size: 14px;" text="Status" />
-              </columns>
-            </TableView>
-            <HBox prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="600.0" spacing="20.0" />
-                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="400.0" spacing="10.0">
+      <JFXTabPane layoutX="38.0" layoutY="40.0" prefHeight="550.0" prefWidth="900.0">
+         <tabs>
+            <Tab text="Uang Sedang Diproses">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Label text="TOTAL UANG TERSEDIA">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="totalUangLabel" text="Rp.200.000.000.000">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
+                        <VBox prefHeight="512.0" prefWidth="900.0">
+                           <children>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="900.0">
+                                 <children>
+                                    <Label fx:id="totalUangLabel" text="Total Uang Tersedia: ">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXButton onAction="#edit" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #ffa426;" text="Ubah Status" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets left="50.0" />
+                                       </HBox.margin>
+                                    </JFXButton>
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="table" prefHeight="463.0" prefWidth="900.0">
+                                <columns>
+                                  <TableColumn fx:id="colNo" prefWidth="35.0" text="No" />
+                                  <TableColumn fx:id="colDate" prefWidth="100.0" text="Tanggal" />
+                                    <TableColumn prefWidth="237.0" text="Rekening Donatur">
+                                       <columns>
+                                          <TableColumn fx:id="colBank" prefWidth="110.0" text="Bank" />
+                                          <TableColumn fx:id="colAtasNama" prefWidth="110.0" text="Atas Nama" />
+                                          <TableColumn fx:id="colNoRekening" prefWidth="110.0" text="No. Rekening" />
+                                          <TableColumn fx:id="colJumlah" prefWidth="110.0" text="Jumlah" />
+                                       </columns>
+                                    </TableColumn>
+                                    <TableColumn prefWidth="235.0" text="Tujuan Transfer">
+                                       <columns>
+                                          <TableColumn fx:id="colBankAdmin" prefWidth="110.0" text="Bank" />
+                                          <TableColumn fx:id="colAtasnamaAdmin" prefWidth="110.0" text="Atas Nama" />
+                                          <TableColumn fx:id="colNoRekeningAdmin" prefWidth="105.0" text="No.Rekening" />
+                                       </columns>
+                                    </TableColumn>
+                                </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Semua Data Uang">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox prefHeight="511.0" prefWidth="900.0">
+                           <children>
+                              <TableView fx:id="table2" prefHeight="503.0" prefWidth="900.0">
+                                 <columns>
+                                    <TableColumn fx:id="colNo2" prefWidth="35.0" text="No" />
+                                    <TableColumn fx:id="colDate2" text="Tanggal" />
+                                    <TableColumn prefWidth="412.0" text="Rekening Donatur">
+                                       <columns>
+                                          <TableColumn fx:id="colBank2" prefWidth="99.0" text="Bank" />
+                                          <TableColumn fx:id="colAtasNama2" prefWidth="99.0" text="Atas Nama" />
+                                          <TableColumn fx:id="colNoRekening2" prefWidth="99.0" text="No. Rekening" />
+                                          <TableColumn fx:id="colJumlah2" prefWidth="99.0" text="Jumlah" />
+                                       </columns>
+                                    </TableColumn>
+                                    <TableColumn prefWidth="353.0" text="Tujuan Transfer">
+                                       <columns>
+                                          <TableColumn fx:id="colBankAdmin2" prefWidth="99.0" text="Bank" />
+                                          <TableColumn fx:id="colAtasnamaAdmin2" prefWidth="99.0" text="Atas Nama" />
+                                          <TableColumn fx:id="colNoRekeningAdmin2" prefWidth="99.0" text="No. Rekening" />
+                                       </columns>
+                                    </TableColumn>
+                                    <TableColumn fx:id="colStatus2" prefWidth="91.0" text="Status" />
+                                 </columns>
+                                 <VBox.margin>
+                                    <Insets top="25.0" />
+                                 </VBox.margin>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
+              </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
    </children>
 </AnchorPane>

@@ -19,17 +19,17 @@
             <Label layoutX="196.0" layoutY="49.0" style="-fx-font-size: 25px; -fx-font-weight: bold;" text="KONFIRMASI TRANSFER" />
             <VBox layoutX="140.0" layoutY="125.0" prefHeight="366.0" prefWidth="400.0">
                <children>
-                  <JFXTextField focusColor="#3b7dd8" labelFloat="true" prefHeight="38.0" prefWidth="300.0" promptText="Nama Bank" style="-fx-font-size: 15px;">
+                  <JFXTextField fx:id="fieldNamaBank" focusColor="#3b7dd8" labelFloat="true" prefHeight="38.0" prefWidth="300.0" promptText="Nama Bank" style="-fx-font-size: 15px;">
                      <VBox.margin>
                         <Insets bottom="25.0" />
                      </VBox.margin>
                   </JFXTextField>
-                  <JFXTextField focusColor="#3b7dd8" labelFloat="true" prefHeight="38.0" prefWidth="300.0" promptText="Atas Nama" style="-fx-font-size: 15px;">
+                  <JFXTextField fx:id="fieldAtasNama" focusColor="#3b7dd8" labelFloat="true" prefHeight="38.0" prefWidth="300.0" promptText="Atas Nama" style="-fx-font-size: 15px;">
                      <VBox.margin>
                         <Insets bottom="25.0" />
                      </VBox.margin>
                   </JFXTextField>
-                  <JFXTextField fx:id="no_rekening" focusColor="#3b7dd8" labelFloat="true" prefHeight="38.0" prefWidth="300.0" promptText="Nomor Rekening Anda" style="-fx-font-size: 15px;">
+                  <JFXTextField fx:id="fieldNoRekening" focusColor="#3b7dd8" labelFloat="true" prefHeight="38.0" prefWidth="300.0" promptText="Nomor Rekening Anda" style="-fx-font-size: 15px;">
                      <VBox.margin>
                         <Insets bottom="25.0" />
                      </VBox.margin>
@@ -39,15 +39,15 @@
                         <Insets bottom="25.0" />
                      </VBox.margin>
                   </JFXComboBox>
-                  <JFXTextField fx:id="jumlah" focusColor="#3b7dd8" labelFloat="true" prefHeight="38.0" prefWidth="300.0" promptText="Jumlah Uang" style="-fx-font-size: 15px;">
+                  <JFXTextField fx:id="fieldJumlah" focusColor="#3b7dd8" labelFloat="true" prefHeight="38.0" prefWidth="300.0" promptText="Jumlah Uang" style="-fx-font-size: 15px;">
                      <VBox.margin>
                         <Insets bottom="15.0" />
                      </VBox.margin>
                   </JFXTextField>
                   <HBox alignment="CENTER_RIGHT" prefHeight="64.0" prefWidth="400.0" spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" onAction="#showRekening" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4A91F2; -fx-text-fill: #fff; -fx-background-radius: 25px; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="Kembali" />
-                        <Button mnemonicParsing="false" onAction="#handleTransferConfirmation" prefHeight="40.0" prefWidth="126.0" style="-fx-background-color: #4A91F2; -fx-text-fill: #fff; -fx-background-radius: 25px; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="Konfirmasi" />
+                        <Button mnemonicParsing="false" onAction="#index" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #4A91F2; -fx-text-fill: #fff; -fx-background-radius: 25px; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="Kembali" />
+                        <Button mnemonicParsing="false" onAction="#store" prefHeight="40.0" prefWidth="126.0" style="-fx-background-color: #4A91F2; -fx-text-fill: #fff; -fx-background-radius: 25px; -fx-font-weight: bold; -fx-font-size: 14px; -fx-cursor: hand;" text="Konfirmasi" />
                      </children>
                   </HBox>
                </children>
