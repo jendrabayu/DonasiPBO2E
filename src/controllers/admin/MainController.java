@@ -90,6 +90,12 @@ public class MainController implements Initializable {
     }
     
     @FXML
+    void rekap(ActionEvent event) {
+        menuTitle.setText("Rekap Penyaluran Donasi");
+        changeFxml("rekap/Index");
+    }
+    
+    @FXML
     void rekening(ActionEvent event) {
         menuTitle.setText("Rekening");
         changeFxml("rekening/Rekening");

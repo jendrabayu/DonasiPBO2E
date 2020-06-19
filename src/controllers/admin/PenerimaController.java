@@ -92,21 +92,19 @@ public class PenerimaController implements Initializable {
     
     @FXML
     void showPenerima(ActionEvent event) {
-        PenerimaController.id = -1;
+        PenerimaController.id = 0;
         changeFxml("Penerima");
+        
     }
     
     @FXML
     void showAddPenerima(ActionEvent event) {
-        PenerimaController.id = -1;
         changeFxml("TambahPenerima");
     }
     
     @FXML
     void showEditPenerima(ActionEvent event) {
-        PenerimaController.id = -1;
         int selectedIndex = table.getSelectionModel().getSelectedIndex();
-        System.out.println(selectedIndex);
         if(selectedIndex >= 0){
             DataPenerima penerima = table.getItems().get(selectedIndex);
             PenerimaController.id = penerima.getId().getValue();
@@ -210,7 +208,8 @@ public class PenerimaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (PenerimaController.id >= 0) {
+        
+        if (PenerimaController.id > 0) {
             try {
                 ArrayList<PenerimaModel> penerimas = PenerimaModel.get(PenerimaController.id);
                 for(PenerimaModel penerima : penerimas){

@@ -180,7 +180,7 @@ public class PenyaluranUangController implements Initializable {
             
             try {
                
-                dateTodayLabel.setText(String.format("Penyaluran hari ini (%s)", MyHelper.getDateNow()));
+                dateTodayLabel.setText(String.format("Penyaluran uang hari ini (%s)", MyHelper.getDateNow()));
                 table.setItems(penyaluranUang);
                 colNo.setCellValueFactory(cellData -> cellData.getValue().getNo());
                 colNama.setCellValueFactory(cellData -> cellData.getValue().getNama());

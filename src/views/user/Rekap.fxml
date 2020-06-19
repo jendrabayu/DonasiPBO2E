@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="580.0" prefWidth="1000.0" style="-fx-background-color: #fff;" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.user.RekapController">
+   <stylesheets>
+      <URL value="@/views/assets/css/user.css" />
+   </stylesheets>
+   <children>
+      <ImageView fitHeight="232.23" fitWidth="427.0" layoutY="347.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/img/user/Path%205.png" />
+         </image>
+      </ImageView>
+      <JFXTabPane layoutX="50.0" layoutY="50.0" prefHeight="400.0" prefWidth="900.0">
+         <tabs>
+            <Tab style="-fx-font-size: 16px;" text="Penyaluran Donasi Makanan">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutY="20.0" prefHeight="350.0" prefWidth="900.0">
+                           <children>
+                              <TableView fx:id="mTable" prefHeight="350.0" prefWidth="820.0">
+                                 <columns>
+                                    <TableColumn fx:id="mNo" prefWidth="40.0" text="No" />
+                                    <TableColumn fx:id="mDate" prefWidth="100.0" text="Tanggal" />
+                                    <TableColumn prefWidth="359.0" text="Penerima">
+                                       <columns>
+                                          <TableColumn fx:id="mNama" prefWidth="150.0" text="Nama" />
+                                          <TableColumn fx:id="mJumlahOrrg" prefWidth="100.0" text="Jumlah Org" />
+                                          <TableColumn fx:id="mAlamat" prefWidth="250.0" text="Alamat" />
+                                       </columns>
+                                    </TableColumn>
+                                    <TableColumn fx:id="mMakanan" prefWidth="170.0" text="Makanan" />
+                                    <TableColumn fx:id="mJumlah" prefWidth="89.0" text="Jumlah" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Penyaluran Donasi Uang">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0">
+                     <children>
+                        <VBox layoutY="20.0" prefWidth="900.0">
+                           <children>
+                              <TableView fx:id="uTable" prefHeight="350.0" prefWidth="820.0">
+                                 <columns>
+                                    <TableColumn fx:id="uNo" prefWidth="40.0" text="No" />
+                                    <TableColumn fx:id="uDate" prefWidth="100.0" text="Tanggal" />
+                                    <TableColumn prefWidth="359.0" text="Penerima">
+                                       <columns>
+                                          <TableColumn fx:id="uNama" prefWidth="200.0" text="Nama" />
+                                          <TableColumn fx:id="uJumlahOrg" prefWidth="100.0" text="Jumlah Org" />
+                                          <TableColumn fx:id="uAlamat" prefWidth="300.0" text="Alamat" />
+                                       </columns>
+                                    </TableColumn>
+                                    <TableColumn fx:id="uJumlah" prefWidth="159.0" text="Jumlah Uang" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </children>
+</AnchorPane>

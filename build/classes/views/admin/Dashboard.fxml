@@ -124,7 +124,7 @@
                               </Label>
                               <Label fx:id="jumlahMakanan" text="20">
                                  <font>
-                                    <Font name="System Bold" size="20.0" />
+                                    <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
                            </children>
@@ -144,12 +144,12 @@
                         </Pane>
                         <VBox alignment="CENTER_LEFT" layoutX="90.0" layoutY="17.0" minHeight="56.0" prefHeight="56.0" prefWidth="150.0" spacing="3.0">
                            <children>
-                              <Label alignment="TOP_CENTER" text="Uang Belum Dicek" textFill="#9a9a9a">
+                              <Label alignment="TOP_CENTER" text="Uang Sedang Diproses" textFill="#9a9a9a">
                                  <font>
-                                    <Font size="15.0" />
+                                    <Font size="13.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="jumlahUangBelumDicek" text="20">
+                              <Label fx:id="uangBelumDiproses" text="20">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
@@ -171,12 +171,8 @@
                         </Pane>
                         <VBox alignment="CENTER_LEFT" layoutX="90.0" layoutY="17.0" minHeight="56.0" prefHeight="56.0" prefWidth="150.0" spacing="3.0">
                            <children>
-                              <Label alignment="TOP_CENTER" text="Makanan Belum Dicek" textFill="#9a9a9a">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="jumlahMakananBelumDicek" text="20">
+                              <Label alignment="TOP_CENTER" text="Makanan Sedang Diproses" textFill="#9a9a9a" />
+                              <Label fx:id="makananBelumDiproses" text="20">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>

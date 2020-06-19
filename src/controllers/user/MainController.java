@@ -54,11 +54,19 @@ public class MainController implements Initializable {
     void showUbahPassword(ActionEvent event) {
         changeFxml("UbahPassword");      
     }
+    
+      @FXML
+    void showRekap(MouseEvent event) {   
+            changeFxml("Rekap");
+    }
+    
    
     @Override
     public void initialize(URL url, ResourceBundle rb) {    
         changeFxml("Beranda");
     }    
+    
+    
     
 
     private void changeFxml(String name){

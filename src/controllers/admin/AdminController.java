@@ -24,7 +24,6 @@ import models.UserModel;
 
 public class AdminController implements Initializable {
     
-
     @FXML
     private AnchorPane mainPane;
    
@@ -49,8 +48,6 @@ public class AdminController implements Initializable {
     @FXML
     private JFXPasswordField oldPassword;
     
-
-    
     @FXML
     void edit(ActionEvent event) {
         changeFxml("EditProfil");
@@ -65,16 +62,16 @@ public class AdminController implements Initializable {
     @FXML
     void update(ActionEvent event) throws Exception {
       
-            if (UserModel.update(nama.getText(), telepon.getText(), alamat.getText())) {
-                Session.sessionDestroy();
-                UserModel.CreateSession();
-                Dialog.alertSuccess("Profil Berhasil di Update! Refresh");
+        if (UserModel.update(nama.getText(), telepon.getText(), alamat.getText())) {
+            Session.sessionDestroy();
+            UserModel.CreateSession();
+            Dialog.alertSuccess("Profil Berhasil di Update! Refresh");
 
-                mainPane.getScene().getWindow().hide();
-                Stage stage = new Stage();
-                App app = new App();
-                app.start(stage);            
-            }
+            mainPane.getScene().getWindow().hide();
+            Stage stage = new Stage();
+            App app = new App();
+            app.start(stage);            
+        }
         
     }
 

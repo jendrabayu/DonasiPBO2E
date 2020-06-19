@@ -13,8 +13,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -28,6 +26,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.print.PageLayout;
+import javafx.print.PageOrientation;
+import javafx.print.Paper;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -35,11 +38,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import models.MakananModel;
 import models.PenerimaModel;
-import models.UangModel;
 
 public class PenyaluranMakananController implements Initializable{
     
@@ -128,7 +131,7 @@ public class PenyaluranMakananController implements Initializable{
     }
 
     private void initComboBoxMakanan(){
-        dataMakanan =  FXCollections.observableArrayList(MakananModel.getAll());
+        dataMakanan =  FXCollections.observableArrayList(MakananModel.getAllAvailable());
 
         try {
             comboBoxMakanan.setItems(dataMakanan);
@@ -195,10 +198,7 @@ public class PenyaluranMakananController implements Initializable{
                 }
             }
         }
-        
-        
-   
-     
+
     }
     
 
@@ -308,7 +308,7 @@ public class PenyaluranMakananController implements Initializable{
         initTable();
         
         try {
-              dateTodayLabel.setText(String.format("Penyaluran Hari Ini (%s)", MyHelper.getDateNow()));
+              dateTodayLabel.setText(String.format("Penyaluran makanan hari Ini (%s)", MyHelper.getDateNow()));
         } catch (Exception e) {
         }
         
@@ -345,6 +345,12 @@ public class PenyaluranMakananController implements Initializable{
         } catch (IOException e) {
           e.printStackTrace();
         }
+    }
+     
+     
+    @FXML
+    void print(ActionEvent event) {
+        
     }
        
 }

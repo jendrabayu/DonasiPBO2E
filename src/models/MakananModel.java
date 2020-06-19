@@ -102,6 +102,33 @@ public class MakananModel {
         }        
         return result; 
     }
+    
+    
+     public static ArrayList<MakananModel> getAllAvailable(){
+        ArrayList<MakananModel> result = new ArrayList<MakananModel>();
+        ResultSet rs = DBHelper.selectAll(TABLE, "jumlah > 0");
+        try {
+            while (rs.next()){
+                MakananModel makanan = new MakananModel();
+                makanan.setId(rs.getInt("id"));
+                makanan.setUser_id(rs.getInt("user_id"));
+                makanan.setNama(rs.getString("nama"));
+                makanan.setJumlah_awal(rs.getInt("jumlah_awal"));
+                makanan.setJumlah(rs.getInt("jumlah"));
+                makanan.setExpired_date(rs.getString("expired_date"));
+                makanan.setKeterangan(rs.getString("keterangan"));
+                makanan.setStatus_id(rs.getInt("status_id"));
+                makanan.setCreated_at(rs.getString("created_at"));
+                makanan.setUpdated_at(rs.getString("updated_at"));
+                result.add(makanan);
+            }
+        } catch (Exception e){
+            e.printStackTrace();    
+        }        
+        return result; 
+    }
+    
+    
 
     public String getNama() {
         return nama;

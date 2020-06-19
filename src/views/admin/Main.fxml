@@ -133,6 +133,21 @@
                         <Insets left="23.0" />
                      </padding>
                   </Button>
+                  <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#rekap" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Rekap Penyaluran" textFill="WHITE">
+                     <font>
+                        <Font name="SansSerif Regular" size="14.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="19.91" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../assets/img/dashboard/Icon%20metro-table.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <padding>
+                        <Insets left="23.0" />
+                     </padding>
+                  </Button>
                   <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#rekening" prefHeight="45.0" prefWidth="225.0" styleClass="btn-menu" stylesheets="@../assets/css/admin.css" text="Rekening" textFill="WHITE">
                      <font>
                         <Font name="SansSerif Regular" size="14.0" />

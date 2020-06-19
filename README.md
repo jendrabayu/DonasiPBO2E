@@ -8,34 +8,55 @@ Project Pemrograman Berorientasi Obyek 2 Menggunakan Metode MVC
 4. __Database__      : XAMPP 3.2.4, MariaDB, mysql connector java 5.1.23
 
 ## Struktur Package
-- __app__         : Berisi Main Class 
-- __controllers__ : Berisi class-class untuk mengatur view, mendapatkan data yang dibutukan view dari model, dan tempat semua logic
-- __helpers__     : Berisi class-class yang menyediakan fungsi-fungsi yang dibutuhkan dan sering dipakai
-- __models__      : Berisi class-class yang menyediakan data dari database
-- __views__       : Berisi semua file-file FXML
+- __app__         : Berisi Main Class
+- __controllers__ : Berisi class controller untuk mengatur view, logic dan data
+- __helpers__     : Berisi class yang menyediakan fungsi-fungsi yang dibutuhkan dan sering dipakai
+- __models__      : Berisi class yang menyediakan data dari database
+- __views__       : Berisi semua file-file UI FXML
 
 ## Fitur
 1. Login Multiuser : role (1=>Admin, 2=>User)
-2. Cookie : menyimpan data user dalam file xml (mirip fitur ingat saya pada website)
-3. SoftDeletes : agar data tidak benar-benar terhapus dari database
-4. Edit profil dan ubah password
-3. Admin
-    - Melihat, pencarian data donatur
-    - Melihat, Membuat, mengedit, menghapus(softdeletes), dan pencarian data penerima
-    - Melihat data makanan dengan status (1 => sedang diproses) dan mengubah statusnya (2 => ditolak, 3=>diterima)
-    - Melihat data makanan dengan status (2 => ditolak, 3=>diterima)
-    - Melihat data uang dengan status (1 => sedang diproses) dan mengubah statusnya (2 => ditolak, 3=>diterima)
-    - Melihat data uang dengan status (2 => ditolak, 3=>diterima)
-    - Membuat dan menghapus data penyaluran makanan (di hari itu)
-    - Membuat dan menghapus data penyaluran uang (di hari itu)
-    - Membuat, mengubah, dan menghapus(softdeletes) data rekening admin 
-    -
-5. User
-    - Membuat data donasi makanan
-    - Membuat data donasi uang
-    - Melihat semua riwayat donasi pribadi
-    - Melihat data penerima
-    - 
+2. Registasi
+3. Cookie : menyimpan data user dalam file xml (jika user menutup aplikasi tanpa logout maka user bisa membuka aplikasi tanpa harus login kembali)
+4. SoftDeletes : agar data tidak benar-benar terhapus dari database
+5. Edit profil dan ubah password
+6. Untuk Admin
+    - Menampilkan data donatur
+    - Pencarian data donatur
+    - Menampilkan data penerima
+    - Pencarian data penerima
+    - Tambah penerima
+    - Edit penerima
+    - Hapus penerima (softdeletes)
+    - Menampilkan data makanan (status 1=>sedang diproses)
+    - Edit status data makanan (status 2=>ditolak, 3=>diterima)
+    - Menampilkan data uang (status 1=>sedang diproses)
+    - Edit status data uang (status 2=>ditolak, 3=>diterima)
+    - Menampilkan data penyaluran makanan hari ini
+    - Tambah data penyaluran makanan hari ini
+    - Hapus data penyaluran makanan hari ini
+    - Print data penyaluran makanan hari ini (belum)
+    - Menampilkan data penyaluran uang hari ini
+    - Tambah data penyaluran uang hari ini
+    - Hapus data penyaluran uang hari ini
+    - Print data penyaluran uang hari ini (belum)
+    - Menampilkan rekap penyaluran makanan semua waktu/minggu ini/bulan ini/tahun ini
+    - Print rekap penyaluran makanan semua waktu/minggu ini/bulan ini/tahun ini (belum)
+    - Menampilkan rekap penyaluran uang semua waktu/minggu ini/bulan ini/tahun ini
+    - Print rekap penyaluran uang semua waktu/minggu ini/bulan ini/tahun ini (belum)
+    - Menampilkan data rekening
+    - Edit data rekening
+    - Hapus data rekening (softdeletes)
+
+7. User
+    - Menampilkan data makanan (by user_id)
+    - Menampilkan data uang (by user_id)
+    - Tambah data donasi makanan
+    - Tambah data donasi uang
+    - Menampilkan rekap penyaluran makanan bulan ini
+    - Menampilkan rekap penyaluran uang bulan ini
+    - Menampilkan data penerima
+
     
 
     

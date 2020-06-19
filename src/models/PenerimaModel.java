@@ -1,6 +1,7 @@
 package models;
 
 import helpers.DBHelper;
+import helpers.MyHelper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class PenerimaModel extends Person{
     
     public static ArrayList<PenerimaModel> getAll() throws SQLException{
         ArrayList<PenerimaModel> result = new ArrayList<PenerimaModel>();
-        ResultSet resultSet = DBHelper.selectAll(TABLE);
+        ResultSet resultSet = DBHelper.selectAll(TABLE, "deleted_at IS NULL");
          while (resultSet.next()){
                 PenerimaModel penerima = new PenerimaModel();
                 penerima.setId(resultSet.getInt("id"));
@@ -55,7 +56,7 @@ public class PenerimaModel extends Person{
     
     public static ArrayList<PenerimaModel> get(int id) throws SQLException{
         ArrayList<PenerimaModel> result = new ArrayList<PenerimaModel>();
-        ResultSet resultSet = DBHelper.selectAll(TABLE, "id = '"+id+"'");
+        ResultSet resultSet = DBHelper.selectAll(TABLE, "id = '"+id+"' AND deleted_at IS NULL");
         while (resultSet.next()){
                PenerimaModel penerima = new PenerimaModel();
                penerima.setId(resultSet.getInt("id"));
@@ -91,7 +92,9 @@ public class PenerimaModel extends Person{
     }
     
     public static boolean delete(int id){
-       return DBHelper.delete(TABLE, Integer.toString(id));
+        Map<String, String> params = new LinkedHashMap<String, String>();
+        params.put("`deleted_at`", String.format("'%s'", MyHelper.getCurrentTimeStamp()));  
+        return DBHelper.update("penerima", params, String.format("id = %s", id));
     }
 
     public int getJumlahOrang() {

@@ -18,7 +18,7 @@
                   <Font name="System Bold" size="27.0" />
                </font>
             </Label>
-            <HBox layoutX="557.0" layoutY="18.0" prefHeight="37.0" prefWidth="361.0">
+            <HBox layoutX="459.0" layoutY="18.0" prefHeight="37.0" prefWidth="527.0">
                <children>
                   <Label fx:id="labelBeranda" onMouseClicked="#showBeranda" prefHeight="37.0" prefWidth="90.0" style="-fx-font-size: 16px; -fx-cursor: hand;" text="Beranda" textFill="#3d3d3d">
                      <HBox.margin>
@@ -43,6 +43,11 @@
                      <HBox.margin>
                         <Insets right="1.0" />
                      </HBox.margin>
+                  </Label>
+                  <Label onMouseClicked="#showRekap" prefHeight="37.0" prefWidth="142.0" style="-fx-font-size: 16px; -fx-cursor: hand;" text="Rekap Bulanan" textFill="#3d3d3d">
+                     <padding>
+                        <Insets left="15.0" right="15.0" />
+                     </padding>
                   </Label>
                   <MenuButton mnemonicParsing="false" style="-fx-background-color: none; -fx-font-size: 16px; -fx-font-weight: 500; -fx-cursor: hand;" text="Akun" textFill="#3d3d3d">
                     <items>

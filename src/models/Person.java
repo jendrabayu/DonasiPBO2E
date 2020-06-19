@@ -57,8 +57,4 @@ public abstract class Person {
         this.alamat = alamat;
     }
     
-    
-    
-
-    
 }

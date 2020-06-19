@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="mainPane" prefHeight="630.0" prefWidth="975.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.admin.RekapController">
+    <stylesheets>
+        <URL value="@/views/assets/css/admin.css" />
+    </stylesheets>
+   <children>
+      <VBox layoutX="38.0" layoutY="15.0" prefHeight="600.0" prefWidth="900.0">
+         <children>
+            <JFXTabPane>
+               <tabs>
+                  <Tab text="Donasi Makanan">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="200.0">
+                           <children>
+                              <VBox prefHeight="550.0" prefWidth="900.0" style="-fx-background-color: white;">
+                                 <children>
+                                    <HBox prefHeight="90.0" prefWidth="200.0">
+                                       <children>
+                                          <HBox alignment="CENTER" prefHeight="90.0" prefWidth="650.0" spacing="3.0">
+                                             <children>
+                                                <JFXButton onAction="#mAll" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #005073;" text="Semua Waktu" textFill="WHITE">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor></JFXButton>
+                                                <JFXButton onAction="#mWeek" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #005073;" text="Minggu Ini" textFill="WHITE">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor></JFXButton>
+                                                <JFXButton onAction="#mMonth" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #005073;" text="Bulan Ini" textFill="WHITE">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor></JFXButton>
+                                                <JFXButton onAction="#mYear" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #005073;" text="Tahun Ini" textFill="WHITE">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor></JFXButton>
+                                                <JFXButton prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #AEAEAE;" text="Print" textFill="WHITE">
+                                                   <graphic>
+                                                      <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../assets/img/dashboard/Icon%20awesome-print.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <font>
+                                                      <Font name="System Bold" size="13.0" />
+                                                   </font>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                          <VBox alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="483.0">
+                                             <children>
+                                                <Label fx:id="mLabelTitle" text="Semua Data Penyaluran Makanan">
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="mLabelTotal" text="Total Makanan">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets right="20.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children></HBox>
+                                    <TableView fx:id="mtable" prefHeight="460.0" prefWidth="200.0">
+                                      <columns>
+                                        <TableColumn fx:id="mNo" prefWidth="35.0" text="No" />
+                                          <TableColumn fx:id="mDate" prefWidth="70.0" text="Tanggal" />
+                                          <TableColumn prefWidth="75.0" text="Penerima">
+                                             <columns>
+                                                <TableColumn fx:id="mNama" prefWidth="100.0" text="Nama" />
+                                                <TableColumn fx:id="mEmail" prefWidth="100.0" text="Email" />
+                                                <TableColumn fx:id="mTelp" prefWidth="100.0" text="Telp" />
+                                                <TableColumn fx:id="mJumlahOrang" prefWidth="70.0" text="Jumlah Org" />
+                                                <TableColumn fx:id="mAlamat" prefWidth="200.0" text="Alamat" />
+                                             </columns>
+                                          </TableColumn>
+                                          <TableColumn fx:id="mMakanan" prefWidth="140.0" text="Makanan" />
+                                          <TableColumn fx:id="mJumlah" prefWidth="84.0" text="Jumlah/Porsi" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="Donasi Uang">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <VBox prefHeight="550.0" prefWidth="900.0" style="-fx-background-color: white;">
+                                 <children>
+                                    <HBox prefHeight="90.0" prefWidth="200.0">
+                                       <children>
+                                          <HBox alignment="CENTER" prefHeight="90.0" prefWidth="650.0" spacing="3.0">
+                                             <children>
+                                                <JFXButton onAction="#uAll" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #005073;" text="Semua Waktu" textFill="WHITE">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </JFXButton>
+                                                <JFXButton onAction="#uWeek" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #005073;" text="Minggu Ini" textFill="WHITE">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </JFXButton>
+                                                <JFXButton onAction="#uMonth" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #005073;" text="Bulan Ini" textFill="WHITE">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </JFXButton>
+                                                <JFXButton onAction="#uYear" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #005073;" text="Tahun Ini" textFill="WHITE">
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                </JFXButton>
+                                                <JFXButton prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: #AEAEAE;" text="Print" textFill="WHITE">
+                                                   <graphic>
+                                                      <ImageView fitHeight="10.0" fitWidth="10.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../../assets/img/dashboard/Icon%20awesome-print.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                   <font>
+                                                      <Font name="System Bold" size="13.0" />
+                                                   </font>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                          <VBox alignment="CENTER_RIGHT" prefHeight="90.0" prefWidth="483.0">
+                                             <children>
+                                                <Label fx:id="uLabelTitle" text="Semua Data Penyaluran Makanan">
+                                                   <font>
+                                                      <Font name="System Bold" size="15.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label fx:id="uLabelTotal" text="Total Makanan">
+                                                   <font>
+                                                      <Font size="15.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                             <padding>
+                                                <Insets right="20.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children></HBox>
+                                    <TableView fx:id="uTable" prefHeight="460.0" prefWidth="200.0">
+                                       <columns>
+                                          <TableColumn fx:id="uNo" prefWidth="35.0" text="No" />
+                                          <TableColumn fx:id="uDate" prefWidth="70.0" text="Tanggal" />
+                                          <TableColumn prefWidth="75.0" text="Penerima">
+                                             <columns>
+                                                <TableColumn fx:id="uNama" prefWidth="110.0" text="Nama" />
+                                                <TableColumn fx:id="uEmail" prefWidth="110.0" text="Email" />
+                                                <TableColumn fx:id="utelp" prefWidth="110.0" text="Telp" />
+                                                <TableColumn fx:id="uJumlahOrang" prefWidth="110.0" text="Jumlah Org" />
+                                                <TableColumn fx:id="uAlamat" prefWidth="220.0" text="Alamat" />
+                                             </columns>
+                                          </TableColumn>
+                                          <TableColumn fx:id="uJumlah" prefWidth="140.0" text="Jumlah Uang" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+               </tabs>
+            </JFXTabPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
