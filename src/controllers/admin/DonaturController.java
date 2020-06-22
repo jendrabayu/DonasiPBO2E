@@ -30,27 +30,27 @@ public class DonaturController implements Initializable {
     private TextField searchField;
 
     @FXML
-    private TableView<DataDonatur> table;
+    private TableView<Donatur> table;
 
     @FXML
-    private TableColumn<DataDonatur, Number> colNo;
+    private TableColumn<Donatur, Number> colNo;
 
     @FXML
-    private TableColumn<DataDonatur, String> colNama;
+    private TableColumn<Donatur, String> colNama;
 
     @FXML
-    private TableColumn<DataDonatur, String> colEmail;
+    private TableColumn<Donatur, String> colEmail;
 
     @FXML
-    private TableColumn<DataDonatur, String> colNoTelp;
+    private TableColumn<Donatur, String> colNoTelp;
 
     @FXML
-    private TableColumn<DataDonatur, String> colAlamat;
+    private TableColumn<Donatur, String> colAlamat;
 
     @FXML
     private Label result_count;
     
-    private ObservableList<DataDonatur> dataDonatur = FXCollections.observableArrayList();
+    private ObservableList<Donatur> data = FXCollections.observableArrayList();
 
     @FXML
     void searchDonatur(KeyEvent event) {
@@ -58,73 +58,36 @@ public class DonaturController implements Initializable {
     }
 
     private void initTable(String keyword){
-
-        dataDonatur.clear();
-        ArrayList<DonaturModel> donaturs = DonaturModel.getAll(keyword);
+        data.clear();
+        ArrayList<DonaturModel> donaturs;
+        if (keyword != null) {
+            donaturs = DonaturModel.getAll(keyword);
+        }else{
+            donaturs = DonaturModel.getAll();
+        }
         
-        int no = 0;
-        
+        int no = 1;
         for(DonaturModel donatur : donaturs){
-            dataDonatur.add(new DataDonatur(
-                    1+no++, 
-                    donatur.getId(), 
-                    donatur.getNama(), 
-                    donatur.getEmail(), 
-                    donatur.getNo_telp(), 
-                    donatur.getAlamat()) 
+            data.add(new Donatur(
+                no++, 
+                donatur.getId(), 
+                donatur.getNama(), 
+                donatur.getEmail(), 
+                donatur.getNo_telp(), 
+                donatur.getAlamat()) 
             );
         }
         
-          
         Label notfoundLabel = new Label("Data Donatur Tidak Ditemukan");
         notfoundLabel.setFont(Font.font(20));
       
-        
-        if(dataDonatur.size() == 0) {
+        if(data.isEmpty()) {
             table.setPlaceholder(notfoundLabel);
         
         }
         
-        table.setItems(dataDonatur);
-        result_count.setText(String.format("%s hasil", dataDonatur.size()));
-        colNo.setCellValueFactory(cellData -> cellData.getValue().getNo());
-        colNama.setCellValueFactory(cellData -> cellData.getValue().getNama());
-        colEmail.setCellValueFactory(cellData -> cellData.getValue().getEmail());
-        colNoTelp.setCellValueFactory(cellData -> cellData.getValue().getNo_telp());
-        colAlamat.setCellValueFactory(cellData -> cellData.getValue().getAlamat());
-   
-    }
-    
-     private void initTable(){
-
-        dataDonatur.clear();
-        ArrayList<DonaturModel> donaturs = DonaturModel.getAll();
-        
-        int no = 0;
-        
-        for(DonaturModel donatur : donaturs){
-            dataDonatur.add(new DataDonatur(
-                    1+no++, 
-                    donatur.getId(), 
-                    donatur.getNama(), 
-                    donatur.getEmail(), 
-                    donatur.getNo_telp(), 
-                    donatur.getAlamat()) 
-            );
-        }
-        
-          
-        Label notfoundLabel = new Label("Data Donatur Tidak Ditemukan");
-        notfoundLabel.setFont(Font.font(20));
-      
-        
-        if(dataDonatur.size() == 0) {
-            table.setPlaceholder(notfoundLabel);
-        
-        }
-        
-        table.setItems(dataDonatur);
-        result_count.setText(String.format("%s hasil", dataDonatur.size()));
+        table.setItems(data);
+        result_count.setText(String.format("%s hasil", data.size()));
         colNo.setCellValueFactory(cellData -> cellData.getValue().getNo());
         colNama.setCellValueFactory(cellData -> cellData.getValue().getNama());
         colEmail.setCellValueFactory(cellData -> cellData.getValue().getEmail());
@@ -135,19 +98,16 @@ public class DonaturController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        initTable();
+        initTable(null);
     }    
-
-    
 }
 
-
-class DataDonatur{
+class Donatur{
     
     IntegerProperty no, id;
     StringProperty nama, email, no_telp, alamat;
 
-    public DataDonatur(int no, int id, String nama, String email, String no_telp, String alamat) {
+    public Donatur(int no, int id, String nama, String email, String no_telp, String alamat) {
         this.no = new SimpleIntegerProperty(no);
         this.id = new SimpleIntegerProperty(id);
         this.nama = new SimpleStringProperty(nama);
@@ -160,48 +120,24 @@ class DataDonatur{
         return no;
     }
 
-    public void setNo(IntegerProperty no) {
-        this.no = no;
-    }
-
     public IntegerProperty getId() {
         return id;
-    }
-
-    public void setId(IntegerProperty id) {
-        this.id = id;
     }
 
     public StringProperty getNama() {
         return nama;
     }
 
-    public void setNama(StringProperty nama) {
-        this.nama = nama;
-    }
-
     public StringProperty getEmail() {
         return email;
-    }
-
-    public void setEmail(StringProperty email) {
-        this.email = email;
     }
 
     public StringProperty getNo_telp() {
         return no_telp;
     }
 
-    public void setNo_telp(StringProperty no_telp) {
-        this.no_telp = no_telp;
-    }
-
     public StringProperty getAlamat() {
         return alamat;
-    }
-
-    public void setAlamat(StringProperty alamat) {
-        this.alamat = alamat;
     }
 }
 

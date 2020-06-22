@@ -6,8 +6,6 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -41,14 +39,10 @@ public class DashboardController implements Initializable {
         uangSedangDirposes();
         makananSedangDirposes();
         jumlahMakanan();
-        try {
+          this.jumlahPenerima.setText(Integer.toString(PenerimaModel.getAll().size()));
             this.jumlahDonatur.setText(Integer.toString(DonaturModel.getAll().size()));
-            this.jumlahPenerima.setText(Integer.toString(PenerimaModel.getAll().size()));
-            this.jumlahUang.setText(MyHelper.rupiahFormat(Long.toString(UangModel.getTotal())));
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.jumlahUang.setText(MyHelper.rupiahFormat(Long.toString(UangModel.getTotal())));
+     
     }    
     
     

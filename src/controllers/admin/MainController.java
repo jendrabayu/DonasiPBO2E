@@ -70,7 +70,6 @@ public class MainController implements Initializable {
         changeFxml("makanan/Makanan");
     }
 
-    
     @FXML
     void uang(ActionEvent event) {
         menuTitle.setText("Uang");
@@ -129,7 +128,7 @@ public class MainController implements Initializable {
             mainPane.getChildren().removeAll();
             mainPane.getChildren().setAll(fxml);
         } catch (IOException e) {
-           e.printStackTrace();
+           //e.printStackTrace();
         }
     }
 
@@ -148,7 +147,7 @@ public class MainController implements Initializable {
             ft.play();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
     

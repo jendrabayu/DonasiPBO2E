@@ -45,27 +45,23 @@ public class PenerimaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-        try {
-            ArrayList<PenerimaModel> penerimas = PenerimaModel.getAll();
+        ArrayList<PenerimaModel> penerimas = PenerimaModel.getAll();
             
-            int no = 0;
-            for(PenerimaModel penerima : penerimas){
-                dataPenerima.add(new DataPenerima(
-                        1+no++,
-                        penerima.getNama(),
-                        penerima.getJumlahOrang(),
-                        penerima.getAlamat()));
-            }
-            
-            
-            tabel_penerima.setItems(dataPenerima);
-            col_no.setCellValueFactory(cellData -> cellData.getValue().getNo());
-            col_nama.setCellValueFactory(cellData -> cellData.getValue().getNama());
-            col_jumlah_orang.setCellValueFactory(cellData -> cellData.getValue().getJumlah_orang());
-            col_alamat.setCellValueFactory(cellData -> cellData.getValue().getAlamat());
-        } catch (SQLException ex) {
-            Logger.getLogger(PenerimaController.class.getName()).log(Level.SEVERE, null, ex);
+        int no = 0;
+        for(PenerimaModel penerima : penerimas){
+            dataPenerima.add(new DataPenerima(
+                    1+no++,
+                    penerima.getNama(),
+                    penerima.getJumlahOrang(),
+                    penerima.getAlamat()));
         }
+
+
+        tabel_penerima.setItems(dataPenerima);
+        col_no.setCellValueFactory(cellData -> cellData.getValue().getNo());
+        col_nama.setCellValueFactory(cellData -> cellData.getValue().getNama());
+        col_jumlah_orang.setCellValueFactory(cellData -> cellData.getValue().getJumlah_orang());
+        col_alamat.setCellValueFactory(cellData -> cellData.getValue().getAlamat());
         
     }    
     

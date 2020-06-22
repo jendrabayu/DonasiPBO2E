@@ -65,13 +65,12 @@ public class RekeningController implements Initializable {
 
     @FXML
     void index(ActionEvent event) {
+        RekeningController.id = 0;
         changeFxml("Rekening");
     }
 
-
     @FXML
     void add(ActionEvent event) {
-        RekeningController.id = 0;
         changeFxml("TambahRekening");
     }
     
@@ -100,28 +99,27 @@ public class RekeningController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
                 if (RekeningModel.delete(RekeningController.id)) {
-                    Dialog.alertSuccess("Rekening berhasil dihapus");
+                    Dialog.alertSuccess("Data Berhasil Dihapus");
                     initTable();
                 }else{
-                      Dialog.alertError("Rekening gagal dihapus");
+                    Dialog.alertError("Data Gagal Dihapus");
                 }  
             }
         }else{
-            Dialog.alertWarning("Klik row rekening yang ingin dihapus!");
+            Dialog.alertWarning("Klik row yang ingin dihapus!");
         } 
     }
     
     @FXML
     void store(ActionEvent event) {
-        RekeningController.id = 0;
         if (fieldNamaBank.getText().equals("") || fieldAtasNama.getText().equals("") || fieldNoRekening.getText().equals("")) {
             Dialog.alertWarning("Semua field tidak boleh kosong!");
         }else{
             if(RekeningModel.store(fieldNamaBank.getText(), fieldAtasNama.getText(), fieldNoRekening.getText())) {
-                Dialog.alertSuccess("Rekening berhasil ditambahkan");
+                Dialog.alertSuccess("Data Berhasil Ditambahkan");
                 changeFxml("Rekening");
             }else{
-                Dialog.alertError("Gagal menambahkan rekening");
+                Dialog.alertError("Data Gagal Ditambahkan");
             }
         }
     }
@@ -133,16 +131,14 @@ public class RekeningController implements Initializable {
             Dialog.alertWarning("Semua field tidak boleh kosong!");
         }else{
             if(RekeningModel.update(RekeningController.id, fieldNamaBank.getText(), fieldAtasNama.getText(), fieldNoRekening.getText())) {
-            Dialog.alertSuccess("Rekening Berhasil diupdate");
+            Dialog.alertSuccess("Data Berhasil Diupdate");
             changeFxml("Rekening");
             }else{
-                Dialog.alertError("Rekening gagal diupdate");
+                Dialog.alertError("Data Gagal Diupdate");
             }
         }
-      
     }
 
-    
     private void initTable(){
         data.clear();
         ArrayList<RekeningModel> rekenings = RekeningModel.getAll();
@@ -158,15 +154,20 @@ public class RekeningController implements Initializable {
                 );
         }
         
-        table.setItems(data);
-        colNo.setCellValueFactory(cellData -> cellData.getValue().getNo());
-        colNamaBank.setCellValueFactory(cellData -> cellData.getValue().getNamaBank());
-        colAtasNama.setCellValueFactory(cellData -> cellData.getValue().getAtasNama());
-        colNoRekening.setCellValueFactory(cellData -> cellData.getValue().getNoRekening());
+        try {
+            table.setItems(data);
+            colNo.setCellValueFactory(cellData -> cellData.getValue().getNo());
+            colNamaBank.setCellValueFactory(cellData -> cellData.getValue().getNamaBank());
+            colAtasNama.setCellValueFactory(cellData -> cellData.getValue().getAtasNama());
+            colNoRekening.setCellValueFactory(cellData -> cellData.getValue().getNoRekening());
+        } catch (Exception e) {
+            //e.printStackTrace();
+        }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {  
+        initTable();
         
         if (RekeningController.id > 0) {
             try {
@@ -176,31 +177,19 @@ public class RekeningController implements Initializable {
                     fieldAtasNama.setText(rekening.getAtasNama());
                     fieldNoRekening.setText(rekening.getNoRekening());
                 }
-            } catch (Exception e) {
-                System.err.println(e);
-            }
-        }
-        
-        try {
-            //set inputan hanya angka
-            fieldNoRekening.textProperty().addListener(new ChangeListener<String>() {
-                @Override
-                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                    if (!newValue.matches("\\d{0,25}")) {
-                        fieldNoRekening.setText(oldValue);
+                
+                fieldNoRekening.textProperty().addListener(new ChangeListener<String>() {
+                    @Override
+                    public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                        if (!newValue.matches("\\d{0,25}")) {
+                            fieldNoRekening.setText(oldValue);
+                        }
                     }
-                }
-           });
-        } catch (Exception e) {
-            System.err.println(e);
-        }
-        
-        //inisialisai data table
-        try {
-            initTable();
-        } catch (Exception e) {
-            System.err.println(e);
-        }
+                });
+            } catch (Exception e) {
+                //e.printStackTrace();
+            }
+        } 
     }
 
     private void changeFxml(String file){
@@ -209,22 +198,17 @@ public class RekeningController implements Initializable {
             Parent fxml = FXMLLoader.load(getClass().getResource("/views/admin/rekening/"+file+".fxml"));
             mainPane.getChildren().removeAll();
             mainPane.getChildren().setAll(fxml);
-
             FadeTransition ft = new FadeTransition();
             ft.setDuration(Duration.millis(500));
             ft.setNode(mainPane);
             ft.setFromValue(0);
             ft.setToValue(1);
             ft.play();
-
         } catch (IOException e) {
             System.err.println(e);
         }
-    }
-    
+    }  
 }
-
-
 
 class Rekening{
     
@@ -243,41 +227,19 @@ class Rekening{
         return no;
     }
 
-    public void setNo(IntegerProperty no) {
-        this.no = no;
-    }
-    
-
     public IntegerProperty getId() {
         return id;
-    }
-
-    public void setId(IntegerProperty id) {
-        this.id = id;
     }
 
     public StringProperty getNamaBank() {
         return namaBank;
     }
 
-    public void setNamaBank(StringProperty namaBank) {
-        this.namaBank = namaBank;
-    }
-
     public StringProperty getAtasNama() {
         return atasNama;
-    }
-
-    public void setAtasNama(StringProperty atasNama) {
-        this.atasNama = atasNama;
     }
 
     public StringProperty getNoRekening() {
         return noRekening;
     }
-
-    public void setNoRekening(StringProperty noRekening) {
-        this.noRekening = noRekening;
-    }
-
 }

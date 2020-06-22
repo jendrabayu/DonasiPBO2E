@@ -16,27 +16,27 @@
         <URL value="@/views/assets/css/admin.css" />
     </stylesheets>
    <children>
-      <TextField fx:id="searchField" accessibleRole="TEXT" layoutX="38.0" layoutY="42.0" onKeyTyped="#searchPenerima" prefHeight="35.0" prefWidth="283.0" promptText="Cari Penerima">
+      <TextField fx:id="searchField" accessibleRole="TEXT" layoutX="38.0" layoutY="42.0" onKeyTyped="#search" prefHeight="35.0" prefWidth="283.0" promptText="Cari Penerima">
          <font>
             <Font size="14.0" />
          </font></TextField>
       <HBox layoutX="663.0" layoutY="44.0" prefHeight="35.0" prefWidth="268.0" spacing="10.0">
          <children>
-            <JFXButton onAction="#showAddPenerima" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #3abaf4; -fx-text-fill: #fff;" text="Tambah">
+            <JFXButton onAction="#add" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #3abaf4; -fx-text-fill: #fff;" text="Tambah">
                <font>
                   <Font size="15.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></JFXButton>
-            <JFXButton onAction="#showEditPenerima" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #ffa426; -fx-text-fill: #fff;" text="Edit">
+            <JFXButton onAction="#edit" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #ffa426; -fx-text-fill: #fff;" text="Edit">
                <font>
                   <Font size="15.0" />
                </font>
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></JFXButton>
-            <JFXButton onAction="#deletePenerima" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #fc544b; -fx-text-fill: #fff;" text="Hapus">
+            <JFXButton onAction="#delete" prefHeight="35.0" prefWidth="80.0" style="-fx-background-color: #fc544b; -fx-text-fill: #fff;" text="Hapus">
                <font>
                   <Font size="15.0" />
                </font>

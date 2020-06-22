@@ -5,12 +5,9 @@ import com.jfoenix.controls.JFXTextField;
 import helpers.Dialog;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -62,25 +59,25 @@ public class PenerimaController implements Initializable {
     private JFXTextArea alamat;    
     
     @FXML
-    private TableView<DataPenerima> table;
+    private TableView<Penerima> table;
 
     @FXML
-    private TableColumn<DataPenerima, Number> colNo;
+    private TableColumn<Penerima, Number> colNo;
 
     @FXML
-    private TableColumn<DataPenerima, String> colNama;
+    private TableColumn<Penerima, String> colNama;
 
     @FXML
-    private TableColumn<DataPenerima, String> colEmail;
+    private TableColumn<Penerima, String> colEmail;
 
     @FXML
-    private TableColumn<DataPenerima, String> colNoTelp;
+    private TableColumn<Penerima, String> colNoTelp;
 
     @FXML
-    private TableColumn<DataPenerima, Number> colJumlahOrang;
+    private TableColumn<Penerima, Number> colJumlahOrang;
 
     @FXML
-    private TableColumn<DataPenerima, String> colAlamat;
+    private TableColumn<Penerima, String> colAlamat;
 
     @FXML
     private Label result_count;
@@ -88,49 +85,38 @@ public class PenerimaController implements Initializable {
     @FXML
     private TextField searchField;
     
-    private ObservableList<DataPenerima> dataPenerima = FXCollections.observableArrayList();
+    private ObservableList<Penerima> data = FXCollections.observableArrayList();
     
     @FXML
-    void showPenerima(ActionEvent event) {
+    void index(ActionEvent event) {
         PenerimaController.id = 0;
         changeFxml("Penerima");
-        
     }
     
     @FXML
-    void showAddPenerima(ActionEvent event) {
+    void add(ActionEvent event) {
         changeFxml("TambahPenerima");
     }
     
     @FXML
-    void showEditPenerima(ActionEvent event) {
+    void edit(ActionEvent event) {
         int selectedIndex = table.getSelectionModel().getSelectedIndex();
         if(selectedIndex >= 0){
-            DataPenerima penerima = table.getItems().get(selectedIndex);
+            Penerima penerima = table.getItems().get(selectedIndex);
             PenerimaController.id = penerima.getId().getValue();
             changeFxml("EditPenerima");
         }else{
-            Dialog.alertWarning("Mohon klik penerima yang akan diedit");
+            Dialog.alertWarning("Mohon Klik Row Yang Ingin Diedit");
         } 
     }
     
     @FXML
-    void showDataDonasi(ActionEvent event) {
-
-    }
-
-    @FXML
-    void searchPenerima(KeyEvent event) {
-        try {
-            initTable(searchField.getText());
-        } catch (SQLException ex) {
-            Logger.getLogger(PenerimaController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    void search(KeyEvent event) {
+        initTable(searchField.getText());
     }
     
-
     @FXML
-    void deletePenerima(ActionEvent event) throws SQLException {
+    void delete(ActionEvent event){
         int selectedIndex = table.getSelectionModel().getSelectedIndex();    
         if(selectedIndex >= 0){
             Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -139,41 +125,38 @@ public class PenerimaController implements Initializable {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK){
-                DataPenerima penerima = table.getItems().get(selectedIndex);
-                int id = penerima.getId().getValue();
-                if (PenerimaModel.delete(id)) {
-                    Dialog.alertSuccess("Berhasi Dihapus");  
+                Penerima penerima = table.getItems().get(selectedIndex);
+                if (PenerimaModel.delete(penerima.getId().getValue())) {
+                    Dialog.alertSuccess("Data Berhasi Dihapus");
                     initTable(null);              
                 }else{
-                   Dialog.alertError("Gagal DIhapus");
+                   Dialog.alertError("Data Gagal DIhapus");
                 }
             }
         }else{
-            Dialog.alertWarning("Mohon klik penerima yang akan dihapus");
+            Dialog.alertWarning("Mohon Klik Row Yang Ingin Dihapus");
         } 
     }
 
-   @FXML
-    void createPenerima(ActionEvent event) {
-        PenerimaController.id = -1;
+    @FXML
+    void store(ActionEvent event) {
         if (nama.getText().equals("") ||
                 email.getText().equals("")||
                 no_telp.getText().equals("")||
                 jumlah_orang.getText().equals("")||
                 alamat.getText().equals("")) 
         {
-           Dialog.alertWarning("Semua field wajib diisi!");
+           Dialog.alertWarning("Semua field tidak boleh kosong!");
         }else{
-            if (PenerimaModel.create(nama.getText(), 
+            if (PenerimaModel.store(nama.getText(), 
                     email.getText(), 
                     no_telp.getText(), 
                     Integer.parseInt(jumlah_orang.getText()), 
                     alamat.getText())) {
-                Dialog.alertSuccess("Perhasil Menambahkan Penerima Baru");
-                PenerimaController.id = -1;
+                Dialog.alertSuccess("Data Berhasil Ditambahkan");
                 changeFxml("Penerima");
             }else{
-                Dialog.alertError("Gagal Menambahkan Penerima Baru!");
+                Dialog.alertError("Data Gagal Ditambahkan");
                 
             }
         }
@@ -181,14 +164,14 @@ public class PenerimaController implements Initializable {
 
 
     @FXML
-    void updatePenerima(ActionEvent event) {
+    void update(ActionEvent event) {
         if (nama.getText().equals("") ||
               email.getText().equals("")||
               no_telp.getText().equals("")||
               jumlah_orang.getText().equals("")||
               alamat.getText().equals("")) 
           {
-            Dialog.alertWarning("Semua field wajib diisi!");
+            Dialog.alertWarning("Semua field tidak boleh kosong!");
         }else{
             if (PenerimaModel.update(
                     PenerimaController.id, 
@@ -197,11 +180,10 @@ public class PenerimaController implements Initializable {
                     no_telp.getText(), 
                     Integer.parseInt(jumlah_orang.getText()), 
                     alamat.getText())) {
-                Dialog.alertSuccess("Perhasil di update");
-                PenerimaController.id = -1;
+                Dialog.alertSuccess("Data Berhasil Diupdate");
                 changeFxml("Penerima");
             }else{
-                Dialog.alertError("Gagal diupdate!");
+                Dialog.alertError("Data Gagal Diupdate!");
             }
         }
     }
@@ -209,25 +191,20 @@ public class PenerimaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
+        initTable(null);
+        
         if (PenerimaController.id > 0) {
+            ArrayList<PenerimaModel> penerimas = PenerimaModel.get(PenerimaController.id);
             try {
-                ArrayList<PenerimaModel> penerimas = PenerimaModel.get(PenerimaController.id);
                 for(PenerimaModel penerima : penerimas){
-                    nama.setText(penerima.getNama());
-                    email.setText(penerima.getEmail());
-                    no_telp.setText(penerima.getNo_telp());
-                    alamat.setText(penerima.getAlamat());
-                    jumlah_orang.setText(Integer.toString(penerima.getJumlahOrang()));
+                nama.setText(penerima.getNama());
+                email.setText(penerima.getEmail());
+                no_telp.setText(penerima.getNo_telp());
+                alamat.setText(penerima.getAlamat());
+                jumlah_orang.setText(Integer.toString(penerima.getJumlahOrang()));
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        
-        
-        
-        try {
-             no_telp.textProperty().addListener(new ChangeListener<String>() {
+                
+                no_telp.textProperty().addListener(new ChangeListener<String>() {
 
                 @Override
                 public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -245,59 +222,55 @@ public class PenerimaController implements Initializable {
                         }
                     }
                 });   
-        } catch (Exception e) {
+            } catch (Exception e) {
+                //e.printStackTrace();
+            }
         }
-        
-        
-        try {
-             initTable("");
-        } catch (Exception e) {
-        }
-       
-        
         
     }    
 
     
-    public  void initTable(String keyword) throws SQLException{
-
-        dataPenerima.clear(); 
+    public  void initTable(String keyword){
+        data.clear(); 
+        ArrayList<PenerimaModel> penerimas;
         
-        ArrayList<PenerimaModel> penerimas = 
-                keyword.equals("") ? 
-                PenerimaModel.getAll():
-                PenerimaModel.getAll(keyword)
-                ;
+        if (keyword != null) {
+            penerimas = PenerimaModel.getAll(keyword);
+        }else{
+            penerimas = PenerimaModel.getAll();
+        }
         
         Label notfoundLabel = new Label("Data Penerima Tidak Ditemukan");
         notfoundLabel.setFont(Font.font(20));
-       
-        
-        if (penerimas.size() == 0) {
-            table.setPlaceholder(notfoundLabel);
-        }
-        
-        
-        int no = 0;
+
+        int no = 1;
         for(PenerimaModel penerima : penerimas){
-            dataPenerima.add(new DataPenerima(
-                    1+no++, 
-                    penerima.getId(), 
-                    penerima.getNama(), 
-                    penerima.getEmail(), 
-                    penerima.getNo_telp(), 
-                    penerima.getJumlahOrang(), 
-                    penerima.getAlamat()));
+            data.add(new Penerima(
+                no++, 
+                penerima.getId(), 
+                penerima.getNama(), 
+                penerima.getEmail(), 
+                penerima.getNo_telp(), 
+                penerima.getJumlahOrang(), 
+                penerima.getAlamat()));
         }
         
-        result_count.setText(String.format("%s hasil", penerimas.size()));
-        table.setItems(dataPenerima);
-        colNo.setCellValueFactory(cellData -> cellData.getValue().getNo());
-        colNama.setCellValueFactory(cellData -> cellData.getValue().getNama());
-        colEmail.setCellValueFactory(cellData -> cellData.getValue().getEmail());
-        colNoTelp.setCellValueFactory(cellData -> cellData.getValue().getNo_telp());
-        colJumlahOrang.setCellValueFactory(cellData -> cellData.getValue().getJumlah_orang());
-        colAlamat.setCellValueFactory(cellData -> cellData.getValue().getAlamat());
+        try {    
+            if (penerimas.isEmpty()) {
+                table.setPlaceholder(notfoundLabel);
+            }else{
+                result_count.setText(String.format("%s hasil", penerimas.size()));
+                table.setItems(data);
+                colNo.setCellValueFactory(cellData -> cellData.getValue().getNo());
+                colNama.setCellValueFactory(cellData -> cellData.getValue().getNama());
+                colEmail.setCellValueFactory(cellData -> cellData.getValue().getEmail());
+                colNoTelp.setCellValueFactory(cellData -> cellData.getValue().getNo_telp());
+                colJumlahOrang.setCellValueFactory(cellData -> cellData.getValue().getJumlah_orang());
+                colAlamat.setCellValueFactory(cellData -> cellData.getValue().getAlamat());
+            }     
+        } catch (Exception e) {
+            //e.printStackTrace();
+        }
     }
     
     private void changeFxml(String file){
@@ -306,16 +279,14 @@ public class PenerimaController implements Initializable {
             Parent fxml = FXMLLoader.load(getClass().getResource("/views/admin/penerima/"+file+".fxml"));
             mainPane.getChildren().removeAll();
             mainPane.getChildren().setAll(fxml);
-
             FadeTransition ft = new FadeTransition();
             ft.setDuration(Duration.millis(500));
             ft.setNode(mainPane);
             ft.setFromValue(0);
             ft.setToValue(1);
             ft.play();
-
         } catch (IOException e) {
-          e.printStackTrace();
+            //e.printStackTrace();
         }
     }
     
@@ -323,12 +294,11 @@ public class PenerimaController implements Initializable {
 
 
 
-class DataPenerima{
+class Penerima{
     IntegerProperty no, id, jumlah_orang;
     StringProperty nama, email, no_telp, alamat;
     
-    public DataPenerima(int no, int id, String nama, String email, 
-            String no_telp, int jumlah_orang, String alamat){
+    public Penerima(int no, int id, String nama, String email,String no_telp, int jumlah_orang, String alamat){
         this.no = new SimpleIntegerProperty(no);
         this.id = new SimpleIntegerProperty(id);
         this.nama = new SimpleStringProperty(nama);
@@ -342,58 +312,28 @@ class DataPenerima{
         return no;
     }
 
-    public void setNo(IntegerProperty no) {
-        this.no = no;
-    }
-
     public IntegerProperty getId() {
         return id;
     }
 
-    public void setId(IntegerProperty id) {
-        this.id = id;
-    }
-
     public IntegerProperty getJumlah_orang() {
         return jumlah_orang;
-    }
-    
-
-    public void setJumlah_orang(IntegerProperty jumlah_orang) {
-        this.jumlah_orang = jumlah_orang;
     }
 
     public StringProperty getNama() {
         return nama;
     }
 
-    public void setNama(StringProperty nama) {
-        this.nama = nama;
-    }
-
     public StringProperty getEmail() {
         return email;
-    }
-
-    public void setEmail(StringProperty email) {
-        this.email = email;
     }
 
     public StringProperty getNo_telp() {
         return no_telp;
     }
 
-    public void setNo_telp(StringProperty no_telp) {
-        this.no_telp = no_telp;
-    }
-
     public StringProperty getAlamat() {
         return alamat;
     }
-
-    public void setAlamat(StringProperty alamat) {
-        this.alamat = alamat;
-    }
-
 }
 

@@ -31,17 +31,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import models.StatusModel;
-
-
 import models.UangModel;
-
 
 public class UangController implements Initializable {
 
     private static int id;
     
     private static long jumlahUang;
-   
               
     ObservableList<StatusUang> status = FXCollections.observableArrayList();
     
@@ -56,7 +52,11 @@ public class UangController implements Initializable {
     @FXML
     private Label totalUangLabel;
 
-    //Table dengan status_id = 1
+    /*
+    
+    Table dengan status_id = 1
+    
+    */
     @FXML
     private TableView<Uang> table;
 
@@ -89,7 +89,12 @@ public class UangController implements Initializable {
     
     ObservableList<Uang> uang = FXCollections.observableArrayList();
     
-    //Table dengan status_id = 1 & 2
+    /*
+    
+    Table dengan status_id = 1 & 2
+    
+    */
+    
     @FXML
     private TableView<Uang> table2;
 
@@ -131,8 +136,7 @@ public class UangController implements Initializable {
     }
 
     @FXML
-    void update(ActionEvent event) {
-        
+    void update(ActionEvent event) {    
         if (UangController.id > 0 && selectedStatus > 0) {
             Map<String, String> params = new LinkedHashMap<>();
             params.put("status_id", String.format("'%s'", selectedStatus));   
@@ -201,17 +205,10 @@ public class UangController implements Initializable {
     }
     
     private void initTable(){
-        ResultSet rs = DBHelper.query(""
-                + "SELECT "
+        ResultSet rs = DBHelper.query("SELECT "
                 + "DATE(uang.created_at) as date, "
-                + "uang.id as id, "
-                + "uang.nama_bank as bank, "
-                + "uang.atas_nama as atasNama, "
-                + "uang.no_rekening as norek, "
-                + "uang.jumlah as jumlah, "
-                + "rekening.nama_bank as bankAdmin, "
-                + "rekening.atas_nama as atasNamaAdmin, "
-                + "rekening.no_rekening as noRekAdmin "
+                + "uang.*, "
+                + "rekening.* "
                 + "FROM uang join rekening on uang.rekening_id = rekening.id "
                 + "WHERE status_id = '1' "
                 + "ORDER BY uang.created_at DESC");
@@ -221,20 +218,19 @@ public class UangController implements Initializable {
             while (rs.next()) {                
                 uang.add(new Uang(
                     no++, 
-                    rs.getInt("id"), 
+                    rs.getInt("uang.id"), 
                     rs.getString("date"), 
-                    rs.getString("bank"), 
-                    rs.getString("atasNama"), 
-                    rs.getString("norek"), 
-                    rs.getString("jumlah"), 
-                    rs.getString("bankAdmin"), 
-                    rs.getString("atasNamaAdmin"), 
-                    rs.getString("noRekAdmin")
+                    rs.getString("uang.nama_bank"), 
+                    rs.getString("uang.atas_nama"), 
+                    rs.getString("uang.no_rekening"), 
+                    rs.getString("uang.jumlah"), 
+                    rs.getString("rekening.nama_bank"), 
+                    rs.getString("rekening.atas_nama"), 
+                    rs.getString("rekening.no_rekening")
                 ));
             }
             
             try {
-                
                 table.setItems(uang);
                 colNo.setCellValueFactory(cellData -> cellData.getValue().getNo());
                 colDate.setCellValueFactory(cellData -> cellData.getValue().getDate());
@@ -244,14 +240,12 @@ public class UangController implements Initializable {
                 colJumlah.setCellValueFactory(cellData -> cellData.getValue().getJumlah());
                 colBankAdmin.setCellValueFactory(cellData -> cellData.getValue().getBankAdmin());
                 colAtasnamaAdmin.setCellValueFactory(cellData -> cellData.getValue().getAtasNamaAdmin());
-                colNoRekeningAdmin.setCellValueFactory(cellData -> cellData.getValue().getNoRekeningAdmin());
-        
-                
+                colNoRekeningAdmin.setCellValueFactory(cellData -> cellData.getValue().getNoRekeningAdmin());       
             } catch (Exception e) {
-                System.err.println(e);
+                //e.printStackTrace();
             }
         } catch (SQLException e) {
-            System.err.println(e);
+            //e.printStackTrace();
         }
     }
     
@@ -260,35 +254,28 @@ public class UangController implements Initializable {
          ResultSet rs = DBHelper.query(""
                 + "SELECT "
                 + "DATE(uang.created_at) as date, "
-                + "uang.id as id, "
-                + "uang.nama_bank as bank, "
-                + "uang.atas_nama as atasNama, "
-                + "uang.no_rekening as norek, "
-                + "uang.jumlah as jumlah, "
-                + "rekening.nama_bank as bankAdmin, "
-                + "rekening.atas_nama as atasNamaAdmin, "
-                + "rekening.no_rekening as noRekAdmin, "
-                + "status.nama as status "
+                + "uang.*, "
+                + "rekening.*, "
+                + "status.* "
                 + "FROM uang JOIN rekening ON uang.rekening_id = rekening.id "
                 + "JOIN status on uang.status_id = status.id "
-                + "WHERE status_id <> '1' "
+                + "WHERE status_id > '1' "
                 + "ORDER BY uang.created_at DESC");
-         
         try {
             int no = 1;
             while (rs.next()) {                
                 uang2.add(new Uang(
                     no++, 
-                    rs.getInt("id"), 
+                    rs.getInt("uang.id"), 
                     rs.getString("date"), 
-                    rs.getString("bank"), 
-                    rs.getString("atasNama"), 
-                    rs.getString("norek"), 
-                    rs.getString("jumlah"), 
-                    rs.getString("bankAdmin"), 
-                    rs.getString("atasNamaAdmin"), 
-                    rs.getString("noRekAdmin"),
-                    rs.getString("status")
+                    rs.getString("uang.nama_bank"), 
+                    rs.getString("uang.atas_nama"), 
+                    rs.getString("uang.no_rekening"), 
+                    rs.getString("uang.jumlah"), 
+                    rs.getString("rekening.nama_bank"), 
+                    rs.getString("rekening.atas_nama"), 
+                    rs.getString("rekening.no_rekening"),
+                    rs.getString("status.nama")
                 ));
             }
             
@@ -308,10 +295,10 @@ public class UangController implements Initializable {
         
                 
             } catch (Exception e) {
-                System.err.println(e);
+               //e.printStackTrace();
             }
         } catch (SQLException e) {
-            System.err.println(e);
+           //e.printStackTrace();
         }
     }
 

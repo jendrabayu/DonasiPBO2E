@@ -76,7 +76,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="523.0" prefWidth="160.0">
                <children>
-                  <JFXButton onAction="#createPenerima" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #398ad7;" text="SIMPAN" textFill="WHITE">
+                  <JFXButton onAction="#store" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #398ad7;" text="SIMPAN" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -87,7 +87,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </JFXButton>
-                  <JFXButton onAction="#showPenerima" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FDB931;" text="KEMBALI" textFill="WHITE">
+                  <JFXButton onAction="#index" prefHeight="40.0" prefWidth="100.0" style="-fx-background-color: #FDB931;" text="KEMBALI" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

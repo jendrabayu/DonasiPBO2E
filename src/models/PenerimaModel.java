@@ -21,11 +21,12 @@ public class PenerimaModel extends Person{
         
     }
 
-    public static ArrayList<PenerimaModel> getAll(String keyword) throws SQLException{
+    public static ArrayList<PenerimaModel> getAll(String keyword){
         ArrayList<PenerimaModel> result = new ArrayList<PenerimaModel>();
         ResultSet resultSet = DBHelper.selectAll(TABLE, "nama LIKE '%"+keyword+"%'");
         
-         while (resultSet.next()){
+        try {
+            while (resultSet.next()){
                 PenerimaModel penerima = new PenerimaModel();
                 penerima.setId(resultSet.getInt("id"));
                 penerima.setNama(resultSet.getString("nama"));
@@ -35,13 +36,17 @@ public class PenerimaModel extends Person{
                 penerima.setJumlahOrang(resultSet.getInt("jumlah_orang"));
                 result.add(penerima);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }   
         return result;
     }
     
-    public static ArrayList<PenerimaModel> getAll() throws SQLException{
+    public static ArrayList<PenerimaModel> getAll(){
         ArrayList<PenerimaModel> result = new ArrayList<PenerimaModel>();
         ResultSet resultSet = DBHelper.selectAll(TABLE, "deleted_at IS NULL");
-         while (resultSet.next()){
+        try {
+             while (resultSet.next()){
                 PenerimaModel penerima = new PenerimaModel();
                 penerima.setId(resultSet.getInt("id"));
                 penerima.setNama(resultSet.getString("nama"));
@@ -51,13 +56,17 @@ public class PenerimaModel extends Person{
                 penerima.setJumlahOrang(resultSet.getInt("jumlah_orang"));
                 result.add(penerima);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return result;
     }
     
-    public static ArrayList<PenerimaModel> get(int id) throws SQLException{
+    public static ArrayList<PenerimaModel> get(int id){
         ArrayList<PenerimaModel> result = new ArrayList<PenerimaModel>();
         ResultSet resultSet = DBHelper.selectAll(TABLE, "id = '"+id+"' AND deleted_at IS NULL");
-        while (resultSet.next()){
+        try {
+            while (resultSet.next()){
                PenerimaModel penerima = new PenerimaModel();
                penerima.setId(resultSet.getInt("id"));
                penerima.setNama(resultSet.getString("nama"));
@@ -67,11 +76,14 @@ public class PenerimaModel extends Person{
                penerima.setJumlahOrang(resultSet.getInt("jumlah_orang"));
                result.add(penerima);
         }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return result;
        
     }
     
-    public static boolean create(String nama, String email, String no_telp, int jumlah_orang, String alamat){
+    public static boolean store(String nama, String email, String no_telp, int jumlah_orang, String alamat){
         Map<String, String> params = new LinkedHashMap<>();
         params.put("`nama`", String.format("'%s'",nama));
         params.put("`email`", String.format("'%s'", email));
@@ -104,7 +116,5 @@ public class PenerimaModel extends Person{
     public void setJumlahOrang(int jumlahOrang) {
         this.jumlahOrang = jumlahOrang;
     }
-
-
     
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers.admin;
 
 import helpers.DBHelper;
@@ -16,7 +11,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,17 +20,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 
-/**
- * FXML Controller class
- *
- * @author ACER
- */
+
 public class RekapController implements Initializable {
-
-    
-    @FXML
+ @FXML
     private AnchorPane mainPane;
-
+    /*
+    
+        Tabel Uang
+    
+    */
     @FXML
     private Label uLabelTitle;
 
@@ -73,35 +65,11 @@ public class RekapController implements Initializable {
     private ObservableList<RekapPenyaluranUang> uData = FXCollections.observableArrayList();
     
     private static int uSortBy = 1;
+    /*
     
-    @FXML
-    void uAll(ActionEvent event) {
-        uSortBy = 1;
-        initUTable();
-    }
+    Tabel Makanan
     
-    @FXML
-    void uWeek(ActionEvent event) {
-        uSortBy = 2;
-       initUTable();
-    }
-
-
-    @FXML
-    void uMonth(ActionEvent event) {
-        uSortBy = 3;
-        initUTable();
-    }
-
-
-    @FXML
-    void uYear(ActionEvent event) {
-        uSortBy = 4;
-       initUTable();
-    }
-    
-    
-    
+    */
     @FXML
     private Label mLabelTitle;
 
@@ -141,6 +109,32 @@ public class RekapController implements Initializable {
     private ObservableList<RekapPenyaluranMakanan> mData = FXCollections.observableArrayList();
     
     private static int mSortBy = 1;
+    
+    @FXML
+    void uAll(ActionEvent event) {
+        uSortBy = 1;
+        initUTable();
+    }
+    
+    @FXML
+    void uWeek(ActionEvent event) {
+        uSortBy = 2;
+       initUTable();
+    }
+
+
+    @FXML
+    void uMonth(ActionEvent event) {
+        uSortBy = 3;
+        initUTable();
+    }
+
+
+    @FXML
+    void uYear(ActionEvent event) {
+        uSortBy = 4;
+       initUTable();
+    }
 
     @FXML
     void mAll(ActionEvent event) {
@@ -170,20 +164,26 @@ public class RekapController implements Initializable {
     private void initMTable(){
         mData.clear();
         String sort = "";
-        if (mSortBy == 1) {
-            sort = " ";
-            mLabelTitle.setText("Semua Data Penyaluran Donasi Makanan");
-        }else if(mSortBy == 2){
-            sort = " WHERE WEEK(penyaluran_makanan.created_at) = WEEK(CURRENT_DATE) ";
-            mLabelTitle.setText("Data Penyaluran Donasi Makanan Minggu Ini");
-        }else if (mSortBy == 3) {
-            sort = " WHERE MONTH(penyaluran_makanan.created_at) = MONTH(CURRENT_DATE) ";
-            mLabelTitle.setText("Data Penyaluran Donasi Makanan Bulan Ini");
-        }else if (mSortBy == 4) {
-            sort = " WHERE YEAR(penyaluran_makanan.created_at) = YEAR(CURRENT_DATE) ";
-            mLabelTitle.setText("Data Penyaluran Donasi Makanan Tahun Ini");
+        switch (mSortBy) {
+            case 1:
+                sort = " ";
+                mLabelTitle.setText("Semua Data Penyaluran Donasi Makanan");
+                break;
+            case 2:
+                sort = " WHERE WEEK(penyaluran_makanan.created_at) = WEEK(CURRENT_DATE) ";
+                mLabelTitle.setText("Data Penyaluran Donasi Makanan Minggu Ini");
+                break;
+            case 3:
+                sort = " WHERE MONTH(penyaluran_makanan.created_at) = MONTH(CURRENT_DATE) ";
+                mLabelTitle.setText("Data Penyaluran Donasi Makanan Bulan Ini");
+                break;
+            case 4:
+                sort = " WHERE YEAR(penyaluran_makanan.created_at) = YEAR(CURRENT_DATE) ";
+                mLabelTitle.setText("Data Penyaluran Donasi Makanan Tahun Ini");
+                break;
+            default:
+                break;
         }
-        
         
         ResultSet rs = DBHelper.query(""
                 + "SELECT DATE(penyaluran_makanan.created_at) as date, "
@@ -197,10 +197,8 @@ public class RekapController implements Initializable {
                 + sort
                 + "GROUP BY penyaluran_makanan.id "
                 + "ORDER BY penyaluran_makanan.created_at DESC ");
-        
         try {   
-
-            int no =1 ;
+            int no = 1 ;
             int total = 0;
             while (rs.next()) {                
                 mData.add(new RekapPenyaluranMakanan(
@@ -217,9 +215,7 @@ public class RekapController implements Initializable {
                 total+=rs.getInt("totalMakanan");
                 
             }
-              mLabelTotal.setText(String.format("Total : %s Paket/Porsi", String.valueOf(total)));
-           
-            
+            mLabelTotal.setText(String.format("Total : %s Paket/Porsi", String.valueOf(total)));
             mtable.setItems(mData);
             mNo.setCellValueFactory(cellData -> cellData.getValue().getNo());
             mDate.setCellValueFactory(cellData -> cellData.getValue().getDate());
@@ -229,32 +225,35 @@ public class RekapController implements Initializable {
             mJumlahOrang.setCellValueFactory(cellData -> cellData.getValue().getJumlahOrang());
             mAlamat.setCellValueFactory(cellData -> cellData.getValue().getAlamat());
             mMakanan.setCellValueFactory(cellData -> cellData.getValue().getMakanan());
-            mJumlah.setCellValueFactory(cellData -> cellData.getValue().getJumlah());
-           
-            
+            mJumlah.setCellValueFactory(cellData -> cellData.getValue().getJumlah());   
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
     
     private void initUTable(){
         uData.clear();
         String sort = "";
-        if (uSortBy == 1) {
-            sort = " ";
-            uLabelTitle.setText("Semua Data Penyaluran Donasi Uang");
-        }else if(uSortBy == 2){
-            sort = " WHERE WEEK(penyaluran_uang.created_at) = WEEK(CURRENT_DATE) ";
-            uLabelTitle.setText("Data Penyaluran Donasi Uang Minggu Ini");
-        }else if (uSortBy == 3) {
-            sort = " WHERE MONTH(penyaluran_uang.created_at) = MONTH(CURRENT_DATE) ";
-            uLabelTitle.setText("Data Penyaluran Donasi Uang Bulan Ini");
-        }else if (uSortBy == 4) {
-            sort = " WHERE YEAR(penyaluran_uang.created_at) = YEAR(CURRENT_DATE) ";
-            uLabelTitle.setText("Data Penyaluran Donasi Uang Tahun Ini");
-        }
-        
-        
+     switch (uSortBy) {
+         case 1:
+             sort = " ";
+             uLabelTitle.setText("Semua Data Penyaluran Donasi Uang");
+             break;
+         case 2:
+             sort = " WHERE WEEK(penyaluran_uang.created_at) = WEEK(CURRENT_DATE) ";
+             uLabelTitle.setText("Data Penyaluran Donasi Uang Minggu Ini");
+             break;
+         case 3:
+             sort = " WHERE MONTH(penyaluran_uang.created_at) = MONTH(CURRENT_DATE) ";
+             uLabelTitle.setText("Data Penyaluran Donasi Uang Bulan Ini");
+             break;
+         case 4:
+             sort = " WHERE YEAR(penyaluran_uang.created_at) = YEAR(CURRENT_DATE) ";
+             uLabelTitle.setText("Data Penyaluran Donasi Uang Tahun Ini");
+             break;
+         default:
+             break;
+        } 
         ResultSet rs = DBHelper.query(""
                 + "SELECT DATE(penyaluran_uang.created_at) as date, "
                 + "SUM(penyaluran_uang.jumlah) as jumlahUang, "
@@ -268,7 +267,7 @@ public class RekapController implements Initializable {
         
         try {   
 
-            int no =1 ;
+            int no = 1 ;
             long total = 0;
             while (rs.next()) {     
                 uData.add(new RekapPenyaluranUang(
@@ -285,8 +284,7 @@ public class RekapController implements Initializable {
                 total+=rs.getLong("jumlahUang");
                 
             }
-            uLabelTotal.setText(String.format("Total : %s", MyHelper.rupiahFormat(String.valueOf(total))));
-            
+            uLabelTotal.setText(String.format("Total : %s", MyHelper.rupiahFormat(String.valueOf(total))));           
             uTable.setItems(uData);
             uNo.setCellValueFactory(cellData -> cellData.getValue().getNo());
             uDate.setCellValueFactory(cellData -> cellData.getValue().getDate());
@@ -295,17 +293,14 @@ public class RekapController implements Initializable {
             utelp.setCellValueFactory(cellData -> cellData.getValue().getTelp());
             uJumlahOrang.setCellValueFactory(cellData -> cellData.getValue().getJumlahOrang());
             uAlamat.setCellValueFactory(cellData -> cellData.getValue().getAlamat());
-            uJumlah.setCellValueFactory(cellData -> cellData.getValue().getJumlah());
-           
-            
+            uJumlah.setCellValueFactory(cellData -> cellData.getValue().getJumlah());      
         } catch (SQLException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         initMTable();
         initUTable();
     }    
@@ -424,7 +419,4 @@ class RekapPenyaluranUang{
     public StringProperty getAlamat() {
         return alamat;
     }
-    
-    
-    
 }

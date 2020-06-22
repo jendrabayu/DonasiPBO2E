@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 19 Jun 2020 pada 12.25
+-- Waktu pembuatan: 22 Jun 2020 pada 06.01
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.3
 
@@ -48,7 +48,9 @@ CREATE TABLE `makanan` (
 INSERT INTO `makanan` (`id`, `user_id`, `status_id`, `nama`, `jumlah_awal`, `jumlah`, `expired_date`, `keterangan`, `created_at`, `updated_at`) VALUES
 (1, 2, 3, 'Sate Kambing + Gule', 100, 95, '2020-06-19 08:54:27', 'Nasi kotak isi sate kambing dan gule', '2020-06-19 08:44:00', '2020-06-19 08:54:27'),
 (2, 2, 3, 'Nasi Padang', 45, 38, '2020-06-19 08:54:11', 'Nasi Bungkus', '2020-06-19 08:46:49', '2020-06-19 08:54:11'),
-(3, 3, 1, 'Soto Ayam', 123, 123, '2020-06-30 07:37:00', 'Bungkus plastik tanpa nasi', '2020-06-19 09:37:39', '2020-06-19 09:37:39');
+(3, 3, 1, 'Soto Ayam', 123, 123, '2020-06-30 07:37:00', 'Bungkus plastik tanpa nasi', '2020-06-19 09:37:39', '2020-06-19 09:37:39'),
+(4, 4, 1, 'Nasi Kuning', 200, 200, '2020-06-25 08:58:00', 'Nasi Kotak', '2020-06-19 11:58:17', '2020-06-19 11:58:17'),
+(5, 5, 1, 'Lele Goreng Tepung', 100, 100, '2020-06-11 19:56:00', 'Nasi BUngkus', '2020-06-22 03:57:03', '2020-06-22 03:57:03');
 
 -- --------------------------------------------------------
 
@@ -78,7 +80,8 @@ INSERT INTO `penerima` (`id`, `nama`, `email`, `no_telp`, `alamat`, `jumlah_oran
 (3, 'Cinta Nirmala', 'nirmala77@gmail.com', '087662781990', 'JL Bedadung, no 7 Kel/Ds. Sumbersari Kec. Sumber Sari - Jember Jawa Timur', 4, '2020-06-19 08:31:00', '2020-06-19 08:31:00', NULL),
 (4, 'Sofyan Sauri', 'Tidak Punya Email', '085232776191', 'Gg. Central No. 60 Patrang Jember, Baratan Wetan, Baratan, Patrang, Jember Regency, East Java 68112', 5, '2020-06-19 08:32:23', '2020-06-19 08:32:23', NULL),
 (5, 'Firdaus', 'Tidak Punya Email', '08722618101', 'Jl PB Sudirman 11 Kec. Patrang, Kabupaten Jember, Jawa Timur\n', 3, '2020-06-19 08:35:01', '2020-06-19 08:40:56', NULL),
-(6, 'Panti Asuhan Raudlatul Akbar', 'raudlatulakbar@yahoo.com', '081223561099', ' Jl Basuki Rahmat Kelurahan Tegal Besar Kec Kaliwates Kab Jember', 120, '2020-06-19 08:39:19', '2020-06-19 08:39:19', NULL);
+(6, 'Panti Asuhan Raudlatul Akbar', 'raudlatulakbar@yahoo.com', '081223561099', ' Jl Basuki Rahmat Kelurahan Tegal Besar Kec Kaliwates Kab Jember', 120, '2020-06-19 08:39:19', '2020-06-19 08:39:19', NULL),
+(7, 'lala', 'alal', '11111', 'sdcdsc xxc xc ssc', 2, '2020-06-19 23:59:28', '2020-06-20 00:02:48', '2020-06-20 00:02:48');
 
 -- --------------------------------------------------------
 
@@ -147,7 +150,8 @@ CREATE TABLE `rekening` (
 
 INSERT INTO `rekening` (`id`, `nama_bank`, `atas_nama`, `no_rekening`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'BRI', 'Jendra Bayu Nugraha', '92829229921', '2020-06-19 08:44:50', '2020-06-19 08:44:50', NULL),
-(2, 'Bank Syariah Mandiri', 'Devita Risky', '9910002333', '2020-06-19 10:23:09', '2020-06-19 10:23:09', NULL);
+(2, 'Bank Syariah Mandiri', 'Devita Risky', '9910002333', '2020-06-19 10:23:09', '2020-06-19 10:23:09', NULL),
+(3, 'Mandiri', 'Leviana', '00821334256', '2020-06-19 23:21:15', '2020-06-19 23:21:37', '2020-06-19 23:21:37');
 
 -- --------------------------------------------------------
 
@@ -185,7 +189,7 @@ CREATE TABLE `total_uang` (
 --
 
 INSERT INTO `total_uang` (`id`, `total`) VALUES
-(1, 350000);
+(1, 1600000);
 
 -- --------------------------------------------------------
 
@@ -211,9 +215,11 @@ CREATE TABLE `uang` (
 --
 
 INSERT INTO `uang` (`id`, `user_id`, `rekening_id`, `status_id`, `nama_bank`, `atas_nama`, `no_rekening`, `jumlah`, `created_at`, `updated_at`) VALUES
-(1, 2, 1, 1, 'BCA', 'Rahmat Rudy', '00900900912', 1250000, '2020-06-19 08:45:58', '2020-06-19 08:45:58'),
+(1, 2, 1, 3, 'BCA', 'Rahmat Rudy', '00900900912', 1250000, '2020-06-19 08:45:58', '2020-06-20 00:21:52'),
 (2, 2, 1, 3, 'BCA', 'Rahmat Rudy', '00900900912', 2350000, '2020-06-19 08:46:22', '2020-06-19 08:56:32'),
-(3, 3, 1, 1, 'BNI', 'Vina', '00217929099', 3523000, '2020-06-19 09:36:45', '2020-06-19 09:36:45');
+(3, 3, 1, 1, 'BNI', 'Vina', '00217929099', 3523000, '2020-06-19 09:36:45', '2020-06-19 09:36:45'),
+(4, 4, 2, 1, 'Bank Bukopin', 'Jhon Doe', '002913002222', 2100000, '2020-06-19 11:59:57', '2020-06-19 11:59:57'),
+(5, 5, 2, 1, 'BRI', 'Cokito', '02299229', 5400000, '2020-06-22 03:58:53', '2020-06-22 03:58:53');
 
 -- --------------------------------------------------------
 
@@ -240,7 +246,9 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `nama`, `email`, `no_telp`, `alamat`, `password`, `role`, `updated_at`, `created_at`) VALUES
 (1, 'Jendra Bayu Nugraha', 'jendra455@gmail.com', '08755465721009', 'Jalan Bangka VII No.12 Kec. Sumbersari Kab. Jember, Jawa Timur', '21232f297a57a5a743894a0e4a801fc3', 1, '2020-06-19 08:21:51', '2020-06-19 08:22:24'),
 (2, 'Rahmat Rudy Irawan', 'rudytotok@yahoo.com', '089776421990', 'Jalan Panjaitan Gg Melati No 12 Kel/Kec Sumbersari Kabupaten Jember Jawa Timur', '827ccb0eea8a706c4c34a16891f84e7b', 2, '2020-06-19 08:42:28', '2020-06-19 08:42:28'),
-(3, 'Leviana', 'leviana@yahoo.com', '08766522345', 'Jalan Pajajaran Blok E No.5 Perum Bukit Permai Jember', '827ccb0eea8a706c4c34a16891f84e7b', 2, '2020-06-19 09:30:16', '2020-06-19 09:30:16');
+(3, 'Leviana', 'leviana@yahoo.com', '08766522345', 'Jalan Pajajaran Blok E No.5 Perum Bukit Permai Jember', '827ccb0eea8a706c4c34a16891f84e7b', 2, '2020-06-19 09:30:16', '2020-06-19 09:30:16'),
+(4, 'Jhon Doe', 'jhondoe@yahoo.com', '087665123556', 'Jalan Jambu No 12 Kel Jember Lor Kecamatan Sumbersari Kab Jember Jawa Timur', '827ccb0eea8a706c4c34a16891f84e7b', 2, '2020-06-19 11:55:28', '2020-06-19 11:55:28'),
+(5, 'Cokito', 'cokito@yahoo.com', '0876652728181', 'Jalan Panjaitan Jember', '21232f297a57a5a743894a0e4a801fc3', 2, '2020-06-22 03:56:07', '2020-06-22 03:56:07');
 
 --
 -- Indexes for dumped tables
@@ -320,13 +328,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `makanan`
 --
 ALTER TABLE `makanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `penerima`
 --
 ALTER TABLE `penerima`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `penyaluran_makanan`
@@ -344,7 +352,7 @@ ALTER TABLE `penyaluran_uang`
 -- AUTO_INCREMENT untuk tabel `rekening`
 --
 ALTER TABLE `rekening`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `status`
@@ -362,13 +370,13 @@ ALTER TABLE `total_uang`
 -- AUTO_INCREMENT untuk tabel `uang`
 --
 ALTER TABLE `uang`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

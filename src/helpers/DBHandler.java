@@ -9,7 +9,6 @@ public class DBHandler {
     
     public Connection getConnection(){
         String url = String.format("jdbc:mysql://%s:%s/%s", Config.HOST, Config.PORT, Config.DATABASE);
-        
         try {
             //Panggil Driver
             Class.forName("com.mysql.jdbc.Driver");

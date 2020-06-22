@@ -26,11 +26,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.print.PageLayout;
-import javafx.print.PageOrientation;
-import javafx.print.Paper;
-import javafx.print.Printer;
-import javafx.print.PrinterJob;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -38,7 +33,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import models.MakananModel;
@@ -101,13 +95,7 @@ public class PenyaluranMakananController implements Initializable{
     
     private void initComboboxPenerima(){
         
-        try {
-            dataPenerima =  FXCollections.observableArrayList(PenerimaModel.getAll());
-            System.out.println(dataPenerima);
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-
+        dataPenerima =  FXCollections.observableArrayList(PenerimaModel.getAll());
 
         try {
             comboBoxPenerima.setItems(dataPenerima);

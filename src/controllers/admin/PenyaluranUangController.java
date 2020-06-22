@@ -13,8 +13,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -34,12 +32,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import javafx.util.StringConverter;
 import models.PenerimaModel;
-import models.RekeningModel;
 import models.UangModel;
 
 
@@ -49,13 +45,9 @@ public class PenyaluranUangController implements Initializable {
     
     private static int id;
     
-    
-    
-    
     @FXML
     private Label dateTodayLabel;
 
-    
     @FXML
     private AnchorPane mainPane;
     
@@ -92,13 +84,6 @@ public class PenyaluranUangController implements Initializable {
     
     @FXML
     private Label totalUangLabel;
-
-    @FXML
-    void handleJumlahUang(KeyEvent event) {
-        long sisa = PenyaluranUangController.totalUang - 70101;
-        System.out.println(sisa);
-//        totalUangLabel.setText(MyHelper.rupiahFormat(Long.toString(sisa)));
-    }
 
 
     
@@ -234,11 +219,7 @@ public class PenyaluranUangController implements Initializable {
         
         
         initTable();
-        try {
-            dataPenerima =  FXCollections.observableArrayList(PenerimaModel.getAll());
-        } catch (SQLException ex) {
-            Logger.getLogger(PenyaluranUangController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        dataPenerima =  FXCollections.observableArrayList(PenerimaModel.getAll());
 
         try {
             totalUangLabel.setText(MyHelper.rupiahFormat(Long.toString(UangModel.getTotal())));
